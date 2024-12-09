@@ -10,9 +10,63 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_09_141153) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_09_152243) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "awards", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.integer "value"
+    t.string "type"
+    t.boolean "given"
+    t.date "date"
+    t.bigint "child_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["child_id"], name: "index_awards_on_child_id"
+  end
+
+  create_table "children", force: :cascade do |t|
+    t.string "first_name"
+    t.integer "age"
+    t.integer "day_points"
+    t.integer "week_points"
+    t.integer "month_points"
+    t.bigint "family_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["family_id"], name: "index_children_on_family_id"
+  end
+
+  create_table "families", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "task_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.integer "value"
+    t.date "done_date"
+    t.date "due_date"
+    t.boolean "done"
+    t.boolean "validated"
+    t.string "recurrence"
+    t.bigint "child_id", null: false
+    t.bigint "task_type_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["child_id"], name: "index_tasks_on_child_id"
+    t.index ["task_type_id"], name: "index_tasks_on_task_type_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -22,8 +76,21 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_09_141153) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "first_name"
+    t.string "last_name"
+    t.boolean "child"
+    t.bigint "family_id", null: false
+    t.bigint "child_id"
+    t.index ["child_id"], name: "index_users_on_child_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["family_id"], name: "index_users_on_family_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "awards", "children"
+  add_foreign_key "children", "families"
+  add_foreign_key "tasks", "children"
+  add_foreign_key "tasks", "task_types"
+  add_foreign_key "users", "children"
+  add_foreign_key "users", "families"
 end
