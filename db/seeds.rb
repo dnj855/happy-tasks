@@ -18,13 +18,13 @@ URL_PATH = '@happy-tasks.click'
 
 BASE_USERS = [
   { first_name: "Guillaume", last_name: "Fournier", email: "gf#{URL_PATH}", child: false, password: "happyT"},
-  { first_name: "Hélène", last_name: "Demanet", email: "hd@#{URL_PATH}", child: false, password: "happyT"},
-  { first_name: "Emilie", last_name: "Vennat-Louveau", email: "evl@#{URL_PATH}", child: false, password: "happyT"},
-  { first_name: "Cédric", last_name: "Lang-Roth", email: "clr@#{URL_PATH}", child: false, password: "happyT"},
-  { first_name: "Madame", last_name: "Fournier", email: "mf@#{URL_PATH}", child: false, password: "happyT"},
-  { first_name: "Monsieur", last_name: "Demanet", email: "md@#{URL_PATH}", child: false, password: "happyT"},
-  { first_name: "Monsieur", last_name: "Vennat-Louveau", email: "mvl@#{URL_PATH}", child: false, password: "happyT"},
-  { first_name: "Madame", last_name: "Lang-Roth", email: "mlr@#{URL_PATH}", child: false, password: "happyT"},
+  { first_name: "Hélène", last_name: "Demanet", email: "hd#{URL_PATH}", child: false, password: "happyT"},
+  { first_name: "Emilie", last_name: "Vennat-Louveau", email: "evl#{URL_PATH}", child: false, password: "happyT"},
+  { first_name: "Cédric", last_name: "Lang-Roth", email: "clr#{URL_PATH}", child: false, password: "happyT"},
+  { first_name: "Madame", last_name: "Fournier", email: "mf#{URL_PATH}", child: false, password: "happyT"},
+  { first_name: "Monsieur", last_name: "Demanet", email: "md#{URL_PATH}", child: false, password: "happyT"},
+  { first_name: "Monsieur", last_name: "Vennat-Louveau", email: "mvl#{URL_PATH}", child: false, password: "happyT"},
+  { first_name: "Madame", last_name: "Lang-Roth", email: "mlr#{URL_PATH}", child: false, password: "happyT"},
 ]
 
 TASK_TYPES = [
@@ -55,7 +55,7 @@ puts "---6 Task_Types CREATED"
 puts "---Creating base users"
 BASE_USERS.take(4).each do |base_user|
   family = Family.create!(name: base_user[:last_name])
-  User.create!(family_id: family.id, first_name: base_user[:first_name], last_name: base_user[:last_name], email: Faker::Internet.email, child: base_user[:child], password: base_user[:password])
+  User.create!(family_id: family.id, first_name: base_user[:first_name], last_name: base_user[:last_name], email: base_user[:email], child: base_user[:child], password: base_user[:password])
   3.times do
     child = Child.create!(
        family: family,
