@@ -4,6 +4,6 @@ class Award < ApplicationRecord
 validates :name, presence: true
 validates :value, presence: true, numericality: { only_numeric: true, greater_than: 0 }
 
-validates_inclusion_of :type, :in => %w( journalier hebdomadaire mensuel )
+validates_inclusion_of :type, :in => %w( quotidien hebdomadaire mensuel )
 
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_09_152243) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_10_100917) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -57,8 +57,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_09_152243) do
     t.integer "value"
     t.date "done_date"
     t.date "due_date"
-    t.boolean "done"
-    t.boolean "validated"
+    t.boolean "done", default: false
+    t.boolean "validated", default: false
     t.string "recurrence"
     t.bigint "child_id", null: false
     t.bigint "task_type_id", null: false
