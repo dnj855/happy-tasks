@@ -1,2 +1,48 @@
-<h1>Tasks#new</h1>
-<p>Find me in app/views/tasks/new.html.erb</p>
+<div class="text-center my-4">
+  <h1>Ajouter une tâche</h1>
+</div>
+
+<%= form_with model: @task, class: "container my-5" do |f| %>
+  <div class="mb-3">
+    <%= f.label :name, "Nom", class: "form-label" %>
+    <%= f.text_field :name, class: "form-control", placeholder: "Nom de la tâche" %>
+    <% if @task.errors.include?(:name) %>
+      <p><%= @task.errors.full_messages_for(:name).join(", ") %></p>
+    <% end %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :description, class: "form-label" %>
+    <%= f.text_area :description, class: "form-control", rows: 4, placeholder: "Description de la tâche" %>
+  </div>
+
+  <div class="mb-3 d-flex align-items-center">
+    <%= f.label :value, "Nombre de points", class: "form-label me-3" %>
+    <button type="button" class="btn btn-secondary" id="decrease-points">-</button>
+    <%= f.number_field :value, class: "form-control mx-2 text-center", style: "width: 80px;", value: 0, step: 1, min: 0, readonly: true %>
+    <button type="button" class="btn btn-secondary" id="increase-points">+</button>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :task_type_id, "Catégorie", class: "form-label" %>
+    <%= f.collection_select :task_type_id, TaskType.all, :id, :name,
+          { prompt: "Choisissez une catégorie" }, class: "form-control" %>
+    <% if @task.errors.include?(:task_type) %>
+      <p><%= @task.errors.full_messages_for(:task_type).join(", ") %></p>
+    <% end %>
+  </div>
+
+  <div class="mb-3">
+    <% @children.each do |child| %>
+      <%= f.radio_button :child_id, child.id  %>
+      <%= f.label "child_id_#{child.id}", child.first_name, class: "form-label" %>
+    <% end %>
+    <% if @task.errors.include?(:child) %>
+      <p><%= @task.errors.full_messages_for(:child).join(", ") %></p>
+    <% end %>
+  </div>
+
+  <div class="text-end">
+    <%= f.submit "Ajouter la tâche", class: "btn btn-primary" %>
+  </div>
+<% end %>
