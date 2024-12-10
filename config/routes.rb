@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  root to: "pages#home"
+  root "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -9,4 +9,24 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  resources :families, only: [:create] do
+    member do
+      get 'dashboard', to: 'dashboard#view', as: :child_dashboard
+    end
+  end
+
+  resources :tasks, only: [:new, :create, :edit, :update, :destroy, :index] do
+    member do
+      patch 'validate', to: 'tasks#validate'
+      patch 'declare-done', to: 'tasks#declare_done'
+    end
+  end
+
+  resources :awards, only: [:new, :create, :edit, :update, :destroy]
+
+  get 'dashboard', to: 'dashboard#index', as: :family_dashboard
+  get 'dashboard/children', to: 'children#new', as: :new_child
+  post 'dashboard/children', to: 'children#create', as: :create_child
+
 end
