@@ -1,0 +1,181 @@
+$primary-blue: #146A8A;
+$light-yellow: #FFFAEB;
+$light-gray: #F5F5F5;
+$white: #fff;
+$red: #B9174A;
+
+.family-dashboard {
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: $white;
+    min-height: 10px;
+
+    .family-info {
+      font-size: 18px;
+      font-weight: bold;
+      font-family: 'Sour Gummy', sans-serif;
+      color: $primary-blue;
+    }
+
+    .logout a {
+      font-size: 24px;
+      color: $red;
+      text-decoration: none;
+      cursor: pointer;
+
+      i {
+        font-size: 24px;
+      }
+    }
+  }
+
+  .family-background {
+    .children-list {
+      .child-details-container {
+        .child-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 15px;
+          width: 100%;
+          gap: 10px;
+          background-color: $light-yellow;
+
+          .child-avatar {
+            flex-shrink: 0;
+            img, .default-avatar {
+              width: 50px;
+              height: 50px;
+              border-radius: 50%;
+              object-fit: cover;
+            }
+          }
+
+          .child-info {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            gap: 35px;
+
+            .child-name {
+              margin-right: 30px;
+              font-size: 18px;
+              font-weight: bold;
+            }
+
+            .rewards {
+              display: flex;
+              gap: 25px;
+              justify-content: center;
+              align-items: center;
+
+              .badge {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 16px;
+                color: black;
+
+                &.yellow { background-color: #FFDF88; }
+                &.green { background-color: #EBFEF6; }
+                &.blue { background-color: #D1F6FC; }
+              }
+            }
+          }
+
+          .hamburger-btn {
+            flex-shrink: 0;
+            font-size: 24px;
+            color: $primary-blue;
+            cursor: pointer;
+          }
+        }
+
+        .tasks {
+          margin-top: 0;
+          background-color: $white; // Fond blanc pour les tâches
+
+          .task {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            background-color: $white;
+            border-radius: 10px;
+            margin-bottom: 10px;
+
+            .task-location {
+              font-size: 18px;
+              color: #808080;
+              margin-right: 10px;
+            }
+
+            .task-name {
+              flex-grow: 1;
+            }
+
+            .task-switch {
+              .task-toggle {
+                appearance: none;
+                width: 50px;
+                height: 30px;
+                background-color: $light-gray;
+                border-radius: 15px;
+                position: relative;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+
+                &:checked {
+                  background-color: $primary-blue;
+                }
+
+                &::before {
+                  content: '';
+                  position: absolute;
+                  top: 2px;
+                  left: 2px;
+                  width: 26px;
+                  height: 26px;
+                  border-radius: 50%;
+                  background-color: $white;
+                  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                  transition: transform 0.3s ease;
+                }
+
+                &:checked::before {
+                  transform: translateX(20px);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .tab-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-around;
+    background-color: $white;
+    padding: 10px 0;
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+
+    .tab-bar-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: black;
+    }
+  }
+}

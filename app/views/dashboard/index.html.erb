@@ -1,2 +1,79 @@
-<h1>Dashboard#index</h1>
-<p>Find me in app/views/dashboard/index.html.erb</p>
+<div class="family-dashboard">
+  <div class="header">
+    <div class="family-info">
+      <h1><%= @family.name %></h1>
+    </div>
+    <div class="logout">
+      <%= link_to "#", class: "logout-link" do %>
+        <i class="fa fa-sign-out-alt"></i>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="family-background">
+    <div class="children-list">
+      <% @family.children.each do |child| %>
+        <div class="child-details-container">
+          <div class="child-header">
+            <div class="child-avatar">
+              <% if child.respond_to?(:avatar_url) && child.avatar_url.present? %>
+                <%= image_tag child.avatar_url, alt: child.first_name %>
+              <% else %>
+                <div class="default-avatar"><%= child.first_name[0] %></div>
+              <% end %>
+            </div>
+            <div class="child-info">
+              <div class="child-name"><%= child.first_name %></div>
+              <div class="rewards">
+                <span class="badge yellow"><%= child.day_points %></span>
+                <span class="badge green"><%= child.week_points %></span>
+                <span class="badge blue"><%= child.month_points %></span>
+              </div>
+            </div>
+            <div class="hamburger-btn">
+              <i class="fa fa-bars"></i>
+            </div>
+          </div>
+
+          <div class="tasks">
+            <% child.tasks.each do |task| %>
+              <div class="task">
+                <div class="task-location">
+                  <i class="fa fa-map-marker-alt"></i>
+                </div>
+                <div class="task-name">
+                  <%= task.name %>
+                </div>
+                <div class="task-switch">
+                  <input type="checkbox" <%= 'checked' if task.done %> class="task-toggle">
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="tab-bar">
+    <%= link_to "#", class: "tab-bar-item" do %>
+      <i class="fa fa-users"></i>
+      <span>Ma famille</span>
+    <% end %>
+
+    <%= link_to "#", class: "tab-bar-item" do %>
+      <i class="fa fa-calendar"></i>
+      <span>Calendrier</span>
+    <% end %>
+
+    <%= link_to "#", class: "tab-bar-item" do %>
+      <i class="fa fa-check"></i>
+      <span>Tâches</span>
+    <% end %>
+
+    <%= link_to "#", class: "tab-bar-item" do %>
+      <i class="fa fa-smile"></i>
+      <span>Privilèges</span>
+    <% end %>
+  </div>
+</div>

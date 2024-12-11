@@ -13,8 +13,11 @@
     <%= javascript_importmap_tags %>
     <%= favicon_link_tag asset_path('favicon.ico') %>
   </head>
-  <body><%= render "shared/navbar" %>
-    <%= render "shared/flashes" %>
+
+  <body>
+    <%# <%= render "shared/navbar" %>
+
+    <%# <%= render "shared/flashes" %>
     <%= yield %>
   </body>
 </html>
