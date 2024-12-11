@@ -1,2 +1,64 @@
-<h1>Awards#new</h1>
-<p>Find me in app/views/awards/new.html.erb</p>
+<div class="container">
+  <div class="header">
+    <%= link_to family_dashboard_path do %>
+      <span><</span>
+    <% end %>
+    <h1>Ajouter un privilège</h1>
+  </div>
+
+  <%= simple_form_for @award do |f| %>
+    <div class="container">
+      <div>
+        <div>
+          <i class="fa fa-smile"></i>
+          <%= f.input :name, label: false, placeholder: "Nom du privilège", required: true %>
+        </div>
+        <% if @award.errors[:name].present? %>
+          <div>Le privilège doit avoir un nom.</div>
+        <% end %>
+      </div>
+
+      <div>
+        <div>
+          <%= f.input :description, label: false, placeholder: "Description du privilège" %>
+        </div>
+      </div>
+
+      <div>
+        <label>Nombre de points</label>
+        <div>
+          <button type="button" onclick="changePoints(-1)">-</button>
+          <span style="margin: 0 10px;">0</span>
+          <%= f.input :value, as: :hidden, input_html: { id: 'points-input', value: 0 } %>
+          <button type="button" onclick="changePoints(1)">+</button>
+        </div>
+      </div>
+
+      <div>
+        <div>
+          <% ['quotidien', 'hebdomadaire', 'mensuel'].each do |period| %>
+            <%= f.radio_button :periodicity, period, id: "periodicity_#{period}" %>
+            <label for="periodicity_#{period}" style="cursor: pointer;"><%= period.capitalize %></label>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <i class="fa fa-smile"></i>
+      <%= f.button :submit, "Ajouter un privilège" %>
+    </div>
+  <% end %>
+</div>
+
+<script>
+function changePoints(value) {
+  const pointsInput = document.getElementById('points-input');
+  const pointsDisplay = document.getElementById('points-display');
+  let currentPoints = parseInt(pointsInput.value, 10);
+
+  currentPoints = Math.max(0, currentPoints + value);
+  pointsInput.value = currentPoints;
+  pointsDisplay.textContent = currentPoints;
+}
+</script>
