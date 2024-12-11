@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap");
-
+@import "font-awesome";
 @import "abstracts/index";
 
 // 2. Base
@@ -10,3 +10,5 @@
 // Composants individuels
 @import "components/privilege-card";
 @import "components/form";
+
+@import "pages/index";
