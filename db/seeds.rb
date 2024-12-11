@@ -105,11 +105,11 @@ def create_the_rest(family)
     AWARD_TYPES.each do |award_type|
       [1,2].sample.to_i.times do
         award = Award.create!(child_id: child.id, name: AWARD_LIST[award_type.to_sym].sample, periodicity: award_type, value: (MIN_AWARD_POINTS[award_type.to_sym]..MAX_AWARD_POINTS[award_type.to_sym]).to_a.sample)
-        4.times do
-          task_type = TASK_TYPES.sample
-          Task.create!(child_id: child.id, task_type_id: TaskType.find_by(name: task_type).id, name: TASK_LIST[task_type.to_sym].sample, value: (MIN_POINTS_TASK..MAX_POINTS_TASK).to_a.sample)
-        end
       end
+    end
+    4.times do
+      task_type = TASK_TYPES.sample
+      Task.create!(child_id: child.id, task_type_id: TaskType.find_by(name: task_type).id, name: TASK_LIST[task_type.to_sym].sample, value: (MIN_POINTS_TASK..MAX_POINTS_TASK).to_a.sample)
     end
   end
 end
