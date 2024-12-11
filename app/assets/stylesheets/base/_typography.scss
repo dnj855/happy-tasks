@@ -19,6 +19,9 @@ h1,
 .h1 {
   @include heading("4xl");
   margin-bottom: spacing("xl");
+  text-align: center;
+  color: color("primary");
+  margin-top: spacing("xl");
 }
 
 h2,

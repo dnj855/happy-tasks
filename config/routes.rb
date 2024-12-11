@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :awards, only: [:new, :create, :edit, :update, :destroy]
+  resources :awards, only: [:index, :new, :create, :edit, :update, :destroy]
 
   get 'dashboard', to: 'dashboard#index', as: :family_dashboard
   get 'dashboard/children', to: 'children#new', as: :new_child

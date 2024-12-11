@@ -1,0 +1,11 @@
+body {
+  background: linear-gradient(
+      rgba(255, 255, 255, 0.7),
+      rgba(255, 255, 255, 0.7)
+    ),
+    image-url("happy.png");
+  background-size: contain;
+  background-position: bottom;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}

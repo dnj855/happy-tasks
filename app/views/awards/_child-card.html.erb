@@ -1,0 +1,26 @@
+<div class="child-card">
+  <header class="child-card__header">
+    <div class="child-card__header__identity">
+      <div class="child-card__header__avatar">
+        <%= image_tag("super.png", alt: "Photo #{child.first_name}") %>
+      </div>
+      <h1 class="child-card__header__name"><%= child.first_name %></h1>
+    </div>
+    <div class="child-card__header__points-container">
+      <div class="child-card__header__points child-card__header__points--day">
+        <span class="child-card__header__points-value"><%= child.day_points %></span>
+      </div>
+      <div class="child-card__header__points child-card__header__points--week">
+        <span class="child-card__header__points-value"><%= child.week_points %></span>
+      </div>
+      <div class="child-card__header__points child-card__header__points--month">
+        <span class="child-card__header__points-value"><%= child.month_points %></span>
+      </div>
+    </div>
+  </header>
+  <section class="child-card__body">
+    <%= render partial: "award-card", locals: { child: child, periodicity: 'quotidien', points: child.day_points}%>
+    <%= render partial: "award-card", locals: { child: child, periodicity: 'hebdomadaire', points: child.week_points}%>
+    <%= render partial: "award-card", locals: { child: child, periodicity: 'mensuel', points: child.month_points}%>
+  </section>
+</div>

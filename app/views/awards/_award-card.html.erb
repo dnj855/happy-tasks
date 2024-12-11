@@ -1,0 +1,16 @@
+<div>
+  <h4 class="child-card__body__periodicity"><%= periodicity.capitalize %></h4>
+  <% child.awards.select {|award| award.periodicity == periodicity}.each do |award| %>
+    <div class="child-card__body__award <%= award.value > points ? "child-card__body__award--disabled" : ""%>">
+      <div class="child-card__body__award__title">
+        <p class="child-card__body__award__title--name"><%= award.name %> (<%= award.value %> points)</p>
+        <p class="child-card__body__award__title--description"><%= award.description %></p>
+      </div>
+      <div>
+        <div class="task-switch">
+          <input type="checkbox" <%= 'checked' if award.given %> class="task-switch__toggle">
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

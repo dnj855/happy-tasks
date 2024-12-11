@@ -1,0 +1,42 @@
+.task-switch {
+  &__toggle {
+    // Styles de base pour le switch
+    appearance: none;
+    width: spacing-multiply(
+      "2xl",
+      2
+    ); // 64px (2 * 32px) pour maintenir le ratio largeur/hauteur
+    height: spacing("2xl"); // 32px - notre nouvelle hauteur de référence
+    background-color: color("light", "base");
+    border-radius: spacing(
+      "2xl"
+    ); // Border radius égal à la hauteur pour garder l'aspect circulaire
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:checked {
+      background-color: color("primary", "base");
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 4px; // Ajustez cette valeur pour centrer horizontalement
+      width: spacing("2xl") - spacing("sm"); // 28px (32px - 4px de padding de chaque côté)
+      height: spacing("2xl") - spacing("sm"); // 28px pour garder un cercle parfait
+      border-radius: 50%;
+      background-color: color("light", "lighter");
+      box-shadow: 0 spacing("2xs") spacing("xs")
+        rgba(color("dark", "base"), 0.2);
+      transition: transform 0.3s ease;
+      transform: translateY(-50%); // Centrage vertical
+    }
+
+    // Translation augmentée pour la nouvelle taille
+    &:checked::before {
+      transform: translateX(spacing("2xl") + 0.25rem) translateY(-50%); // Ajustez cette valeur pour centrer horizontalement
+    }
+  }
+}
