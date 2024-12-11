@@ -13,8 +13,8 @@
 
 // Document
 html {
-  font-size: 100%; // Garde la taille de base à 16px
-  line-height: 1.15; // Hauteur de ligne raisonnable
+  font-size: 100%;
+  line-height: 1.15;
   -webkit-text-size-adjust: 100%; // Empêche iOS de redimensionner le texte
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -23,7 +23,6 @@ html {
 
 // Éléments de bloc sémantiques
 body {
-  @include container;
   min-height: 100vh;
   scroll-behavior: smooth;
   text-rendering: optimizeSpeed;
