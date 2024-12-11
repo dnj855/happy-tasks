@@ -1,0 +1,180 @@
+// ==========================================================================
+// Forms
+// ==========================================================================
+
+.form {
+  &__group {
+    @include flex-column;
+    margin-bottom: spacing("base");
+  }
+
+  &__label {
+    @include body-text("sm", "semibold");
+    margin-bottom: spacing("xs");
+    color: color("dark", "base");
+  }
+
+  &__input {
+    @include input-base;
+    @include body-text("base", "regular");
+    height: spacing("3xl");
+    color: color("dark", "base");
+    background-color: white;
+    border: 1px solid color("light", "dark");
+    padding: 0 spacing("base");
+    transition: all map-get(map-get($transitions, "duration"), "fast")
+      map-get(map-get($transitions, "timing"), "base");
+
+    &::placeholder {
+      color: color("light", "dark");
+    }
+
+    &:hover {
+      border-color: color("primary", "light");
+    }
+
+    &:focus {
+      outline: none;
+      border-color: color("primary", "base");
+      box-shadow: 0 0 0 3px rgba(color("primary", "base"), 0.1);
+    }
+
+    &--error {
+      border-color: color("red", "base");
+
+      &:focus {
+        box-shadow: 0 0 0 3px rgba(color("red", "base"), 0.1);
+      }
+    }
+
+    &--success {
+      border-color: color("green", "base");
+
+      &:focus {
+        box-shadow: 0 0 0 3px rgba(color("green", "base"), 0.1);
+      }
+    }
+  }
+
+  &__textarea {
+    @extend .form__input;
+    min-height: spacing("4xl");
+    resize: vertical;
+    padding: spacing("sm") spacing("base");
+  }
+
+  &__error {
+    @include body-text("sm", "regular");
+    color: color("red", "base");
+    margin-top: spacing("2xs");
+  }
+
+  &__helper {
+    @include body-text("sm", "regular");
+    color: color("dark", "light");
+    margin-top: spacing("2xs");
+  }
+
+  // Style spécifique pour le nombre de points
+  &__points {
+    @include flex-center;
+    gap: spacing("base");
+
+    &-input {
+      @extend .form__input;
+      width: spacing("4xl");
+      text-align: center;
+      padding: 0 spacing("xs");
+    }
+
+    &-button {
+      @include button-base;
+      width: spacing("2xl");
+      height: spacing("2xl");
+      border-radius: radius("full");
+      background-color: color("light", "base");
+      color: color("dark", "base");
+
+      &:hover {
+        background-color: color("light", "dark");
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  // Style pour les radios (catégories de temps)
+  &__radio-group {
+    @include flex-center;
+    gap: spacing("base");
+  }
+
+  &__radio {
+    &-input {
+      display: none;
+    }
+
+    &-label {
+      @include body-text("sm", "regular");
+      padding: spacing("xs") spacing("base");
+      border-radius: radius("full");
+      background-color: color("light", "base");
+      cursor: pointer;
+      transition: all map-get(map-get($transitions, "duration"), "fast")
+        map-get(map-get($transitions, "timing"), "base");
+
+      &:hover {
+        background-color: color("light", "dark");
+      }
+    }
+
+    &-input:checked + &-label {
+      background-color: color("primary", "base");
+      color: white;
+    }
+  }
+
+  // Style pour la sélection des utilisateurs
+  &__user-select {
+    @include flex-start;
+    gap: spacing("xs");
+    flex-wrap: wrap;
+    margin-top: spacing("xs");
+  }
+
+  &__user-chip {
+    @include flex-center;
+    gap: spacing("2xs");
+    padding: spacing("2xs") spacing("xs");
+    background-color: color("primary", "lighter");
+    border-radius: radius("full");
+
+    &-avatar {
+      width: spacing("xl");
+      height: spacing("xl");
+      border-radius: radius("full");
+      object-fit: cover;
+    }
+
+    &-name {
+      @include body-text("sm", "regular");
+      color: color("primary", "dark");
+    }
+
+    &-remove {
+      @include flex-center;
+      width: spacing("base");
+      height: spacing("base");
+      border-radius: radius("full");
+      background-color: color("primary", "light");
+      cursor: pointer;
+
+      &:hover {
+        background-color: color("primary", "base");
+      }
+    }
+  }
+}

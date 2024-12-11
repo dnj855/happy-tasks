@@ -1,0 +1,221 @@
+// ==========================================================================
+// Typographie de base
+// ==========================================================================
+
+// Import des polices
+// Corps du document
+html {
+  @include body-text("base", "regular");
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  color: color("dark", "base");
+}
+
+// Headings
+h1,
+.h1 {
+  @include heading("4xl");
+  margin-bottom: spacing("xl");
+}
+
+h2,
+.h2 {
+  @include heading("3xl");
+  margin-bottom: spacing("lg");
+}
+
+h3,
+.h3 {
+  @include heading("2xl");
+  margin-bottom: spacing("base");
+}
+
+h4,
+.h4 {
+  @include heading("xl");
+  margin-bottom: spacing("base");
+}
+
+h5,
+.h5 {
+  @include heading("lg");
+  margin-bottom: spacing("sm");
+}
+
+h6,
+.h6 {
+  @include heading("base");
+  margin-bottom: spacing("sm");
+}
+
+// Paragraphes
+p {
+  @include body-text;
+  margin-bottom: spacing("base");
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Liens
+a {
+  color: color("primary", "base");
+  transition: color map-get(map-get($transitions, "duration"), "fast")
+    map-get(map-get($transitions, "timing"), "base");
+
+  &:hover {
+    color: color("primary", "dark");
+  }
+}
+
+// Listes
+ul,
+ol {
+  margin-bottom: spacing("base");
+  padding-left: spacing("xl");
+
+  li {
+    @include body-text;
+    margin-bottom: spacing("xs");
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+ul {
+  list-style-type: disc;
+}
+
+ol {
+  list-style-type: decimal;
+}
+
+// Text styles
+strong,
+b {
+  font-weight: font-weight("bold");
+}
+
+em,
+i {
+  font-style: italic;
+}
+
+small {
+  font-size: font-size("sm");
+}
+
+// Classes utilitaires de texte
+.text {
+  &-xs {
+    @include body-text("xs");
+  }
+
+  &-sm {
+    @include body-text("sm");
+  }
+
+  &-base {
+    @include body-text("base");
+  }
+
+  &-lg {
+    @include body-text("lg");
+  }
+
+  &-xl {
+    @include body-text("xl");
+  }
+
+  &-light {
+    font-weight: font-weight("light");
+  }
+
+  &-regular {
+    font-weight: font-weight("regular");
+  }
+
+  &-semibold {
+    font-weight: font-weight("semibold");
+  }
+
+  &-bold {
+    font-weight: font-weight("bold");
+  }
+
+  &-center {
+    text-align: center;
+  }
+
+  &-left {
+    text-align: left;
+  }
+
+  &-right {
+    text-align: right;
+  }
+
+  &-truncate {
+    @include truncate;
+  }
+}
+
+// Styles pour les blocs de code
+code {
+  font-family: monospace;
+  background-color: color("light", "base");
+  padding: spacing("2xs") spacing("xs");
+  border-radius: radius("sm");
+  font-size: font-size("sm");
+}
+
+pre {
+  background-color: color("light", "base");
+  padding: spacing("base");
+  border-radius: radius("base");
+  overflow-x: auto;
+  margin-bottom: spacing("base");
+
+  code {
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+  }
+}
+
+// Classes de couleur de texte
+.text-color {
+  &-primary {
+    color: color("primary", "base");
+  }
+
+  &-success {
+    color: color("green", "base");
+  }
+
+  &-error {
+    color: color("red", "base");
+  }
+
+  &-warning {
+    color: color("yellow", "base");
+  }
+
+  &-info {
+    color: color("blue", "base");
+  }
+
+  &-dark {
+    color: color("dark", "base");
+  }
+
+  &-light {
+    color: color("light", "dark");
+  }
+}
