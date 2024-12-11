@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[edit update destroy]
+  before_action :set_children, only: %i[new create]
 
   def index
     @tasks = Task.all
@@ -13,7 +14,7 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
 
     if @task.save
-      redirect_to child_path(@task.child)
+      redirect_to family_dashboard_path
     else
       render :new, status: :unprocessable_entity
     end
@@ -46,5 +47,9 @@ class TasksController < ApplicationController
 
   def set_task
     @task = Task.find(params[:id])
+  end
+
+  def set_children
+    @children = current_user.family.children
   end
 end

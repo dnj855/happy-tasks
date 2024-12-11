@@ -1,0 +1,11 @@
+fr:
+  activerecord:
+    models:
+      task: Tâche
+    attributes:
+      task:
+        name: Nom
+        description: Description
+        value: Valeur
+        task_type: Catégorie
+        child: Enfant
