@@ -20,10 +20,10 @@
   </header>
   <section class="child-card__body">
     <% day_awards = child.awards.select {|award| award.periodicity == 'quotidien'} %>
-    <%= render partial: "award-card", locals: { awards: day_awards, periodicity: 'quotidien', points: child.day_points } %>
+    <%= render partial: "award-card", locals: { awards: day_awards, periodicity: 'quotidien', points: child.day_points, child: child } %>
     <% week_awards = child.awards.select {|award| award.periodicity == 'hebdomadaire'} %>
-    <%= render partial: "award-card", locals: { awards: week_awards, periodicity: 'hebdomadaire', points: child.week_points } %>
+    <%= render partial: "award-card", locals: { awards: week_awards, periodicity: 'hebdomadaire', points: child.week_points, child: child } %>
     <% month_awards = child.awards.select {|award| award.periodicity == 'mensuel'} %>
-    <%= render partial: "award-card", locals: { awards: month_awards, periodicity: 'mensuel', points: child.month_points } %>
+    <%= render partial: "award-card", locals: { awards: month_awards, periodicity: 'mensuel', points: child.month_points, child: child } %>
   </section>
 </div>

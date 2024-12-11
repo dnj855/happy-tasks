@@ -66,6 +66,16 @@
       // Valeur des points
       &-value {
         @include body-text("lg", "semibold");
+        transition: all 0.3s ease-out;
+
+        .highlight {
+          color: color("green", "dark");
+          transform: scale(1.2);
+
+          &-exit {
+            transition: all 0.3s ease-in;
+          }
+        }
       }
     }
   }

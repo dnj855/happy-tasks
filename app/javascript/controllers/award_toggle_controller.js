@@ -2,7 +2,10 @@ import { Controller } from "@hotwired/stimulus";
 import { Turbo } from "@hotwired/turbo-rails";
 
 export default class extends Controller {
-  static values = { award: Number };
+  static values = {
+    award: Number,
+    child: Number,
+  };
 
   async giveAward(event) {
     const token = document.querySelector('meta[name="csrf-token"]')?.content;
@@ -26,7 +29,6 @@ export default class extends Controller {
         throw new Error("Network response was not ok");
       }
 
-      // Traiter explicitement la réponse Turbo
       const streamContent = await response.text();
       Turbo.renderStreamMessage(streamContent);
     } catch (error) {
