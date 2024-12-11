@@ -1,70 +1,57 @@
-<div class="container">
-  <div class="header">
-    <%= link_to family_dashboard_path do %>
-      <span class="back-arrow"><</span>
-    <% end %>
-    <h1>Ajouter un privilège</h1>
-  </div>
-
-  <%= simple_form_for @award do |f| %>
-    <%= f.input :name, label: false, placeholder: "Nom du privilège", required: true, input_html: { class: 'form__input' } %>
-    <% if @award.errors[:name].present? %>
-      <div class="form__error">Le privilège doit avoir un nom.</div>
-    <% end %>
-
-    <%= f.input :description, label: false, placeholder: "Description du privilège", input_html: { class: 'form__textarea' } %>
-
-    <%= f.label :value, 'Nombre de points' %>
-    <div class="form__points">
-      <button type="button" onclick="changePoints(-1)" class="form__points-button">-</button>
-      <span class="form__points-display">0</span>
-      <%= f.input :value, as: :hidden, input_html: { id: 'points-input', value: 0 } %>
-      <button type="button" onclick="changePoints(1)" class="form__points-button">+</button>
-    </div>
-
-    <div class="form__radio-group">
-      <% ['quotidien', 'hebdomadaire', 'mensuel'].each do |period| %>
-        <%= f.radio_button :periodicity, period, id: "periodicity_#{period}", class: 'form__radio-input' %>
-        <%= f.label "periodicity_#{period}", period.capitalize, class: 'form__radio-label' %>
-      <% end %>
-    </div>
-
-    <%= f.label :children, 'Sélectionner les enfants' %>
-    <div class="form__child-select">
-      <% @children.each do |child| %>
-        <div class="form__child-chip" data-child-id="<%= child.id %>">
-          <span class="form__user-chip--name"><%= child.first_name %></span>
-          <div class="form__child-select-icon">+</div>
-        </div>
-      <% end %>
-    </div>
-
-    <%= f.submit 'Ajouter un privilège', class: 'form__submit-button' %>
+<div class="text-center my-4">
+  <%= link_to family_dashboard_path do %>
+    <span class="back-arrow"><</span>
   <% end %>
+  <h1>Ajouter une tâche</h1>
 </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const childChips = document.querySelectorAll('.form__child-chip');
-  childChips.forEach(chip => {
-    chip.addEventListener('click', function() {
-      this.classList.toggle('selected');
-      const selectIcon = this.querySelector('.form__child-select-icon');
-      if (this.classList.contains('selected')) {
-        selectIcon.textContent = '×';
-      } else {
-        selectIcon.textContent = '+';
-      }
-    });
-  });
+<div class="container">
+  <%= form_with model: @award, class: "form" do |f| %>
+    <!-- Nom du privilège -->
+    <div class="form__group">
+      <%= f.label :name, "Nom", class: "form__label" %>
+      <%= f.text_field :name, class: "form__input #{@award.errors[:name].any? ? "form__input--error" : ""}", placeholder: "Nom du privilège", required: true %>
+      <% if @award.errors.include?(:name) %>
+        <p class="form__error text-sm text-color-error"><%= @award.errors[:name].first %></p>
+      <% end %>
+    </div>
 
-  window.changePoints = function(value) {
-    const pointsInput = document.getElementById('points-input');
-    const pointsDisplay = document.querySelector('.form__points-display');
-    let currentPoints = parseInt(pointsInput.value, 10);
-    currentPoints = Math.max(0, currentPoints + value);
-    pointsInput.value = currentPoints;
-    pointsDisplay.textContent = currentPoints;
-  };
-});
-</script>
+    <!-- Description -->
+    <div class="form__group">
+      <%= f.label :description, "Description", class: "form__label" %>
+      <%= f.text_area :description, class: "form__textarea", rows: 4, placeholder: "Description du privilège" %>
+    </div>
+
+    <!-- Nombre de points -->
+    <div class="form__points" data-controller="points">
+      <%= f.label :value, "Nombre de points", class: "form__label" %>
+      <button type="button" class="form__points-button" id="decrease-points" data-action="points#decrement">-</button>
+      <%= f.number_field :value, class: "form__points-input", value: 0, step: 1, min: 0, readonly: true, data: { "points-target": "input" } %>
+      <button type="button" class="form__points-button" id="increase-points" data-action="points#increment">+</button>
+    </div>
+
+    <!-- Périodicité -->
+    <div class="form__group">
+      <%= f.label :periodicity, "Périodicité", class: "form__label" %>
+      <%= f.select :periodicity, [['Quotidien', 'quotidien'], ['Hebdomadaire', 'hebdomadaire'], ['Mensuel', 'mensuel']], { prompt: "Choisissez une périodicité" }, class: "form__input #{@award.errors[:periodicity].any? ? "form__input--error" : ""}" %>
+      <% if @award.errors.include?(:periodicity) %>
+        <p class="form__error"><%= @award.errors[:periodicity].first %></p>
+      <% end %>
+    </div>
+
+    <!-- Choix de l'enfant -->
+    <div class="form__radio-group">
+      <% @children.each do |child| %>
+        <span data-controller="child-selector">
+        <%= f.radio_button :child_id, child.id, id: "child_#{child.id}", class: "form__radio-input", data: { "child-selector-target": "radio" } %>
+        <%= f.label "child_#{child.id}", child.first_name, class: "form__radio-label", data: { action: "click->child-selector#select", "child-selector-target": "label" } %>
+        </span>
+      <% end %>
+    </div>
+
+    <!-- Bouton de soumission -->
+    <div class="form__end">
+      <%= f.submit "Ajouter un privilège", class: "form__button" %>
+    </div>
+  <% end %>
+</div>
