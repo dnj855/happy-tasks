@@ -1,0 +1,140 @@
+// ==========================================================================
+// Child Header Component
+// ==========================================================================
+
+.child-card {
+  &__header {
+    @include flex-between;
+    padding: spacing("2xs") spacing("xs");
+    background-color: color("yellow", "lighter");
+    border-bottom: 1px solid color("light", "base");
+
+    // Conteneur gauche avec avatar et nom
+    &__identity {
+      @include flex-start;
+      gap: spacing("base");
+    }
+
+    // Style de l'avatar
+    &__avatar {
+      width: spacing("3xl");
+      height: spacing("3xl");
+      border-radius: radius("full");
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    // Style du nom
+    &__name {
+      @include heading("lg");
+      color: color("primary", "base");
+    }
+
+    // Conteneur des points
+    &__points-container {
+      @include flex-start;
+      gap: spacing("xs");
+    }
+
+    &__points {
+      @include flex-center;
+      padding: spacing("2xs") spacing("sm");
+      border-radius: radius("full");
+      min-width: spacing("3xl");
+      min-height: spacing("3xl");
+
+      &--day {
+        background-color: color("primary", "lighter");
+        color: color("primary", "darker");
+      }
+
+      &--week {
+        background-color: color("yellow", "base");
+        color: color("yellow", "darker");
+      }
+
+      &--month {
+        background-color: color("blue", "lighter");
+        color: color("blue", "darker");
+      }
+
+      // Valeur des points
+      &-value {
+        @include body-text("lg", "semibold");
+        transition: all 0.3s ease-out;
+
+        .highlight {
+          color: color("green", "dark");
+          transform: scale(1.2);
+
+          &-exit {
+            transition: all 0.3s ease-in;
+          }
+        }
+      }
+    }
+  }
+
+  &__body {
+    @include card-base;
+    @include flex-column;
+    gap: spacing("xs");
+    padding: 0;
+
+    &__periodicity {
+      margin: spacing("xs") spacing("xs");
+    }
+
+    &__award {
+      @include flex-between;
+      padding: spacing("xs") spacing("xs");
+
+      &--disabled {
+        position: relative; // Pour le positionnement de l'overlay
+        opacity: 0.6; // Atténuation subtile du contenu
+        pointer-events: none; // Désactivation des interactions
+
+        // Modification des styles de texte pour l'état désactivé
+        .child-card__body__award__title {
+          &--name {
+            color: color("dark", "light");
+          }
+
+          &--description {
+            color: color("dark", "lighter");
+          }
+        }
+
+        // Overlay subtil pour renforcer l'effet désactivé
+        &::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background-color: color("light", "base");
+          opacity: 0.4;
+          border-radius: inherit;
+        }
+      }
+
+      &__title {
+        @include flex-column;
+        gap: spacing("xs");
+
+        &--name {
+          @include body-text("base", "bold");
+          margin-bottom: -0.5rem;
+        }
+
+        &--description {
+          @include body-text("sm");
+          color: color("dark", "lighter");
+        }
+      }
+    }
+  }
+}

@@ -1,7 +1,13 @@
 class AwardsController < ApplicationController
+
   before_action :authenticate_user!
   before_action :set_award, only: [:edit, :update, :destroy]
 
+
+    def index
+    @children = policy_scope(Child)
+  end
+  
   def new
     @award = Award.new
     @children = current_user.family.children
@@ -26,6 +32,22 @@ class AwardsController < ApplicationController
   end
 
   def update
+    @child = @award.child
+    points_method = @award.points_method_for_periodicity
+
+    authorize @award
+    
+    ActiveRecord::Base.transaction do
+      if @award.update(award_params)
+        @child.update!(points_method => @child.send(points_method) - @award.value)
+        
+        respond_to do |format|
+          format.turbo_stream
+        end
+      else
+        render status: :unprocessable_entity
+      end
+    end
   end
 
   def destroy
@@ -35,17 +57,10 @@ class AwardsController < ApplicationController
 
   def set_award
     @award = Award.find(params[:id])
-    authorize_award
   end
 
   def award_params
-    params.require(:award).permit(:name, :value, :child_id)
-  end
-
-  def authorize_award
-    unless current_user.family == @award.child.family
-      redirect_to family_dashboard_path, alert: 'Vous ne pouvez pas modifier ce privilège.'
-    end
+    params.require(:award).permit(:name, :value, :child_id, :given)
   end
 
 end

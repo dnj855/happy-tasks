@@ -18,14 +18,12 @@ html {
   -webkit-text-size-adjust: 100%; // Empêche iOS de redimensionner le texte
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
 }
 
 // Éléments de bloc sémantiques
 body {
   min-height: 100vh;
   scroll-behavior: smooth;
-  text-rendering: optimizeSpeed;
 }
 
 // Groupes de contenu

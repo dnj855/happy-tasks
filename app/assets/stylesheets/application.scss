@@ -10,5 +10,9 @@
 // Composants individuels
 @import "components/privilege-card";
 @import "components/form";
+@import "components/child-card";
+@import "components/task-switch";
 
+@import "layouts/child-card";
 @import "pages/index";
+@import "pages/treasure_chest";

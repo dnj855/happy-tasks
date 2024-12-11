@@ -1,0 +1,24 @@
+<div
+id="<%= dom_id(award) %>"
+class="child-card__body__award <%= award.value > points || award.given? ? "child-card__body__award--disabled" : ""%>"
+data-controller="award-toggle"
+data-award-toggle-award-value="<%= award.id %>"
+data-award-toggle-points-method-value="<%= award.points_method_for_periodicity %>"
+data-award-toggle-child-value="<%= child.id %>"
+>
+  <div class="child-card__body__award__title">
+    <p class="child-card__body__award__title--name"><%= award.name %> (<%= award.value %> points)</p>
+    <p class="child-card__body__award__title--description"><%= award.description %></p>
+  </div>
+  <div>
+    <div class="task-switch">
+      <input 
+  type="checkbox"
+  <%= 'checked' if award.given? %>
+  class="task-switch__toggle"
+  
+  data-action="change->award-toggle#giveAward"
+      >
+    </div>
+  </div>
+</div>
