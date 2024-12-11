@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: %i[edit update destroy]
+  before_action :set_task, only: %i[edit update destroy validate]
   before_action :set_children, only: %i[new create]
 
   def index
@@ -37,6 +37,14 @@ class TasksController < ApplicationController
   end
 
   def validate
+    @task.update(validated: true)
+    child = @task.child
+    points = (@task.value / 3).round
+    @task.child.update(
+      day_points: child.day_points + points,
+      week_points: child.week_points + points,
+      month_points: child.month_points + points
+    )
   end
 
   private
