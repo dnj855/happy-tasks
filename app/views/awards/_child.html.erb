@@ -1,0 +1,29 @@
+<div class="child-card">
+  <header class="child-card__header">
+    <div class="child-card__header__identity">
+      <div class="child-card__header__avatar">
+        <%= image_tag("super.png", alt: "Photo #{child.first_name}") %>
+      </div>
+      <h1 class="child-card__header__name"><%= child.first_name %></h1>
+    </div>
+    <div class="child-card__header__points-container">
+      <div class="child-card__header__points child-card__header__points--day">
+        <span class="child-card__header__points-value" id="child-<%= child.id %>-day_points"><%= child.day_points %></span>
+      </div>
+      <div class="child-card__header__points child-card__header__points--week">
+        <span class="child-card__header__points-value" id="child-<%= child.id %>-week_points"><%= child.week_points %></span>
+      </div>
+      <div class="child-card__header__points child-card__header__points--month">
+        <span class="child-card__header__points-value" id="child-<%= child.id %>-month_points"><%= child.month_points %></span>
+      </div>
+    </div>
+  </header>
+  <section class="child-card__body">
+    <% day_awards = child.awards.select {|award| award.periodicity == 'quotidien'} %>
+    <%= render partial: "award-card", locals: { awards: day_awards, periodicity: 'quotidien', points: child.day_points } %>
+    <% week_awards = child.awards.select {|award| award.periodicity == 'hebdomadaire'} %>
+    <%= render partial: "award-card", locals: { awards: week_awards, periodicity: 'hebdomadaire', points: child.week_points } %>
+    <% month_awards = child.awards.select {|award| award.periodicity == 'mensuel'} %>
+    <%= render partial: "award-card", locals: { awards: month_awards, periodicity: 'mensuel', points: child.month_points } %>
+  </section>
+</div>

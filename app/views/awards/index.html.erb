@@ -3,6 +3,6 @@
 </div>
 <div class="child-card__wrapper">
   <% @children.each do |child| %>
-    <%= render "child-card", child: child %>
+    <%= render partial: "child", locals: { child: child } %>
   <% end %>
 </div>
