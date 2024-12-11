@@ -1,0 +1,166 @@
+// ==========================================================================
+// Reset moderne
+// ==========================================================================
+
+// Box sizing
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+// Document
+html {
+  font-size: 100%;
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%; // Empêche iOS de redimensionner le texte
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+// Éléments de bloc sémantiques
+body {
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+}
+
+// Groupes de contenu
+main {
+  display: block; // IE fix
+}
+
+// Texte sémantique
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+pre {
+  margin: 0;
+  overflow-wrap: break-word;
+}
+
+// Lists
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+// Embedded content
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+// Forms
+input,
+button,
+textarea,
+select {
+  font: inherit; // Hérite des styles de police
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+// Supprime les styles de formulaire par défaut
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="password"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="search"],
+input[type="tel"],
+input[type="time"],
+input[type="url"],
+input[type="week"] {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+// Annule les styles de recherche par défaut
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+}
+
+// Tables
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+// Links
+a {
+  text-decoration: none;
+  color: inherit;
+  background-color: transparent;
+}
+
+// Sélection
+::selection {
+  background-color: color("primary", "light");
+  color: color("dark", "base");
+}
+
+// Accessibilité focus
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid color("primary", "base");
+  outline-offset: 2px;
+}
+
+// Réduction de mouvement
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+// Empêcher le débordement horizontal
+body {
+  overflow-x: hidden;
+}
+
+// Empêcher les ajustements de texte iOS
+input,
+textarea {
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+// Empêcher le zoom sur double-tap sur iOS
+button,
+select,
+input,
+a {
+  touch-action: manipulation;
+}
