@@ -102,8 +102,11 @@ def create_the_rest(family)
     else
       User.create!(family_id: family.id, child_id: child.id, first_name: child.first_name, last_name: family.name, email: Faker::Internet.email, password: "happyT", child: false)
     end
-    award_type = AWARD_TYPES.sample
-    award = Award.create!(child_id: child.id, name: AWARD_LIST[award_type.to_sym].sample, periodicity: award_type, value: (MIN_AWARD_POINTS[award_type.to_sym]..MAX_AWARD_POINTS[award_type.to_sym]).to_a.sample)
+    AWARD_TYPES.each do |award_type|
+      [1,2].sample.to_i.times do
+        award = Award.create!(child_id: child.id, name: AWARD_LIST[award_type.to_sym].sample, periodicity: award_type, value: (MIN_AWARD_POINTS[award_type.to_sym]..MAX_AWARD_POINTS[award_type.to_sym]).to_a.sample)
+      end
+    end
     4.times do
       task_type = TASK_TYPES.sample
       Task.create!(child_id: child.id, task_type_id: TaskType.find_by(name: task_type).id, name: TASK_LIST[task_type.to_sym].sample, value: (MIN_POINTS_TASK..MAX_POINTS_TASK).to_a.sample)

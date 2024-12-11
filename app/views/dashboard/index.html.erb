@@ -1,7 +1,7 @@
 <div class="family-dashboard">
   <div class="header">
     <div class="family-info">
-      <h1><%= @family.name %></h1>
+      <h1>Famille <%= @family.name %></h1>
     </div>
     <div class="logout">
       <%= link_to "#", class: "logout-link" do %>
@@ -31,10 +31,32 @@
               </div>
             </div>
             <div class="hamburger-btn">
-              <i class="fa fa-bars"></i>
+              <div class="dropdown">
+                <i class="fa fa-bars dropdown-toggle" data-toggle="dropdown"></i>
+                <div class="dropdown-menu">
+                  <%= link_to new_task_path(child_id: child.id), class: "dropdown-item" do %>
+                    <i class="fa fa-check"></i> Ajouter une tâche
+                  <% end %>
+
+                  <%= link_to tasks_path(child_id: child.id), class: "dropdown-item" do %>
+                    <i class="fa fa-trash"></i> Supprimer une tâche
+                  <% end %>
+
+                  <%= link_to new_award_path(child_id: child.id), class: "dropdown-item" do %>
+                    <i class="fa fa-smile"></i> Ajouter un privilège
+                  <% end %>
+
+                  <%= link_to "#", class: "dropdown-item" do %>
+                    <i class="fa fa-gem"></i> Malle aux trésors
+                  <% end %>
+
+                  <%= link_to family_dashboard_path, class: "dropdown-item" do %>
+                    <i class="fa fa-home"></i> Retour à ma famille
+                  <% end %>
+                </div>
+              </div>
             </div>
           </div>
-
           <div class="tasks">
             <% child.tasks.each do |task| %>
               <div class="task">
