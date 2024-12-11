@@ -2,47 +2,59 @@
   <h1>Ajouter une tâche</h1>
 </div>
 
-<%= form_with model: @task, class: "container my-5" do |f| %>
-  <div class="mb-3">
-    <%= f.label :name, "Nom", class: "form-label" %>
-    <%= f.text_field :name, class: "form-control", placeholder: "Nom de la tâche" %>
-    <% if @task.errors.include?(:name) %>
-      <p><%= @task.errors.full_messages_for(:name).join(", ") %></p>
-    <% end %>
-  </div>
+<div class="container">
+  <%= form_with model: @task, class:"form" do |f| %>
+    <!-- Nom de la tâche -->
+    <div class="form__group">
+      <%= f.label :name, "Nom", class: "form__label" %>
+      <%= f.text_field :name, class: "form__input #{@task.errors[:name].any? ? "form__input--error" : ""}", placeholder: "Nom de la tâche" %>
+      <% if @task.errors.include?(:name) %>
+        <p class="form__error text-sm text-color-error"><%= @task.errors[:name].first %></p>
+      <% end %>
+    </div>
 
-  <div class="mb-3">
-    <%= f.label :description, class: "form-label" %>
-    <%= f.text_area :description, class: "form-control", rows: 4, placeholder: "Description de la tâche" %>
-  </div>
+    <!-- Description -->
+    <div class="form__group">
+      <%= f.label :description, "Description", class: "form__label" %>
+      <%= f.text_area :description, class: "form__textarea", rows: 4, placeholder: "Description de la tâche" %>
+    </div>
 
-  <div class="mb-3 d-flex align-items-center">
-    <%= f.label :value, "Nombre de points", class: "form-label me-3" %>
-    <button type="button" class="btn btn-secondary" id="decrease-points">-</button>
-    <%= f.number_field :value, class: "form-control mx-2 text-center", style: "width: 80px;", value: 0, step: 1, min: 0, readonly: true %>
-    <button type="button" class="btn btn-secondary" id="increase-points">+</button>
-  </div>
+    <!-- Nombre de points -->
+    <div class="form__points" data-controller="points">
+      <%= f.label :value, "Nombre de points", class: "form__label" %>
+      <button type="button" class="form__points-button" id="decrease-points" data-action="points#decrement">-</button>
+      <%= f.number_field :value, class: "form__points-input", value: 0, step: 1, min: 0, readonly: true, data: { "points-target": "input" } %>
+      <button type="button" class="form__points-button" id="increase-points" data-action="points#increment">+</button>
+    </div>
 
-  <div class="mb-3">
-    <%= f.label :task_type_id, "Catégorie", class: "form-label" %>
-    <%= f.collection_select :task_type_id, TaskType.all, :id, :name,
-          { prompt: "Choisissez une catégorie" }, class: "form-control" %>
-    <% if @task.errors.include?(:task_type) %>
-      <p><%= @task.errors.full_messages_for(:task_type).join(", ") %></p>
-    <% end %>
-  </div>
+    <!-- Catégorie -->
+    <div class="form__group">
+      <%= f.label :task_type_id, "Catégorie", class: "form__label" %>
+      <%= f.collection_select :task_type_id, TaskType.all, :id, :name,
+            { prompt: "Choisissez une catégorie" }, class: "form__input #{@task.errors[:task_type].any? ? "form__input--error" : ""}" %>
+      <% if @task.errors.include?(:task_type) %>
+        <p class="form__error"><%= @task.errors[:task_type].first %></p>
+      <% end %>
+    </div>
 
-  <div class="mb-3">
-    <% @children.each do |child| %>
-      <%= f.radio_button :child_id, child.id  %>
-      <%= f.label "child_id_#{child.id}", child.first_name, class: "form-label" %>
-    <% end %>
-    <% if @task.errors.include?(:child) %>
-      <p><%= @task.errors.full_messages_for(:child).join(", ") %></p>
-    <% end %>
-  </div>
+    <!-- Choix de l'enfant -->
+    <div class="form__radio-group">
+      <% @children.each do |child| %>
+        <span data-controller="child-selector">
+        <%= f.radio_button :child_id, child.id, id: "child_#{child.id}", class: "form__radio-input", data: { "child-selector-target": "radio" } %>
+        <%= f.label "child_#{child.id}", child.first_name, class: "form__radio-label", data: { action: "click->child-selector#select", "child-selector-target": "label" } %>
+        </span>
+      <% end %>
+      <% if @task.errors.include?(:child) %>
+        <p class="form__error"><%= @task.errors[:child].first %></p>
+      <% end %>
+    </div>
 
-  <div class="text-end">
-    <%= f.submit "Ajouter la tâche", class: "btn btn-primary" %>
-  </div>
-<% end %>
+
+
+    <!-- Bouton de soumission -->
+    <div class="form__end">
+      <%= f.submit "Ajouter la tâche", class: "form__button" %>
+    </div>
+  <% end %>
+</div>

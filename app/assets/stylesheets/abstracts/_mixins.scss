@@ -97,7 +97,7 @@
   @include interactive;
   @include flex-center;
   padding: map-get($spacing, "sm") map-get($spacing, "base");
-  border-radius: map-get($border-radius, "base");
+  border-radius: map-get($border-radius, "full");
   border: none;
   font-weight: map-get($font-weights, "semibold");
 }
