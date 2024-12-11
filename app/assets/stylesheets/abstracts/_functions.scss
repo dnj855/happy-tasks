@@ -1,0 +1,166 @@
+// ==========================================================================
+// Fonctions de manipulation des couleurs
+// ==========================================================================
+
+@function lighten-custom($color, $percentage) {
+  @return mix(white, $color, $percentage);
+}
+
+@function darken-custom($color, $percentage) {
+  @return mix(black, $color, $percentage);
+}
+
+@function color($palette, $tone: "base") {
+  @if not map-has-key($colors, $palette) {
+    @error "La palette '#{$palette}' n'existe pas dans $colors";
+  }
+  @if not map-has-key(map-get($colors, $palette), $tone) {
+    @error "La tonalité '#{$tone}' n'existe pas dans la palette '#{$palette}'";
+  }
+  @return map-get(map-get($colors, $palette), $tone);
+}
+
+// ==========================================================================
+// Fonctions typographiques
+// ==========================================================================
+
+@function font-family($type) {
+  @if not map-has-key($font-families, $type) {
+    @error "Le type de police '#{$type}' n'existe pas dans $font-families";
+  }
+  @return map-get($font-families, $type);
+}
+
+@function font-size($size) {
+  @if not map-has-key($font-sizes, $size) {
+    @error "La taille '#{$size}' n'existe pas dans $font-sizes";
+  }
+  @return map-get($font-sizes, $size);
+}
+
+@function font-weight($weight) {
+  @if not map-has-key($font-weights, $weight) {
+    @error "Le poids '#{$weight}' n'existe pas dans $font-weights";
+  }
+  @return map-get($font-weights, $weight);
+}
+
+// ==========================================================================
+// Fonctions de conversion d'unités
+// ==========================================================================
+
+@function strip-unit($number) {
+  @if type-of($number) == "number" and not unitless($number) {
+    @return $number / ($number * 0 + 1);
+  }
+  @return $number;
+}
+
+@function px-to-rem($px) {
+  $px: strip-unit($px);
+  $base: strip-unit(16px);
+  @return #{$px / $base}rem;
+}
+
+@function px-to-em($px, $context: 16px) {
+  $px: strip-unit($px);
+  $context: strip-unit($context);
+  @return #{$px / $context}em;
+}
+
+// ==========================================================================
+// Fonctions d'espacement
+// ==========================================================================
+
+@function spacing($key) {
+  @if not map-has-key($spacing, $key) {
+    @error "La taille d'espacement '#{$key}' n'existe pas dans $spacing";
+  }
+  @return map-get($spacing, $key);
+}
+
+@function spacing-multiply($key, $multiplier) {
+  $base-spacing: spacing($key);
+  @return $base-spacing * $multiplier;
+}
+
+// ==========================================================================
+// Fonctions de card
+// ==========================================================================
+
+@function radius($key: "base") {
+  @return map-get($border-radius, $key);
+}
+
+@function shadow($key: "base") {
+  @return map-get($shadows, $key);
+}
+
+// ==========================================================================
+// Fonctions z-index
+// ==========================================================================
+
+@function z($layer) {
+  @if not map-has-key($z-index, $layer) {
+    @error "La couche '#{$layer}' n'existe pas dans $z-index";
+  }
+  @return map-get($z-index, $layer);
+}
+
+// ==========================================================================
+// Fonctions de calcul de contraste et d'accessibilité
+// ==========================================================================
+
+@function luminance($color) {
+  $rgb: (
+    "red": red($color) / 255,
+    "green": green($color) / 255,
+    "blue": blue($color) / 255,
+  );
+
+  @each $name, $value in $rgb {
+    $adjusted: if(
+      $value < 0.03928,
+      $value / 12.92,
+      pow(($value + 0.055) / 1.055, 2.4)
+    );
+    $rgb: map-merge(
+      $rgb,
+      (
+        $name: $adjusted,
+      )
+    );
+  }
+
+  @return map-get($rgb, "red") * 0.2126 + map-get($rgb, "green") * 0.7152 +
+    map-get($rgb, "blue") * 0.0722;
+}
+
+@function contrast-ratio($background, $foreground) {
+  $backgroundLum: luminance($background) + 0.05;
+  $foregroundLum: luminance($foreground) + 0.05;
+
+  @return if(
+    $backgroundLum > $foregroundLum,
+    $backgroundLum / $foregroundLum,
+    $foregroundLum / $backgroundLum
+  );
+}
+
+@function get-contrast-color($background) {
+  $lightContrast: contrast-ratio($background, white);
+  $darkContrast: contrast-ratio($background, black);
+
+  @return if($lightContrast > $darkContrast, white, black);
+}
+
+// ==========================================================================
+// Fonctions de breakpoint
+// ==========================================================================
+
+@function breakpoint($point) {
+  @if not map-has-key($breakpoints, $point) {
+    @error "Le breakpoint '#{$point}' n'existe pas dans $breakpoints";
+  }
+  @return map-get($breakpoints, $point);
+}

@@ -1,4 +1,71 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
-
-<h1>Bienvenue sur Happy Tasks</h1>
+<h1>HappyTasks</h1>
+<div class="privilege-card privilege-card--weekly">
+  <div class="privilege-card__content">
+    <h3 class="privilege-card__title">Privilège quotidien 1</h3>
+    <span class="privilege-card__points">10 points</span>
+  </div>
+</div>
+<div class="privilege-card privilege-card--weekly">
+  <div class="privilege-card__content">
+    <h3 class="privilege-card__title">Privilège hebdomadaire 1</h3>
+    <span class="privilege-card__points">10 points</span>
+  </div>
+  <span class="privilege-card__badge">Bravo !</span>
+</div>
+<div class="privilege-card privilege-card--monthly privilege-card--completed">
+  <div class="privilege-card__content">
+    <h3 class="privilege-card__title">Privilège mensuel 1</h3>
+    <span class="privilege-card__points">10 points</span>
+  </div>
+</div>
+<form class="form">
+  <!-- Champ texte basique -->
+  <div class="form__group">
+    <label class="form__label" for="task-name">Nom de la tâche</label>
+    <input type="text" id="task-name" class="form__input" placeholder="La tâche doit avoir un nom">
+    <span class="form__error">La tâche doit avoir un nom</span>
+  </div>
+  <!-- Description -->
+  <div class="form__group">
+    <label class="form__label" for="task-description">Description</label>
+    <textarea id="task-description" class="form__textarea" placeholder="Description de la tâche"></textarea>
+  </div>
+  <!-- Points -->
+  <div class="form__group">
+    <label class="form__label">Nombre de points</label>
+    <div class="form__points">
+      <button type="button" class="form__points-button">-</button>
+      <input type="number" class="form__points-input" value="0">
+      <button type="button" class="form__points-button">+</button>
+    </div>
+  </div>
+  <!-- Catégorie de temps -->
+  <div class="form__group">
+    <label class="form__label">Catégorie</label>
+    <div class="form__radio-group">
+      <div class="form__radio">
+        <input type="radio" id="daily" name="category" class="form__radio-input">
+        <label for="daily" class="form__radio-label">Quotidienne</label>
+      </div>
+      <div class="form__radio">
+        <input type="radio" id="weekly" name="category" class="form__radio-input">
+        <label for="weekly" class="form__radio-label">Hebdomadaire</label>
+      </div>
+      <div class="form__radio">
+        <input type="radio" id="monthly" name="category" class="form__radio-input">
+        <label for="monthly" class="form__radio-label">Mensuelle</label>
+      </div>
+    </div>
+  </div>
+  <!-- Sélection utilisateurs -->
+  <div class="form__group">
+    <label class="form__label">Assigné à</label>
+    <div class="form__user-select">
+      <div class="form__user-chip">
+        <img src="avatar.jpg" alt="Emilie" class="form__user-chip-avatar">
+        <span class="form__user-chip-name">Emilie</span>
+        <button type="button" class="form__user-chip-remove">×</button>
+      </div>
+    </div>
+  </div>
+</form>

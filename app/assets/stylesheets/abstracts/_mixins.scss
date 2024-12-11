@@ -1,0 +1,251 @@
+// ==========================================================================
+// TYPOGRAPHY MIXINS
+// ==========================================================================
+
+@mixin heading($size: "base") {
+  font-family: map-get($font-families, "heading");
+  font-size: map-get($font-sizes, $size);
+  line-height: map-get($line-heights, "tight");
+  color: map-get(map-get($colors, "dark"), "base");
+}
+
+@mixin body-text($size: "base", $weight: "regular") {
+  font-family: map-get($font-families, "body");
+  font-size: map-get($font-sizes, $size);
+  font-weight: map-get($font-weights, $weight);
+  line-height: map-get($line-heights, "normal");
+  color: map-get(map-get($colors, "dark"), "base");
+}
+
+// ==========================================================================
+// LAYOUT MIXINS
+// ==========================================================================
+
+@mixin container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: map-get(map-get($grid, "container"), "padding");
+  padding-left: map-get(map-get($grid, "container"), "padding");
+  max-width: map-get(map-get($grid, "container"), "max-width");
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flex-start {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+@mixin flex-end {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+@mixin flex-around {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+@mixin flex-evenly {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+// ==========================================================================
+// INTERACTIVE ELEMENTS MIXINS
+// ==========================================================================
+
+@mixin interactive {
+  cursor: pointer;
+  transition-property: all;
+  transition-duration: map-get(map-get($transitions, "duration"), "base");
+  transition-timing-function: map-get(map-get($transitions, "timing"), "base");
+
+  &:focus-visible {
+    outline: map-get($border-width, "base") solid
+      map-get(map-get($colors, "primary"), "base");
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+@mixin button-base {
+  @include interactive;
+  @include flex-center;
+  padding: map-get($spacing, "sm") map-get($spacing, "base");
+  border-radius: map-get($border-radius, "base");
+  border: none;
+  font-weight: map-get($font-weights, "semibold");
+}
+
+@mixin button-primary {
+  @include button-base;
+  background-color: map-get(map-get($colors, "primary"), "base");
+  color: white;
+
+  &:hover:not(:disabled) {
+    background-color: map-get(map-get($colors, "primary"), "dark");
+  }
+
+  &:active:not(:disabled) {
+    background-color: map-get(map-get($colors, "primary"), "darker");
+  }
+}
+
+// ==========================================================================
+// CARD MIXINS
+// ==========================================================================
+
+@mixin card-base {
+  background-color: white;
+  padding: map-get($spacing, "lg");
+  box-shadow: map-get($shadows, "base");
+}
+
+// ==========================================================================
+// FORM MIXINS
+// ==========================================================================
+
+@mixin input-base {
+  width: 100%;
+  padding: map-get($spacing, "sm") map-get($spacing, "base");
+  border: map-get($border-width, "thin") solid
+    map-get(map-get($colors, "light"), "dark");
+  border-radius: map-get($border-radius, "lg");
+  background-color: white;
+  color: map-get(map-get($colors, "dark"), "base");
+  font-family: map-get($font-families, "body");
+  font-size: map-get($font-sizes, "base");
+
+  &::placeholder {
+    color: map-get(map-get($colors, "light"), "dark");
+  }
+
+  &:focus {
+    outline: none;
+    border-color: map-get(map-get($colors, "primary"), "base");
+    box-shadow: 0 0 0 3px
+      rgba(map-get(map-get($colors, "primary"), "base"), 0.1);
+  }
+
+  &:disabled {
+    background-color: map-get(map-get($colors, "light"), "base");
+    cursor: not-allowed;
+  }
+}
+
+// ==========================================================================
+// RESPONSIVE MIXINS
+// ==========================================================================
+
+@mixin responsive($breakpoint) {
+  @media (min-width: map-get($breakpoints, $breakpoint)) {
+    @content;
+  }
+}
+
+// ==========================================================================
+// ANIMATION MIXINS
+// ==========================================================================
+
+@mixin fade-in {
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  animation: fadeIn map-get(map-get($transitions, "duration"), "base") ease-out;
+}
+
+@mixin slide-in($direction: "up", $amount: 20px) {
+  $translate: if(
+    $direction == "up",
+    translateY($amount),
+    if(
+      $direction == "down",
+      translateY(-$amount),
+      if($direction == "left", translateX($amount), translateX(-$amount))
+    )
+  );
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: $translate;
+    }
+    to {
+      opacity: 1;
+      transform: translate(0);
+    }
+  }
+  animation: slideIn map-get(map-get($transitions, "duration"), "slow") ease-out;
+}
+
+// ==========================================================================
+// UTILITY MIXINS
+// ==========================================================================
+
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin scrollbar-hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@mixin aspect-ratio($width, $height) {
+  position: relative;
+  &::before {
+    content: "";
+    display: block;
+    padding-bottom: ($height / $width) * 100%;
+  }
+  > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@mixin media($query) {
+  @if $query == tabletAndUp {
+    @media (min-width: 50rem) {
+      @content;
+    }
+  }
+}

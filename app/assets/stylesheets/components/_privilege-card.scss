@@ -1,0 +1,68 @@
+// ==========================================================================
+// Composant Carte de Privilège
+// ==========================================================================
+
+.privilege-card {
+  @include card-base;
+  @include flex-between;
+  padding: spacing("base");
+  transition: transform map-get(map-get($transitions, "duration"), "base")
+    map-get(map-get($transitions, "timing"), "base");
+  border-radius: radius("xl");
+
+  // État survolé
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  // Conteneur info (titre + points)
+  &__content {
+    @include flex-column;
+    gap: spacing("xs");
+  }
+
+  // Titre du privilège
+  &__title {
+    @include body-text("base", "semibold");
+    color: color("dark", "base");
+  }
+
+  // Points
+  &__points {
+    @include body-text("sm", "regular");
+    color: color("dark", "light");
+  }
+
+  // Badge succès (Bravo)
+  &__badge {
+    @include flex-center;
+    padding: spacing("2xs") spacing("sm");
+    background-color: color("green", "lighter");
+    color: color("green", "dark");
+    border-radius: radius("full");
+    font-size: font-size("xs");
+    font-weight: font-weight("semibold");
+  }
+
+  // Barre verticale de couleur selon la période
+  &--daily {
+    border-left: 4px solid color("blue", "base");
+  }
+
+  &--weekly {
+    border-left: 4px solid color("green", "dark");
+  }
+
+  &--monthly {
+    border-left: 4px solid color("primary", "base");
+  }
+
+  // État completed
+  &--completed {
+    background-color: color("light", "lighter");
+
+    .privilege-card__title {
+      color: color("dark", "light");
+    }
+  }
+}
