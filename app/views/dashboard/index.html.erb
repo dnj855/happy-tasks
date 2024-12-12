@@ -1,39 +1,39 @@
-<div data-controller="mobile-menu">
-  <div class="container">
-    <div class="headers__container">
-      <h1>Famille <%= @family.name %></h1>
-    </div>
+<div class="container">
+  <div class="headers__container">
+    <h1>Famille <%= @family.name %></h1>
   </div>
-  <div class="child-card__wrapper">
-    <% @family.children.each do |child| %>
-      <div class="child-card">
-        <header class="child-card__header">
-          <div class="child-card__header__identity">
-            <div class="child-card__header__avatar">
-              <%= image_tag("super.png", alt: "Photo #{child.first_name}") %>
-            </div>
-            <h1 class="child-card__header__name"><%= child.first_name %></h1>
+</div>
+<div class="child-card__wrapper">
+  <% @family.children.each do |child| %>
+    <div class="child-card">
+      <header class="child-card__header">
+        <div class="child-card__header__identity">
+          <div class="child-card__header__avatar">
+            <%= image_tag("super.png", alt: "Photo #{child.first_name}") %>
           </div>
-          <div class="child-card__header__points-container">
-            <div class="child-card__header__points child-card__header__points--day">
-              <span class="child-card__header__points-value" id="child-<%= child.id %>-day_points"><%= child.day_points %></span>
-            </div>
-            <div class="child-card__header__points child-card__header__points--week">
-              <span class="child-card__header__points-value" id="child-<%= child.id %>-week_points"><%= child.week_points %></span>
-            </div>
-            <div class="child-card__header__points child-card__header__points--month">
-              <span class="child-card__header__points-value" id="child-<%= child.id %>-month_points"><%= child.month_points %></span>
-            </div>
+          <h1 class="child-card__header__name"><%= child.first_name %></h1>
+        </div>
+        <div class="child-card__header__points-container">
+          <div class="child-card__header__points child-card__header__points--day">
+            <span class="child-card__header__points-value" id="child-<%= child.id %>-day_points"><%= child.day_points %></span>
+          </div>
+          <div class="child-card__header__points child-card__header__points--week">
+            <span class="child-card__header__points-value" id="child-<%= child.id %>-week_points"><%= child.week_points %></span>
+          </div>
+          <div class="child-card__header__points child-card__header__points--month">
+            <span class="child-card__header__points-value" id="child-<%= child.id %>-month_points"><%= child.month_points %></span>
+          </div>
+          <div data-controller="mobile-menu" data-mobile-menu-child-id-value="<%= child.id %>"">
             <span data-action="click->mobile-menu#show"><i class="fa-solid fa-ellipsis-vertical child-card__header__menu"></i></span>
-            <%= render partial: "shared/mobile-child-menu", locals: {child:child} %>
+            <%= render partial: "shared/mobile-child-menu", locals: { child: child } %>
           </div>
-        </header>
-        <section class="child-card__body">
-          <% child.tasks.each do |task| %>
-            <%= render task %>
-          <% end %>
-        </section>
-      </div>
-    <% end %>
-  </div>
+        </div>
+      </header>
+      <section class="child-card__body">
+        <% child.tasks.each do |task| %>
+          <%= render task %>
+        <% end %>
+      </section>
+    </div>
+  <% end %>
 </div>
