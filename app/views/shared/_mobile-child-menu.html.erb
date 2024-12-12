@@ -1,29 +1,28 @@
- 
-<div class="mobile-menu__overlay" data-mobile-menu-target="overlay">
-  <div class="mobile-menu__content" data-mobile-menu-target="content">
+<div class="mobile-menu__overlay" data-mobile-menu-target="overlay" data-child-id="<%= child.id %>" data-action="click->mobile-menu#hide">
+  <div class="mobile-menu__content" data-mobile-menu-target="content" data-action="click->mobile-menu#stopPropagation">
     <div class="mobile-menu__header">
-      Emilie
+      <%= child.first_name %>
     </div>
     <div class="mobile-menu__actions">
-      <button class="mobile-menu__action">
-        <i class="fas fa-plus"></i>
+      <%= link_to new_task_path(child_id: child.id), class: "mobile-menu__action" do %>
+        <i class="fas fa-check"></i>
         Ajouter une tâche
-      </button>
+      <% end %>
       <button class="mobile-menu__action">
         <i class="fas fa-trash"></i>
         Supprimer une tâche
       </button>
-      <button class="mobile-menu__action">
-        <i class="fas fa-plus"></i>
+      <%= link_to new_award_path(child_id: child.id), class: "mobile-menu__action" do %>
+        <i class="fas fa-smile"></i>
         Ajouter un privilège
-      </button>
-      <button class="mobile-menu__action">
-        <i class="fas fa-trophy"></i>
-        Malle aux trésors
-      </button>
+      <% end %>
+      <%= link_to awards_path, class: "mobile-menu__action" do %>
+        <i class="fas fa-gem"></i>
+        Coffre aux trésors
+      <% end %>
     </div>
     <div class="mobile-menu__footer">
-      <button class="mobile-menu__back-button">
+      <button class="mobile-menu__back-button" data-action="click->mobile-menu#hide">
         Revenir à ma famille
       </button>
     </div>
