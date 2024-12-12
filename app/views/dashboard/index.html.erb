@@ -75,15 +75,15 @@
           </div>
           <div class="tasks">
             <% child.tasks.each do |task| %>
-              <div class="task">
+              <div class="task <%= 'child-card__body__award--disabled' if task.validated %>" data-controller="task-done" data-task-id="<%= task.id %>">id = <%= task.id %> valeur = <%= task.value %>
                 <div class="task-location">
                   <i class="fa fa-map-marker-alt"></i>
                 </div>
                 <div class="task-name">
                   <%= task.name %>
                 </div>
-                <div class="task-switch">
-                  <input type="checkbox" <%= 'checked' if task.done %> class="task-toggle">
+                <div class="task-switch" data-task-done-target="taskDone" data-action="change->task-done#updateTask">
+                  <input type="checkbox" <%= 'checked' if task.done %> <%= 'checked disabled' if task.validated %> class="task-toggle">
                 </div>
               </div>
             <% end %>
@@ -111,5 +111,4 @@
     <% end %>
   </div>
   <%= render "shared/mobile-menu" %>
-</div>
 </div>
