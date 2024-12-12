@@ -22,14 +22,15 @@ class AwardsController < ApplicationController
 
   def create
     @award = Award.new(award_params)
+    @award.value = award_params['value'].to_i
 
     authorize @award
 
     if @award.save
-      redirect_to family_dashboard_path, notice: 'Le privilège a bien été créé.'
+      redirect_to awards_path, notice: 'Le privilège a bien été créé.'
     else
       @children = current_user.family.children
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -51,7 +52,7 @@ class AwardsController < ApplicationController
           format.turbo_stream
         end
       else
-        render status: :unprocessable_entity
+        render :edit, status: :unprocessable_entity
       end
     end
   end
@@ -67,7 +68,7 @@ class AwardsController < ApplicationController
   end
 
   def award_params
-    params.require(:award).permit(:name, :value, :child_id, :given)
+    params.require(:award).permit(:name, :value, :child_id, :given, :periodicity)
   end
 
 end
