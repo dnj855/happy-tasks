@@ -1,2 +1,29 @@
-<h1>Tasks#edit</h1>
-<p>Find me in app/views/tasks/edit.html.erb</p>
+<div class="headers__container container">
+  <%= link_to family_dashboard_path do %>
+    <span class="headers__back-arrow"><i class="fa-solid fa-chevron-left"></i></span>
+  <% end %>
+  <h1>Modifier la tâche</h1>
+</div>
+
+<div class="container">
+  <%= form_with model: @task, local: true do |form| %>
+    <div class="form__group">
+      <%= form.label :name, "Nom de la tâche" %>
+      <%= form.text_field :name, class: "form__input", value: @task.name %>
+    </div>
+
+    <div class="form__group">
+      <%= form.label :task_type_id, "Catégorie de la tâche" %>
+      <%= form.collection_select :task_type_id, TaskType.all, :id, :name, { prompt: "Sélectionner une catégorie" }, class: "form-control" %>
+    </div>
+
+    <div class="form__group">
+      <%= form.label :value, "Valeur de la tâche" %>
+      <%= form.number_field :value, class: "form__input", value: @task.value %>
+    </div>
+
+    <div class="form__end">
+      <%= form.submit "Mettre à jour la tâche", class: "form__button" %>
+    </div>
+  <% end %>
+</div>

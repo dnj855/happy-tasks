@@ -4,12 +4,12 @@
     <span>Ma famille</span>
   <% end %>
 
-  <%= link_to new_task_path(child_id: current_user.family.children.first.id), class: "tab-bar-item #{'active' if request.path.start_with?(tasks_path)}" do %>
+  <% link_to new_task_path(child_id: current_user.family.children.first.id), class: "tab-bar-item #{'active' if request.path.start_with?(tasks_path)}" do %>
     <i class="fa fa-check"></i>
     <span>Tâches</span>
   <% end %>
 
-  <%= link_to new_award_path(child_id: current_user.family.children.first.id), class: "tab-bar-item #{'active' if request.path.start_with?(awards_path)}" do %>
+  <% link_to new_award_path(child_id: current_user.family.children.first.id), class: "tab-bar-item #{'active' if request.path.start_with?(awards_path)}" do %>
     <i class="fa fa-smile"></i>
     <span>Privilèges</span>
   <% end %>
