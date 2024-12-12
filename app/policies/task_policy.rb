@@ -1,7 +1,7 @@
 class TaskPolicy < ApplicationPolicy
 
   def update?
-    !user.child? && user.family == record.child.family
+    not_a_child?
   end
 
   def create?
@@ -10,6 +10,10 @@ class TaskPolicy < ApplicationPolicy
 
   def destroy?
     update?
+  end
+
+  def validate?
+    not_a_child?
   end
   # NOTE: Up to Pundit v2.3.1, the inheritance was declared as
   # `Scope < Scope` rather than `Scope < ApplicationPolicy::Scope`.
@@ -23,4 +27,10 @@ class TaskPolicy < ApplicationPolicy
     #   scope.all
     # end
   end
+
+  private
+  def not_a_child?
+    !user.child? && user.family == record.child.family
+  end
+
 end

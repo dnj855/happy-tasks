@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_task, only: %i[edit update destroy validate]
   before_action :set_children, only: %i[new create]
 
@@ -44,14 +45,38 @@ class TasksController < ApplicationController
   end
 
   def validate
+    authorize @task
     @task.update(validated: true)
+    #puts " VVVVVVVVVVVVVVVVV"
+    #puts @task.reload.validated
     child = @task.child
-    points = (@task.value / 3).round
-    @task.child.update(
+    # j'ai forcé 3 en float sinon on arrondit pas au supérieur
+    points = (@task.value / 3.0).round
+    child.update(
       day_points: child.day_points + points,
       week_points: child.week_points + points,
       month_points: child.month_points + points
     )
+
+    respond_to do |format|
+      format.turbo_stream do
+        # puts "Est ce que turbo stream rendu pour la tâche #{@task.id} ou pas non didiou"
+        render turbo_stream: turbo_stream.replace(
+          @task,
+          partial: "tasks/task",
+          locals: { task: @task }
+        )
+      end
+      format.json do
+        render json: {
+          points: {
+            day_points: child.day_points,
+            week_points: child.week_points,
+            month_points: child.month_points
+          }
+        }
+      end
+    end
   end
 
   private
