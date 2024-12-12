@@ -1,4 +1,4 @@
- <%= form_with model: @award, class: "form" do |f| %>
+<%= form_with model: @award, class: "form" do |f| %>
   <!-- Nom du privilège -->
   <div class="form__group">
     <%= f.label :name, "Nom", class: "form__label" %>
@@ -16,7 +16,7 @@
   <div class="form__points" data-controller="points">
     <%= f.label :value, "Nombre de points", class: "form__label" %>
     <button type="button" class="form__points-button" id="decrease-points" data-action="points#decrement">-</button>
-    <%= f.number_field :value, class: "form__points-input", value: 0, step: 1, min: 0, data: { "points-target": "input" } %>
+    <%= f.number_field :value, class: "form__points-input", value: 0, step: 1, min: 0, data: { "points-target": "input" }, pattern: "[0-9]*", inputmode:"numeric" %>
     <button type="button" class="form__points-button" id="increase-points" data-action="points#increment">+</button>
   </div>
   <!-- Périodicité -->
