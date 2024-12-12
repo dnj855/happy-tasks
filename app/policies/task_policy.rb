@@ -1,4 +1,17 @@
 class TaskPolicy < ApplicationPolicy
+  class Scope < Scope
+    def resolve
+      scope.where(child_id: user.family.children.pluck(:id))
+    end
+  end
+
+  def index?
+    user.family == record.first&.child&.family
+  end
+
+  def destroy?
+    user.family == record.child.family
+  end
 
   def update?
     not_a_child?
