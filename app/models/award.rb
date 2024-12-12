@@ -16,4 +16,8 @@ def points_method_for_periodicity
   end
 end
 
+def given?
+  given == true
+end
+
 end
