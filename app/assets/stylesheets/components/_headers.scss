@@ -1,0 +1,12 @@
+.headers {
+  &__container {
+    @include flex-between;
+  }
+
+  &__back-arrow {
+    @include button-primary;
+    box-shadow: shadow("lg");
+    padding: spacing("xs") spacing("sm");
+    border-radius: radius("lg");
+  }
+}
