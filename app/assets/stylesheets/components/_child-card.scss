@@ -15,6 +15,10 @@
       gap: spacing("base");
     }
 
+    &__menu {
+      margin: 0 spacing("xs");
+    }
+
     // Style de l'avatar
     &__avatar {
       width: spacing("3xl");
