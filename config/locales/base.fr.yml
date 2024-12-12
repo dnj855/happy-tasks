@@ -114,9 +114,9 @@ fr:
     format: "%{attribute} %{message}"
     messages:
       accepted: doit être accepté(e)
-      blank: doit être rempli(e)
+      blank: Champ obligatoire
       confirmation: ne concorde pas avec %{attribute}
-      empty: doit être rempli(e)
+      empty: Champ obligatoire
       equal_to: doit être égal à %{count}
       even: doit être pair
       exclusion: n'est pas disponible
