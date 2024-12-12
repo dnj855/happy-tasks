@@ -3,15 +3,15 @@ class Award < ApplicationRecord
 
   validates :name, presence: true
   validates :value, presence: true, numericality: { only_numeric: true, greater_than: 0 }
-  validates_inclusion_of :periodicity, :in => %w( quotidien hebdomadaire mensuel )
+  validates_inclusion_of :periodicity, :in => %w( Quotidien Hebdomadaire Mensuel )
 
 def points_method_for_periodicity
   case periodicity
-  when 'quotidien'
+  when 'Quotidien'
     'day_points'
-  when 'hebdomadaire'
+  when 'Hebdomadaire'
     'week_points'
-  when 'mensuel'
+  when 'Mensuel'
     'month_points'
   end
 end
