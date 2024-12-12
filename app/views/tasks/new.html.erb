@@ -1,9 +1,9 @@
-<div class="text-center my-4">
+<div class="headers__container container">
   <%= link_to family_dashboard_path do %>
-    <span class="back-arrow"><</span>
-      <% end %>
-      <h1>Ajouter une tâche</h1>
-    </div>
-    <div class="container">
-      <%= render "form" %>
-    </div>
+    <span class="headers__back-arrow"><i class="fa-solid fa-chevron-left"></i></span>
+  <% end %>
+  <h1>Nouvelle tâche</h1>
+</div>
+<div class="container">
+  <%= render "form" %>
+</div>

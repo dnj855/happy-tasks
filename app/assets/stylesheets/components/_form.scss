@@ -3,7 +3,8 @@
 // ==========================================================================
 
 .form {
-  @include flex-column; gap: spacing("base");
+  @include flex-column;
+  gap: spacing("base");
   &__group {
     @include flex-column;
     margin-bottom: spacing("base");
@@ -66,6 +67,7 @@
 
   &__end {
     @include flex-center;
+    margin-top: spacing("2xl");
   }
 
   &__button {
