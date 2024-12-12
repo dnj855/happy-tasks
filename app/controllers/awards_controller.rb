@@ -35,6 +35,9 @@ class AwardsController < ApplicationController
   end
 
   def edit
+    @award = Award.find(params[:id])
+    @children = current_user.family.children
+    @child = @award.child
     authorize @award
   end
 
@@ -43,11 +46,11 @@ class AwardsController < ApplicationController
     points_method = @award.points_method_for_periodicity
 
     authorize @award
-    
+
     ActiveRecord::Base.transaction do
       if @award.update(award_params)
         @child.update!(points_method => @child.send(points_method) - @award.value)
-        
+
         respond_to do |format|
           format.turbo_stream
         end
