@@ -28,5 +28,4 @@ Rails.application.routes.draw do
   get 'dashboard', to: 'dashboard#index', as: :family_dashboard
   get 'dashboard/children', to: 'children#new', as: :new_child
   post 'dashboard/children', to: 'children#create', as: :create_child
-
 end
