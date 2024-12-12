@@ -1,0 +1,30 @@
+<div class="mobile-menu__overlay" data-mobile-menu-target="overlay" data-child-id="<%= child.id %>" data-action="click->mobile-menu#hide">
+  <div class="mobile-menu__content" data-mobile-menu-target="content" data-action="click->mobile-menu#stopPropagation">
+    <div class="mobile-menu__header">
+      <%= child.first_name %>
+    </div>
+    <div class="mobile-menu__actions">
+      <%= link_to new_task_path(child_id: child.id), class: "mobile-menu__action" do %>
+        <i class="fas fa-check"></i>
+        Ajouter une tâche
+      <% end %>
+      <button class="mobile-menu__action">
+        <i class="fas fa-trash"></i>
+        Supprimer une tâche
+      </button>
+      <%= link_to new_award_path(child_id: child.id), class: "mobile-menu__action" do %>
+        <i class="fas fa-smile"></i>
+        Ajouter un privilège
+      <% end %>
+      <%= link_to awards_path, class: "mobile-menu__action" do %>
+        <i class="fas fa-gem"></i>
+        Coffre aux trésors
+      <% end %>
+    </div>
+    <div class="mobile-menu__footer">
+      <button class="mobile-menu__back-button" data-action="click->mobile-menu#hide">
+        Revenir à ma famille
+      </button>
+    </div>
+  </div>
+</div>

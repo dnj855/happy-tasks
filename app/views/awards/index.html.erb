@@ -1,5 +1,10 @@
 <div class="container">
-  <h1>Coffre à trésor</h1>
+  <div class="headers__container">
+    <%= link_to family_dashboard_path do %>
+      <span class="headers__back-arrow"><i class="fa-solid fa-chevron-left"></i></span>
+    <% end %>
+    <h1>Coffre à trésor</h1>
+  </div>
 </div>
 <div class="child-card__wrapper">
   <% @children.each do |child| %>

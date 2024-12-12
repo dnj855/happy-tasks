@@ -33,7 +33,7 @@ class TasksController < ApplicationController
   def update
     authorize @task
     @task.update(task_params)
-    redirect_to tasks_path, notice: 'Tâche modifiée'
+    redirect_to family_dashboard_path, notice: 'Tâche modifiée'
   end
 
   def destroy
