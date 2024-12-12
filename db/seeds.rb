@@ -8,14 +8,14 @@ require 'net/http'
 URL_PATH = '@happy-tasks.click'
 # Super users
 BASE_USERS = [
-  { first_name: "Guillaume", last_name: "Fournier", email: "gf#{URL_PATH}", child: false, password: "happyT"},
-  { first_name: "Hélène", last_name: "Demanet", email: "hd#{URL_PATH}", child: false, password: "happyT"},
-  { first_name: "Emilie", last_name: "Vennat-Louveau", email: "evl#{URL_PATH}", child: false, password: "happyT"},
-  { first_name: "Cédric", last_name: "Lang-Roth", email: "clr#{URL_PATH}", child: false, password: "happyT"},
-  { first_name: "Madame", last_name: "Fournier", email: "mf#{URL_PATH}", child: false, password: "happyT"},
-  { first_name: "Monsieur", last_name: "Demanet", email: "md#{URL_PATH}", child: false, password: "happyT"},
-  { first_name: "Monsieur", last_name: "Vennat-Louveau", email: "mvl#{URL_PATH}", child: false, password: "happyT"},
-  { first_name: "Madame", last_name: "Lang-Roth", email: "mlr#{URL_PATH}", child: false, password: "happyT"},
+  [{ first_name: "Guillaume", last_name: "Fournier", email: "gf#{URL_PATH}", child: false, password: "happyT"},
+    { first_name: "Nelly", last_name: "Fournier", email: "nf#{URL_PATH}", child: false, password: "happyT"}],
+  [{ first_name: "Hélène", last_name: "Demanet", email: "hd#{URL_PATH}", child: false, password: "happyT"},
+    { first_name: "Pierre-Luc", last_name: "Demanet", email: "pld#{URL_PATH}", child: false, password: "happyT"}],
+  [{ first_name: "Emilie", last_name: "Vennat-Louveau", email: "evl#{URL_PATH}", child: false, password: "happyT"},
+    { first_name: "Xavier", last_name: "Vennat-Louveau", email: "xmvl#{URL_PATH}", child: false, password: "happyT"}],
+  [{ first_name: "Cédric", last_name: "Lang-Roth", email: "clr#{URL_PATH}", child: false, password: "happyT"},
+    { first_name: "Vanessa", last_name: "Lang-Roth", email: "vlr#{URL_PATH}", child: false, password: "happyT"}]
 ]
 # Types de tâches
 TASK_TYPES = [
@@ -208,16 +208,21 @@ def create_the_rest(family)
     4.times do
       task_type = TASK_TYPES.sample
       name = TASK_LIST[task_type.to_sym].sample
-      Task.create!(child_id: child.id, task_type_id: TaskType.find_by(name: task_type).id, name: name, description: TASK_DESCRIPTIONS[name], value: (MIN_POINTS_TASK..MAX_POINTS_TASK).to_a.sample)
+      if rand(0..3) == 0
+        Task.create!(validated: true, child_id: child.id, task_type_id: TaskType.find_by(name: task_type).id, name: name, description: TASK_DESCRIPTIONS[name], value: (MIN_POINTS_TASK..MAX_POINTS_TASK).to_a.sample)
+      else
+        Task.create!(child_id: child.id, task_type_id: TaskType.find_by(name: task_type).id, name: name, description: TASK_DESCRIPTIONS[name], value: (MIN_POINTS_TASK..MAX_POINTS_TASK).to_a.sample)
+      end
     end
   end
 end
 
 
 puts "---Creating base users"
-BASE_USERS.take(4).each do |base_user|
-  family = Family.create!(name: base_user[:last_name])
-  User.create!(family_id: family.id, first_name: base_user[:first_name], last_name: base_user[:last_name], email: base_user[:email], child: base_user[:child], password: base_user[:password])
+BASE_USERS.each do |base_user|
+  family = Family.create!(name: base_user[0][:last_name])
+  User.create!(family_id: family.id, first_name: base_user[0][:first_name], last_name: base_user[0][:last_name], email: base_user[0][:email], child: base_user[0][:child], password: base_user[0][:password])
+  User.create!(family_id: family.id, first_name: base_user[1][:first_name], last_name: base_user[1][:last_name], email: base_user[1][:email], child: base_user[1][:child], password: base_user[1][:password])
   create_the_rest(family)
 end
 puts "---Base users CREATED"
