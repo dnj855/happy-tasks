@@ -1,0 +1,47 @@
+<%= form_with model: @task, class:"form" do |f| %>
+  <!-- Nom de la tâche -->
+  <div class="form__group">
+    <%= f.label :name, "Nom", class: "form__label" %>
+    <%= f.text_field :name, class: "form__input #{@task.errors[:name].any? ? "form__input--error" : ""}", placeholder: "Nom de la tâche" %>
+    <% if @task.errors.include?(:name) %>
+      <p class="form__error text-sm text-color-error"><%= @task.errors[:name].first %></p>
+    <% end %>
+  </div>
+  <!-- Description -->
+  <div class="form__group">
+    <%= f.label :description, "Description", class: "form__label" %>
+    <%= f.text_area :description, class: "form__textarea", rows: 4, placeholder: "Description de la tâche" %>
+  </div>
+  <!-- Nombre de points -->
+  <div class="form__points" data-controller="points">
+    <%= f.label :value, "Nombre de points", class: "form__label" %>
+    <button type="button" class="form__points-button" id="decrease-points" data-action="points#decrement">-</button>
+    <%= f.number_field :value, class: "form__points-input", value: 0, step: 1, min: 0, readonly: true, data: { "points-target": "input" } %>
+    <button type="button" class="form__points-button" id="increase-points" data-action="points#increment">+</button>
+  </div>
+  <!-- Catégorie -->
+  <div class="form__group">
+    <%= f.label :task_type_id, "Catégorie", class: "form__label" %>
+    <%= f.collection_select :task_type_id, TaskType.all, :id, :name,
+            { prompt: "Choisissez une catégorie" }, class: "form__input #{@task.errors[:task_type].any? ? "form__input--error" : ""}" %>
+    <% if @task.errors.include?(:task_type) %>
+      <p class="form__error"><%= @task.errors[:task_type].first %></p>
+    <% end %>
+  </div>
+  <!-- Choix de l'enfant -->
+  <div class="form__radio-group">
+    <% @children.each do |child| %>
+      <span data-controller="child-selector">
+        <%= f.radio_button :child_id, child.id, id: "child_#{child.id}", class: "form__radio-input", data: { "child-selector-target": "radio" }, checked: child.id == @child.id %>
+        <%= f.label "child_#{child.id}", child.first_name, class: "form__radio-label", data: { action: "click->child-selector#select", "child-selector-target": "label" } %>
+      </span>
+    <% end %>
+    <% if @task.errors.include?(:child) %>
+      <p class="form__error"><%= @task.errors[:child].first %></p>
+    <% end %>
+  </div>
+  <!-- Bouton de soumission -->
+  <div class="form__end">
+    <%= f.submit "Ajouter la tâche", class: "form__button" %>
+  </div>
+<% end %>

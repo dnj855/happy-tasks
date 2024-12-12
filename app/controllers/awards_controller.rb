@@ -11,12 +11,13 @@ class AwardsController < ApplicationController
   def new
     @award = Award.new
     @children = current_user.family.children
+    @child = Child.find(params[:child_id])
 
     authorize @award
 
-    if params[:child_id]
-      @award.child_id = current_user.family.children.find_by(id: params[:child_id])
-    end
+    # if params[:child_id]
+    #   @award.child_id = current_user.family.children.find_by(id: params[:child_id])
+    # end
   end
 
   def create
