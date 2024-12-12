@@ -1,4 +1,4 @@
-class AwardPolicy < ApplicationPolicy
+class TaskPolicy < ApplicationPolicy
 
   def update?
     !user.child? && user.family == record.child.family
@@ -18,8 +18,6 @@ class AwardPolicy < ApplicationPolicy
   # https://gist.github.com/Burgestrand/4b4bc22f31c8a95c425fc0e30d7ef1f5
 
   class Scope < ApplicationPolicy::Scope
-    def resolve
-    end
     # NOTE: Be explicit about which records you allow access to!
     # def resolve
     #   scope.all

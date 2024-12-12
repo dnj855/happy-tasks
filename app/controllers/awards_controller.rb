@@ -4,13 +4,15 @@ class AwardsController < ApplicationController
   before_action :set_award, only: [:edit, :update, :destroy]
 
 
-    def index
-    @children = policy_scope(Child)
+  def index
+  @children = policy_scope(Child)
   end
-  
+
   def new
     @award = Award.new
     @children = current_user.family.children
+
+    authorize @award
 
     if params[:child_id]
       @award.child_id = current_user.family.children.find_by(id: params[:child_id])
@@ -19,6 +21,8 @@ class AwardsController < ApplicationController
 
   def create
     @award = Award.new(award_params)
+
+    authorize @award
 
     if @award.save
       redirect_to family_dashboard_path, notice: 'Le privilège a bien été créé.'
@@ -29,6 +33,7 @@ class AwardsController < ApplicationController
   end
 
   def edit
+    authorize @award
   end
 
   def update
@@ -51,6 +56,7 @@ class AwardsController < ApplicationController
   end
 
   def destroy
+    authorize @award
   end
 
   private
