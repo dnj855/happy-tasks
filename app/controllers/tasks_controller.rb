@@ -8,10 +8,14 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
+
+    authorize @task
   end
 
   def create
     @task = Task.new(task_params)
+
+    authorize @task
 
     if @task.save
       redirect_to family_dashboard_path
@@ -21,14 +25,17 @@ class TasksController < ApplicationController
   end
 
   def edit
+    authorize @task
   end
 
   def update
+    authorize @task
     @task.update(task_params)
     redirect_to tasks_path
   end
 
   def destroy
+    authorize @task
     @task.destroy
     redirect_to tasks_path, notice: 'Tâche supprimée'
   end
