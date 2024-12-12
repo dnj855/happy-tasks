@@ -10,7 +10,7 @@ class ChildrenController < ApplicationController
     authorize @child
 
     if @child.save
-      redirect_to family_dashboard_path(@child.family), notice: 'Votre enfant a été enregistré .'
+      redirect_to family_dashboard_path(@child.family), notice: 'Votre enfant a été enregistré.'
     else
       render :new, status: :unprocessable_entity
     end

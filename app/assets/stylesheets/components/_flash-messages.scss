@@ -1,0 +1,44 @@
+.flash {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: map-get($spacing, "sm") map-get($spacing, "base");
+  border-radius: map-get($border-radius, "base");
+  font-family: map-get($font-families, "body");
+  font-size: map-get($font-sizes, "xl");
+  box-shadow: map-get($shadows, "sm");
+  margin-bottom: map-get($spacing, "sm");
+  position: relative;
+  margin-top: 20px;
+}
+
+.flash-notice {
+  background-color: map-get(map-get($colors, "green"), "lighter");
+  color: map-get(map-get($colors, "green"), "darker");
+}
+
+.flash-alert {
+  background-color: map-get(map-get($colors, "red"), "lighter");
+  color: map-get(map-get($colors, "red"), "darker");
+}
+
+.flash-close {
+  margin-left: auto;
+  background: none;
+  border: none;
+  font-size: map-get($font-sizes, "xl");
+  color: inherit;
+  cursor: pointer;
+}
+
+@include responsive("sm") {
+  .flash {
+    padding: map-get($spacing, "sm") map-get($spacing, "lg");
+  }
+}
+
+@include responsive("md") {
+  .flash {
+    padding: map-get($spacing, "base") map-get($spacing, "lg");
+  }
+}

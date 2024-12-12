@@ -20,7 +20,7 @@ class TasksController < ApplicationController
     authorize @task
 
     if @task.save
-      redirect_to family_dashboard_path
+      redirect_to family_dashboard_path, notice: 'Tâche créée'
     else
       render :new, status: :unprocessable_entity
     end
@@ -33,7 +33,7 @@ class TasksController < ApplicationController
   def update
     authorize @task
     @task.update(task_params)
-    redirect_to tasks_path
+    redirect_to tasks_path, notice: 'Tâche modifiée'
   end
 
   def destroy

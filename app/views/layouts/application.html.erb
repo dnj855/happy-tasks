@@ -18,6 +18,20 @@
     <%# <%= render "shared/navbar" %>
 
     <%# <%= render "shared/flashes" %>
+    <% if notice %>
+      <div class="flash flash-notice">
+        <%= notice %>
+        <button class="flash-close" onclick="this.parentElement.style.display='none';">&times;</button>
+      </div>
+    <% end %>
+
+    <% if alert %>
+      <div class="flash flash-alert">
+        <%= alert %>
+        <button class="flash-close" onclick="this.parentElement.style.display='none';">&times;</button>
+      </div>
+    <% end %>
+
     <%= yield %>
 
     <%= render "shared/nav-bar" %>
