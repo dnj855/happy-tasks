@@ -2,9 +2,7 @@ import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
   static targets = ["overlay", "content"];
-  connect() {
-    console.log("Controller connecté.");
-  }
+  connect() {}
 
   show(e) {
     e.preventDefault();
