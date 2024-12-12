@@ -27,7 +27,7 @@ class AwardsController < ApplicationController
     authorize @award
 
     if @award.save
-      redirect_to awards_path, notice: 'Le privilège a bien été créé.'
+      redirect_to awards_path, notice: 'Privilège créé'
     else
       @children = current_user.family.children
       render :new, status: :unprocessable_entity
@@ -43,11 +43,11 @@ class AwardsController < ApplicationController
     points_method = @award.points_method_for_periodicity
 
     authorize @award
-    
+
     ActiveRecord::Base.transaction do
       if @award.update(award_params)
         @child.update!(points_method => @child.send(points_method) - @award.value)
-        
+
         respond_to do |format|
           format.turbo_stream
         end
