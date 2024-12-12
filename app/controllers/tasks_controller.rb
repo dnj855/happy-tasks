@@ -8,6 +8,7 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
+    @child = Child.find(params[:child_id])
 
     authorize @task
   end
