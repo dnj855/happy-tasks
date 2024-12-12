@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-  resources :families, only: [:create] do
+  resources :families, only: [:new, :create] do
     member do
       get 'dashboard', to: 'dashboard#view', as: :child_dashboard
     end
