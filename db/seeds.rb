@@ -123,14 +123,15 @@ BASE_USERS.take(4).each do |base_user|
 end
 puts "---Base users CREATED"
 
-puts "---Creating 50 other families"
 
-50.times do
-  family = Family.create!(name: Faker::Name.last_name)
-  first_name1 = Faker::Name.first_name
-  first_name2 = Faker::Name.first_name
-  user1 = User.create!(family_id: family.id, first_name: first_name1, last_name: family.name, email: Faker::Internet.email(name: first_name1), child: false, password: 'happyT')
-  user2 = User.create!(family_id: family.id, first_name: first_name2, last_name: family.name, email: Faker::Internet.email(name: first_name2), child: false, password: 'happyT')
-  create_the_rest(family)
-end
-puts "---50 Families CREATED"
+#puts "---Creating 50 other families"
+
+#50.times do
+#  family = Family.create!(name: Faker::Name.last_name)
+ # first_name1 = Faker::Name.first_name
+  #first_name2 = Faker::Name.first_name
+  #user1 = User.create!(family_id: family.id, first_name: first_name1, last_name: family.name, email: Faker::Internet.email(name: first_name1), child: false, password: 'happyT')
+  #user2 = User.create!(family_id: family.id, first_name: first_name2, last_name: family.name, email: Faker::Internet.email(name: first_name2), child: false, password: 'happyT')
+  #create_the_rest(family)
+#end
+#puts "---50 Families CREATED"
