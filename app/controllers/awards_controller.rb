@@ -35,6 +35,9 @@ class AwardsController < ApplicationController
   end
 
   def edit
+    @award = Award.find(params[:id])
+    @children = current_user.family.children
+    @child = @award.child
     authorize @award
   end
 
