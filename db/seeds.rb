@@ -208,7 +208,7 @@ def create_the_rest(family)
     4.times do
       task_type = TASK_TYPES.sample
       name = TASK_LIST[task_type.to_sym].sample
-      Task.create!(child_id: child.id, task_type_id: TaskType.find_by(name: task_type).id, name: name, description: TASK_DESCRIPTIONS[name.to_sym], value: (MIN_POINTS_TASK..MAX_POINTS_TASK).to_a.sample)
+      Task.create!(child_id: child.id, task_type_id: TaskType.find_by(name: task_type).id, name: name, description: TASK_DESCRIPTIONS[name], value: (MIN_POINTS_TASK..MAX_POINTS_TASK).to_a.sample)
     end
   end
 end
