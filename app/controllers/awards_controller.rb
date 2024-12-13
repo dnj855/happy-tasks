@@ -23,7 +23,7 @@ class AwardsController < ApplicationController
   def create
     @award = Award.new(award_params)
     @award.value = award_params['value'].to_i
-
+    @child = Child.find(award_params[:child_id])
     authorize @award
 
     if @award.save
