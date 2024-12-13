@@ -17,6 +17,5 @@ class Child < ApplicationRecord
     avatar_path = Dir.glob(Rails.root.join("app/assets/images/default_avatars/*")).sample
     file = File.open(avatar_path)
     self.avatar.attach(io: file, filename: 'avatar.png', content_type: "image/png")
-    file.close
   end
 end
