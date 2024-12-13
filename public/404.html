@@ -7,8 +7,85 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <link rel="manifest" href="/assets/manifest.json">
-  <link rel="stylesheet" href="/assets/application.css">
   <link rel="icon" href="/assets/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <style>
+    body {
+      font-family: 'Nunito Sans', sans-serif;
+      background-image: url('/assets/images/frise.png');
+      background-size: auto;
+      background-position: bottom center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color: #404446;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      height: 100vh;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    .container {
+      background-color: rgba(255, 255, 255, 0.85);
+      padding: 2rem 3rem;
+      width: 100%;
+      margin-top: 40px;
+    }
+
+    h1 {
+      font-family: "Sour Gummy", cursive;
+      font-size: 2rem;
+      line-height: 1.25;
+      color: #146a8a;
+      margin-bottom: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    p {
+      font-family: "Nunito Sans", sans-serif;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #404446;
+      margin-bottom: 1rem;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .headers__container-error {
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      background-color: rgba(20, 106, 138, 0.7);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      text-decoration: none;
+    }
+
+    .headers__container-error:hover {
+      background-color: rgba(14, 78, 107, 0.7);
+    }
+
+    .headers__back-arrow {
+      font-size: 1.5rem;
+      margin-right: 0;
+      color: white;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
@@ -16,7 +93,9 @@
     <p class="text-center">La page a filé aussi vite qu'une tâche oubliée ! Pas de souci, on peut la retrouver.</p>
     <p class="text-center">Retour à l'accueil, et c'est reparti ! Plus de points à gagner !</p>
     <div class="headers__container-error">
-      <a href="/dashboard" class="headers__back-arrow flex-center"><i class="fa-solid fa-chevron-left"></i></a>
+      <a href="/dashboard" class="headers__back-arrow flex-center">
+        <i class="fas fa-chevron-left"></i>
+      </a>
     </div>
   </div>
 </body>
