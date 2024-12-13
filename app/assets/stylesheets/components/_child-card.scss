@@ -52,17 +52,20 @@
       min-width: spacing("3xl");
       min-height: spacing("3xl");
 
-      &--day {
+      &--day,
+      &--day_points {
         background-color: color("primary", "lighter");
         color: color("primary", "darker");
       }
 
-      &--week {
+      &--week,
+      &--week_points {
         background-color: color("yellow", "base");
         color: color("yellow", "darker");
       }
 
-      &--month {
+      &--month,
+      &--month_points {
         background-color: color("blue", "lighter");
         color: color("blue", "darker");
       }

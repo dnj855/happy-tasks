@@ -50,7 +50,7 @@ class AwardsController < ApplicationController
     ActiveRecord::Base.transaction do
       if @award.update(award_params)
         @child.update!(points_method => @child.send(points_method) - @award.value)
-
+        @periodicity = points_method.match(/^(day|month|week)_points$/)
         respond_to do |format|
           format.turbo_stream
         end
