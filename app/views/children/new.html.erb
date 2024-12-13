@@ -5,14 +5,14 @@
       <%= f.label :first_name, "Prénom de l'enfant", class: "form__label" %>
       <%= f.text_field :first_name, class: "form__input #{@child.errors[:first_name].any? ? "form__input--error" : ""}", placeholder: "Prénom de l'enfant" %>
       <% if @child.errors.include?(:first_name) %>
-        <p class="form__error text-sm text-color-error"><%= @child.errors[:first_name].first %></p>
+        <p class="form__error"><%= @child.errors[:first_name].first %></p>
       <% end %>
     </div>
     <div class="form__group">
       <%= f.label :age, "Âge de l'enfant", class: "form__label" %>
       <%= f.number_field :age, class: "form__input#{@child.errors[:age].any? ? " form__input--error" : ""}", placeholder: "Âge de l'enfant", min: 3 %>
       <% if @child.errors.include?(:age) %>
-        <p class="form__error text-sm text-color-error"><%= @child.errors[:age].first %></p>
+        <p class="form__error"><%= @child.errors[:age].first %></p>
       <% end %>
     </div>
     <div class="form__end">

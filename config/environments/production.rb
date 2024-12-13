@@ -90,7 +90,6 @@ Rails.application.configure do
 
   config.action_controller.raise_on_missing_callback_actions = false
 
-
   # Enable DNS rebinding protection and other `Host` header attacks.
   # config.hosts = [
   #   "example.com",     # Allow requests from example.com
