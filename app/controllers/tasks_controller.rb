@@ -17,7 +17,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
-
+    @child = Child.find(task_params[:child_id])
     authorize @task
 
     if @task.save

@@ -4,7 +4,7 @@
     <%= f.label :name, "Nom", class: "form__label" %>
     <%= f.text_field :name, class: "form__input #{@task.errors[:name].any? ? "form__input--error" : ""}", placeholder: "Nom de la tâche" %>
     <% if @task.errors.include?(:name) %>
-      <p class="form__error text-sm text-color-error"><%= @task.errors[:name].first %></p>
+      <p class="form__error"><%= @task.errors[:name].first %></p>
     <% end %>
   </div>
   <!-- Description -->

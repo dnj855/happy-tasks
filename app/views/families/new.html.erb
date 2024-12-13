@@ -5,7 +5,7 @@
       <%= f.label :name, "Nom de la famille", class: "form__label" %>
       <%= f.text_field :name, class: "form__input #{@family.errors[:name].any? ? "form__input--error" : ""}", placeholder: "Nom de la famille" %>
       <% if @family.errors.include?(:name) %>
-        <p class="form__error text-sm text-color-error"><%= @family.errors[:name].first %></p>
+        <p class="form__error"><%= @family.errors[:name].first %></p>
       <% end %>
     </div>
 
