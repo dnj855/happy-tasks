@@ -11,12 +11,11 @@
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <%= favicon_link_tag asset_path('favicon.ico') %>
   </head>
-
   <body>
     <%# <%= render "shared/navbar" %>
-
     <%# <%= render "shared/flashes" %>
     <% if notice %>
       <div class="flash flash-notice">
@@ -24,16 +23,13 @@
         <button class="flash-close" onclick="this.parentElement.style.display='none';">&times;</button>
       </div>
     <% end %>
-
     <% if alert %>
       <div class="flash flash-alert">
         <%= alert %>
         <button class="flash-close" onclick="this.parentElement.style.display='none';">&times;</button>
       </div>
     <% end %>
-
     <%= yield %>
-
     <%= render "shared/nav-bar" %>
   </body>
 </html>
