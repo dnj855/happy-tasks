@@ -1,0 +1,18 @@
+<div
+          class="child-card__body__award <%= task.validated? ? "child-card__body__award--disabled" : "" %>"
+          data-controller="task-done" data-task-done-id-value="<%= task.id %>" id="<%= dom_id(task) %>"
+          >
+  <div class="child-card__body__award__title">
+    <p class="child-card__body__award__title--name"><%= task.name %> (<%= task.value %> points)</p>
+    <p class="child-card__body__award__title--description"><%= task.description %></p>
+  </div>
+  <div>
+    <%= link_to task_path(task),
+        method: :delete,
+        data: {
+          turbo_method: :delete
+        } do %>
+      <i class="fa-solid fa-trash"></i>
+    <% end %>
+  </div>
+</div>

@@ -4,7 +4,8 @@ class TasksController < ApplicationController
   before_action :set_children, only: %i[new create]
 
   def index
-    @tasks = Task.all
+    @family = current_user.family
+    @tasks = policy_scope(@family.tasks)
   end
 
   def new
