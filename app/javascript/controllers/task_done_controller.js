@@ -11,8 +11,6 @@ export default class extends Controller {
   async updateTask(event) {
     const isChecked = event.target.checked;
 
-    console.log(`Tâche ${this.idValue} validée: ${isChecked}`);
-
     // Envoie la requête PATCH pour valider/dévalider la tâche
     try {
       const response = await fetch(`/tasks/${this.idValue}/validate`, {

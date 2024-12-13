@@ -1,0 +1,12 @@
+<%= turbo_stream.replace @task do %>
+  <%= render @task %>
+<% end %>
+<%= turbo_stream.update "child-#{@child.id}-day_points" do %>
+  <%= @child.day_points %>
+<% end %>
+<%= turbo_stream.update "child-#{@child.id}-week_points" do %>
+  <%= @child.week_points %>
+<% end %>
+<%= turbo_stream.update "child-#{@child.id}-month_points" do %>
+  <%= @child.month_points %>
+<% end %>
