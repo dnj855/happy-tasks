@@ -13,305 +13,306 @@
   &__add-child-button {
     @include flex-center;
   }
-}
 
-.form {
-  &__slider-field {
-    @include flex-column;
-    gap: spacing("base");
-  }
-
-  &__slider-container {
-    position: relative;
-    padding: spacing("base") 0;
-  }
-
-  &__slider {
-    -webkit-appearance: none;
-    width: 100%;
-    height: spacing("xs");
-    border-radius: spacing("2xs");
-    background: color("light");
-    outline: none;
-
-    // Le track
-    &::-webkit-slider-runnable-track {
-      width: 100%;
-      height: spacing("xs");
-      background: linear-gradient(
-        to right,
-        color("primary", "lighter") 0%,
-        color("primary") 100%
-      );
-      border-radius: spacing("2xs");
+  .form {
+    &__slider-field {
+      @include flex-column;
+      gap: spacing("base");
     }
 
-    // Le thumb
-    &::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: spacing("xl");
-      height: spacing("xl");
-      background: white;
-      border: 2px solid color("primary");
-      border-radius: 50%;
-      cursor: pointer;
-      margin-top: -8px; // Pour centrer verticalement
-      transition: all 0.2s ease;
-
-      &:hover {
-        background: color("primary", "lighter");
-      }
-
-      &:active {
-        background: color("primary");
-        transform: scale(1.1);
-      }
-    }
-
-    // Firefox styles
-    &::-moz-range-track {
-      width: 100%;
-      height: spacing("xs");
-      background: linear-gradient(
-        to right,
-        color("primary", "lighter") 0%,
-        color("primary") 100%
-      );
-      border-radius: spacing("2xs");
-    }
-
-    &::-moz-range-thumb {
-      width: spacing("xl");
-      height: spacing("xl");
-      background: white;
-      border: 2px solid color("primary");
-      border-radius: 50%;
-      cursor: pointer;
-      transition: all 0.2s ease;
-
-      &:hover {
-        background: color("primary", "lighter");
-      }
-
-      &:active {
-        background: color("primary");
-        transform: scale(1.1);
-      }
-    }
-  }
-
-  &__slider-value {
-    @include body-text("lg", "bold");
-    color: color("primary");
-    text-align: center;
-    margin-top: spacing("2xs");
-  }
-
-  &__slider-labels {
-    @include flex-between;
-    padding: 0;
-    margin-top: spacing("2xs");
-  }
-
-  &__slider-label {
-    @include body-text("xs");
-    color: color("dark", "light");
-    text-align: center;
-  }
-
-  &__group {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: spacing("xl");
-    margin-bottom: spacing("xl");
-
-    @include responsive("sm") {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  // Les champs de formulaire
-  &__field {
-    @include flex-column;
-    gap: spacing("xs");
-  }
-
-  &__label {
-    @include body-text("sm", "bold");
-    color: color("dark");
-    margin-bottom: spacing("2xs");
-  }
-
-  &__input {
-    @include input-base;
-    width: 100%;
-    transition: all 0.2s ease;
-
-    &:focus {
-      border-color: color("primary");
-      box-shadow: 0 0 0 2px color("primary", "lighter");
-    }
-  }
-
-  &__select {
-    @include input-base;
-    width: 100%;
-    cursor: pointer;
-
-    &:focus {
-      border-color: color("primary");
-      box-shadow: 0 0 0 2px color("primary", "lighter");
-    }
-  }
-
-  // Le champ checkbox a besoin d'un traitement spécial
-  &__checkbox-field {
-    @include flex-start;
-    gap: spacing("sm");
-    align-items: center;
-
-    .form__checkbox {
-      width: spacing("lg");
-      height: spacing("lg");
-      cursor: pointer;
-      border: 2px solid color("dark", "lighter");
-      border-radius: spacing("2xs");
-      transition: all 0.2s ease;
-
-      &:checked {
-        background-color: color("primary");
-        border-color: color("primary");
-      }
-    }
-
-    .form__label {
-      margin-bottom: 0; // Annule la marge du label pour l'alignement
-    }
-  }
-
-  &__error {
-    @include body-text("xs");
-    color: color("red");
-    margin-top: spacing("2xs");
-  }
-
-  &__end {
-    @include flex-center;
-    margin-top: spacing("2xl");
-  }
-
-  &__button {
-    @include button-primary;
-    padding: spacing("base") spacing("xl");
-
-    &:hover {
-      transform: translateY(-1px);
-    }
-  }
-}
-
-// Section spécifique à l'inscription
-.enrollment {
-  &__form__group {
-    background-color: color("light", "lighter");
-    border-radius: spacing("xs");
-    padding: spacing("xl");
-    box-shadow: 0 spacing("2xs") spacing("base") rgba(0, 0, 0, 0.05);
-    @include slide-in("up");
-  }
-
-  &__form {
-    &__group {
+    &__slider-container {
       position: relative;
-      transition: all 0.3s ease;
-      opacity: 1;
-      transform: translateY(0);
-
-      &--entering {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-
-      &--leaving {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-
-      &-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: spacing("base");
-      }
+      padding: spacing("base") 0;
     }
 
-    &__remove-button {
-      position: absolute;
-      top: spacing("sm");
-      right: spacing("sm");
-      background: none;
-      border: none;
-      color: #dc3545;
-      cursor: pointer;
-      padding: spacing("xs");
-      border-radius: 50%;
-      transition: background-color 0.2s ease;
-    }
-  }
+    &__slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: spacing("xs");
+      border-radius: spacing("2xs");
+      background: color("light");
+      outline: none;
 
-  &__add-child-button {
-    display: flex;
-    justify-content: center;
-    margin: spacing("lg") 0;
-
-    .form__add-button {
-      display: flex;
-      align-items: center;
-      gap: spacing("xs");
-      padding: spacing("sm") spacing("base");
-      border: 2px dashed #cbd5e0;
-      border-radius: 6px;
-      background: none;
-      color: #4a5568;
-      cursor: pointer;
-      transition: all 0.2s ease;
-
-      &:hover {
-        border-color: color("primary");
-        color: color("primary");
-        background-color: rgba(color("primary"), 0.05);
+      // Le track
+      &::-webkit-slider-runnable-track {
+        width: 100%;
+        height: spacing("xs");
+        background: linear-gradient(
+          to right,
+          color("primary", "lighter") 0%,
+          color("primary") 100%
+        );
+        border-radius: spacing("2xs");
       }
 
-      &--disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
+      // Le thumb
+      &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: spacing("xl");
+        height: spacing("xl");
+        background: white;
+        border: 2px solid color("primary");
+        border-radius: 50%;
+        cursor: pointer;
+        margin-top: -8px; // Pour centrer verticalement
+        transition: all 0.2s ease;
 
         &:hover {
-          border-color: #cbd5e0;
-          color: #4a5568;
-          background: none;
+          background: color("primary", "lighter");
+        }
+
+        &:active {
+          background: color("primary");
+          transform: scale(1.1);
         }
       }
 
-      &__text {
-        margin-left: spacing("xs");
+      // Firefox styles
+      &::-moz-range-track {
+        width: 100%;
+        height: spacing("xs");
+        background: linear-gradient(
+          to right,
+          color("primary", "lighter") 0%,
+          color("primary") 100%
+        );
+        border-radius: spacing("2xs");
       }
 
-      i {
-        font-size: 1.1em;
+      &::-moz-range-thumb {
+        width: spacing("xl");
+        height: spacing("xl");
+        background: white;
+        border: 2px solid color("primary");
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background: color("primary", "lighter");
+        }
+
+        &:active {
+          background: color("primary");
+          transform: scale(1.1);
+        }
+      }
+    }
+
+    &__slider-value {
+      @include body-text("lg", "bold");
+      color: color("primary");
+      text-align: center;
+      margin-top: spacing("2xs");
+    }
+
+    &__slider-labels {
+      @include flex-between;
+      padding: 0;
+      margin-top: spacing("2xs");
+    }
+
+    &__slider-label {
+      @include body-text("xs");
+      color: color("dark", "light");
+      text-align: center;
+    }
+
+    &__group {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: spacing("xl");
+      margin-bottom: spacing("xl");
+      align-items: center;
+
+      @include responsive("sm") {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    // Les champs de formulaire
+    &__field {
+      @include flex-column;
+      gap: spacing("xs");
+    }
+
+    &__label {
+      @include body-text("sm", "bold");
+      color: color("dark");
+      margin-bottom: spacing("2xs");
+    }
+
+    &__input {
+      @include input-base;
+      width: 100%;
+      transition: all 0.2s ease;
+
+      &:focus {
+        border-color: color("primary");
+        box-shadow: 0 0 0 2px color("primary", "lighter");
+      }
+    }
+
+    &__select {
+      @include input-base;
+      width: 100%;
+      cursor: pointer;
+
+      &:focus {
+        border-color: color("primary");
+        box-shadow: 0 0 0 2px color("primary", "lighter");
+      }
+    }
+
+    // Le champ checkbox a besoin d'un traitement spécial
+    &__checkbox-field {
+      @include flex-start;
+      gap: spacing("sm");
+      align-items: center;
+
+      .form__checkbox {
+        width: spacing("lg");
+        height: spacing("lg");
+        cursor: pointer;
+        border: 2px solid color("dark", "lighter");
+        border-radius: spacing("2xs");
+        transition: all 0.2s ease;
+
+        &:checked {
+          background-color: color("primary");
+          border-color: color("primary");
+        }
+      }
+
+      .form__label {
+        margin-bottom: 0; // Annule la marge du label pour l'alignement
+      }
+    }
+
+    &__error {
+      @include body-text("xs");
+      color: color("red");
+      margin-top: spacing("2xs");
+    }
+
+    &__end {
+      @include flex-center;
+      margin-top: spacing("2xl");
+    }
+
+    &__button {
+      @include button-primary;
+      padding: spacing("base") spacing("xl");
+
+      &:hover {
+        transform: translateY(-1px);
       }
     }
   }
-}
 
-// Gestion des champs de neuroatypie
-[data-enrollment-form-target="neuroTypeField"] {
-  grid-column: span 2; // Prend toute la largeur
-  transition: all 0.3s ease-in-out;
+  // Section spécifique à l'inscription
+  .enrollment {
+    &__form__group {
+      background-color: color("light", "lighter");
+      border-radius: spacing("xs");
+      padding: spacing("xl");
+      box-shadow: 0 spacing("2xs") spacing("base") rgba(0, 0, 0, 0.05);
+      @include slide-in("up");
+    }
 
-  &.hidden {
-    display: none;
-    opacity: 0;
+    &__form {
+      &__group {
+        position: relative;
+        transition: all 0.3s ease;
+        opacity: 1;
+        transform: translateY(0);
+
+        &--entering {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+
+        &--leaving {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+
+        &-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: spacing("base");
+        }
+      }
+
+      &__remove-button {
+        position: absolute;
+        top: spacing("sm");
+        right: spacing("sm");
+        background: none;
+        border: none;
+        color: #dc3545;
+        cursor: pointer;
+        padding: spacing("xs");
+        border-radius: 50%;
+        transition: background-color 0.2s ease;
+      }
+    }
+
+    &__add-child-button {
+      display: flex;
+      justify-content: center;
+      margin: spacing("lg") 0;
+
+      .form__add-button {
+        display: flex;
+        align-items: center;
+        gap: spacing("xs");
+        padding: spacing("sm") spacing("base");
+        border: 2px dashed #cbd5e0;
+        border-radius: 6px;
+        background: none;
+        color: #4a5568;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+          border-color: color("primary");
+          color: color("primary");
+          background-color: rgba(color("primary"), 0.05);
+        }
+
+        &--disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+
+          &:hover {
+            border-color: #cbd5e0;
+            color: #4a5568;
+            background: none;
+          }
+        }
+
+        &__text {
+          margin-left: spacing("xs");
+        }
+
+        i {
+          font-size: 1.1em;
+        }
+      }
+    }
+  }
+
+  // Gestion des champs de neuroatypie
+  [data-enrollment-form-target="neuroTypeField"] {
+    grid-column: span 2; // Prend toute la largeur
+    transition: all 0.3s ease-in-out;
+
+    &.hidden {
+      display: none;
+      opacity: 0;
+    }
   }
 }

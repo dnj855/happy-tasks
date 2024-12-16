@@ -6,7 +6,7 @@
   </div>
   <h1>Ravi de vous accueillir, famille <%= @family.name %> 👋</h1>
   <h4>Il est temps maintenant de nous en dire un peu plus sur les enfants de la famille</h4>
-  <%= form_with(model: @family, class:"form", url: add_children_family_path, method: "post") do |f| %>
+  <%= form_with(model: @family, class:"form", url: create_children_family_path(@family), method: "post") do |f| %>
     <div data-children-form-target="childrenContainer">
       <%= f.fields_for :children do |child_form| %>
         <%= render 'child_fields', f: child_form %>

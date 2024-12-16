@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     member do
       get 'dashboard', to: 'dashboard#view', as: :child_dashboard
       get 'add-children', to: "families#new_children"
-      post 'add-children', to: "families#create_children"
+      post 'add-children', to: "families#create_children", as: :create_children
     end
   end
 

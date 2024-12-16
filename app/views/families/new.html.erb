@@ -7,7 +7,7 @@
   <h1>Bienvenue dans la HappyTeam</h1>
   <h4>Pour commencer, comment voulez-vous que nous appelions votre famille ?</h4>
   <%= form_with model: @family, class:"form" do |f| %>
-    <div class="form__group">
+    <div class="enrollment__form__group">
       <%= f.label :name, "Nom de la famille", class: "form__label" %>
       <%= f.text_field :name, class: "form__input #{@family.errors[:name].any? ? "form__input--error" : ""}" %>
       <% if @family.errors.include?(:name) %>
