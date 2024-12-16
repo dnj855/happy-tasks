@@ -1,5 +1,6 @@
 class Child < ApplicationRecord
   belongs_to :family
+  has_many :users
   has_many :tasks, dependent: :destroy
   has_many :awards, dependent: :destroy
   has_one_attached :avatar
