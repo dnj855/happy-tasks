@@ -5,7 +5,7 @@ class AwardsController < ApplicationController
 
 
   def index
-  @children = policy_scope(Child)
+    @children = policy_scope(Child)
   end
 
   def new
