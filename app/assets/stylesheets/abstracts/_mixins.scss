@@ -109,6 +109,7 @@
 
   &:hover:not(:disabled) {
     background-color: map-get(map-get($colors, "primary"), "dark");
+    color: white;
   }
 
   &:active:not(:disabled) {
