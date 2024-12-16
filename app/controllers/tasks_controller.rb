@@ -44,6 +44,14 @@ class TasksController < ApplicationController
   end
 
   def declare_done
+    @task = Task.find(params[:id])
+    authorize @task
+
+    if @task.update(completed: params[:completed])
+      render json: { message: 'Task updated successfully' }
+    else
+      render json: { error: 'Failed to update task' }, status: :unprocessable_entity
+    end
   end
 
   def validate

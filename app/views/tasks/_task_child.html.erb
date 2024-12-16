@@ -1,7 +1,7 @@
 <div class="child-card__body__award <%= task.validated? ? "child-card__body__award--disabled" : "" %>"
      data-controller="task-done"
      data-task-done-id-value="<%= task.id %>"
-     data-task-done-user-role-value="parent"
+     data-task-done-user-role-value="child"
      id="<%= dom_id(task) %>">
   <div class="child-card__body__award__title">
     <p class="child-card__body__award__title--name"><%= task.name %> (<%= task.value %> points)</p>
