@@ -16,8 +16,10 @@ class DashboardController < ApplicationController
     if current_user.child? && current_user.child.present?
       @child = current_user.child
       @family = @child.family
+      @children = @family.children
+      authorize @family
     else
-      @family = current_user.family
+      redirect_to root_path, alert: "Accès non autorisé."
     end
   end
 
