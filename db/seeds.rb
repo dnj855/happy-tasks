@@ -3,6 +3,7 @@ require 'json'
 require 'faker'
 require 'uri'
 require 'net/http'
+require 'date'
 
 # URL email
 URL_PATH = '@happy-tasks.click'
@@ -274,6 +275,9 @@ AWARD_LIST = {
     }
   }
 }
+
+TASK_RECORD = []
+
 # Age mini pour l'appli
 MIN_AGE = 4
 # Age maxi pour l'appli
@@ -304,152 +308,177 @@ end
 puts "--- Task_Types ( Animaux Apprentissage Chambre Cuisine Hygiène Linge Ménage ) CREATED"
 
 def create_the_rest(family)
+    3.times do
+      list_of_awards = []
+      list_of_tasks = []
+        child = Child.create!(
+          family_id: family.id,
+          first_name: Faker::Name.first_name,
+          age: (MIN_AGE..MAX_AGE).to_a.sample,
+          day_points: 0,
+          week_points: 0,
+          month_points: 0,)
+        if child.age >= AGE_ACCOUNT
+          User.create!(family_id: family.id, child_id: child.id, first_name: child.first_name, last_name: family.name, email: "#{child.first_name}#{family.id}#{URL_PATH}", password: "happyT", child: true)
+        else
+          User.create!(family_id: family.id, child_id: child.id, first_name: child.first_name, last_name: family.name, email: "#{child.first_name}#{family.id}#{URL_PATH}", password: "happyT", child: false)
+        end
+        # array list_of_awards
 
-  3.times do
-    list_of_awards = []
-    list_of_tasks = []
-    child = Child.create!(
-       family_id: family.id,
-       first_name: Faker::Name.first_name,
-       age: (MIN_AGE..MAX_AGE).to_a.sample,
-       day_points: 0,
-       week_points: (MIN_WEEK_POINTS..MAX_WEEK_POINTS).to_a.sample,
-       month_points: (MIN_MONTH_POINTS..MAX_MONTH_POINTS).to_a.sample,)
-    if child.age >= AGE_ACCOUNT
-      User.create!(family_id: family.id, child_id: child.id, first_name: child.first_name, last_name: family.name, email: "#{child.first_name}#{family.id}#{URL_PATH}", password: "happyT", child: true)
-    else
-      User.create!(family_id: family.id, child_id: child.id, first_name: child.first_name, last_name: family.name, email: "#{child.first_name}#{family.id}#{URL_PATH}", password: "happyT", child: false)
-    end
-    # array list_of_awards
-
-    # les awards quotidiennes automatiques
-    AWARD_LIST[:Quotidien][:automatic][:description].each do |description|
-      award = Award.create!(child_id: child.id, name: description, periodicity: "Quotidien", value: AWARD_LIST[:Quotidien][:automatic][:value])
-      list_of_awards << description
-    end
-    # les awards quotidiennes random
-    # 1 EASY
-      award = Award.create!(child_id: child.id, name: AWARD_LIST[:Quotidien][:random][:easy][:description].sample, periodicity: "Quotidien", value: AWARD_LIST[:Quotidien][:random][:easy][:value])
-      list_of_awards << award.name
-    # 2 MEDIUM
-    while list_of_awards.length !=4 do
-      awa=''
-      awa=AWARD_LIST[:Quotidien][:random][:medium][:description].sample
-      if !list_of_awards.include?(awa)
-        award = Award.create!(child_id: child.id, name: awa, periodicity: "Quotidien", value: AWARD_LIST[:Quotidien][:random][:medium][:value])
-        list_of_awards << award.name
-      end
-    end
+        # les awards quotidiennes automatiques
+        AWARD_LIST[:Quotidien][:automatic][:description].each do |description|
+          award = Award.create!(child_id: child.id, name: description, periodicity: "Quotidien", value: AWARD_LIST[:Quotidien][:automatic][:value])
+          list_of_awards << description
+        end
+        # les awards quotidiennes random
+        # 1 EASY
+          award = Award.create!(child_id: child.id, name: AWARD_LIST[:Quotidien][:random][:easy][:description].sample, periodicity: "Quotidien", value: AWARD_LIST[:Quotidien][:random][:easy][:value])
+          list_of_awards << award.name
+        # 2 MEDIUM
+        while list_of_awards.length !=4 do
+          awa=''
+          awa=AWARD_LIST[:Quotidien][:random][:medium][:description].sample
+          if !list_of_awards.include?(awa)
+            award = Award.create!(child_id: child.id, name: awa, periodicity: "Quotidien", value: AWARD_LIST[:Quotidien][:random][:medium][:value])
+            list_of_awards << award.name
+          end
+        end
+            # 1 HARD
+        while list_of_awards.length !=5 do
+          awa=''
+          awa=AWARD_LIST[:Quotidien][:random][:hard][:description].sample
+          if !list_of_awards.include?(awa)
+            award = Award.create!(child_id: child.id, name: awa, periodicity: "Quotidien", value: AWARD_LIST[:Quotidien][:random][:hard][:value])
+            list_of_awards << award.name
+          end
+        end
+        # les awards hebdomadaires automatic
+        # aucune pour le moment
+        # les awards hebdomadaires random
+        # 2 EASY
+        while list_of_awards.length !=7 do
+          awa=''
+          awa=AWARD_LIST[:Hebdomadaire][:random][:easy][:description].sample
+          if !list_of_awards.include?(awa)
+            award = Award.create!(child_id: child.id, name: awa, periodicity: "Hebdomadaire", value: AWARD_LIST[:Hebdomadaire][:random][:easy][:value])
+            list_of_awards << award.name
+          end
+        end
+        # 2 MEDIUM
+        while list_of_awards.length !=9 do
+          awa=''
+          awa=AWARD_LIST[:Hebdomadaire][:random][:medium][:description].sample
+          if !list_of_awards.include?(awa)
+            award = Award.create!(child_id: child.id, name: awa, periodicity: "Hebdomadaire", value: AWARD_LIST[:Hebdomadaire][:random][:medium][:value])
+            list_of_awards << award.name
+          end
+        end
         # 1 HARD
-    while list_of_awards.length !=5 do
-      awa=''
-      awa=AWARD_LIST[:Quotidien][:random][:hard][:description].sample
-      if !list_of_awards.include?(awa)
-        award = Award.create!(child_id: child.id, name: awa, periodicity: "Quotidien", value: AWARD_LIST[:Quotidien][:random][:hard][:value])
-        list_of_awards << award.name
-      end
-    end
-    # les awards hebdomadaires automatic
-    # aucune pour le moment
-    # les awards hebdomadaires random
-    # 2 EASY
-    while list_of_awards.length !=7 do
-      awa=''
-      awa=AWARD_LIST[:Hebdomadaire][:random][:easy][:description].sample
-      if !list_of_awards.include?(awa)
-        award = Award.create!(child_id: child.id, name: awa, periodicity: "Hebdomadaire", value: AWARD_LIST[:Hebdomadaire][:random][:easy][:value])
-        list_of_awards << award.name
-      end
-    end
-    # 2 MEDIUM
-    while list_of_awards.length !=9 do
-      awa=''
-      awa=AWARD_LIST[:Hebdomadaire][:random][:medium][:description].sample
-      if !list_of_awards.include?(awa)
-        award = Award.create!(child_id: child.id, name: awa, periodicity: "Hebdomadaire", value: AWARD_LIST[:Hebdomadaire][:random][:medium][:value])
-        list_of_awards << award.name
-      end
-    end
-    # 1 HARD
-    while list_of_awards.length !=10 do
-      awa=''
-      awa=AWARD_LIST[:Hebdomadaire][:random][:hard][:description].sample
-      if !list_of_awards.include?(awa)
-        award = Award.create!(child_id: child.id, name: awa, periodicity: "Hebdomadaire", value: AWARD_LIST[:Hebdomadaire][:random][:hard][:value])
-        list_of_awards << award.name
-      end
-    end
-    # les awards mensuelles automatiques
-    # aucune pour le moment
-    # les awards mensuelles random
-    # 2 EASY
-    while list_of_awards.length !=12 do
-      awa=''
-      awa=AWARD_LIST[:Mensuel][:random][:easy][:description].sample
-      if !list_of_awards.include?(awa)
-        award = Award.create!(child_id: child.id, name: awa, periodicity: "Mensuel", value: AWARD_LIST[:Mensuel][:random][:easy][:value])
-        list_of_awards << award.name
-      end
-    end
-    # 2 MEDIUM
-    while list_of_awards.length !=14 do
-      awa=''
-      awa=AWARD_LIST[:Mensuel][:random][:medium][:description].sample
-      if !list_of_awards.include?(awa)
-        award = Award.create!(child_id: child.id, name: awa, periodicity: "Mensuel", value: AWARD_LIST[:Mensuel][:random][:medium][:value])
-        list_of_awards << award.name
-      end
-    end
-    # 1 HARD
-    while list_of_awards.length !=15 do
-      awa=''
-      awa=AWARD_LIST[:Mensuel][:random][:hard][:description].sample
-      if !list_of_awards.include?(awa)
-        award = Award.create!(child_id: child.id, name: awa, periodicity: "Mensuel", value: AWARD_LIST[:Mensuel][:random][:hard][:value])
-        list_of_awards << award.name
-      end
-    end
-    # 1 EXTRA
-    while list_of_awards.length !=16 do
-      awa=''
-      awa=AWARD_LIST[:Mensuel][:random][:extra][:description].sample
-      if !list_of_awards.include?(awa)
-        award = Award.create!(child_id: child.id, name: awa, periodicity: "Mensuel", value: AWARD_LIST[:Mensuel][:random][:extra][:value])
-        list_of_awards << award.name
-      end
-    end
-      # on veut 2 tâches easy, 2 tâches medium et 1 tâche hard
-      # pour éviter d'avoir deux taches identiques on crée un array list_of_tasks[]
+        while list_of_awards.length !=10 do
+          awa=''
+          awa=AWARD_LIST[:Hebdomadaire][:random][:hard][:description].sample
+          if !list_of_awards.include?(awa)
+            award = Award.create!(child_id: child.id, name: awa, periodicity: "Hebdomadaire", value: AWARD_LIST[:Hebdomadaire][:random][:hard][:value])
+            list_of_awards << award.name
+          end
+        end
+        # les awards mensuelles automatiques
+        # aucune pour le moment
+        # les awards mensuelles random
+        # 2 EASY
+        while list_of_awards.length !=12 do
+          awa=''
+          awa=AWARD_LIST[:Mensuel][:random][:easy][:description].sample
+          if !list_of_awards.include?(awa)
+            award = Award.create!(child_id: child.id, name: awa, periodicity: "Mensuel", value: AWARD_LIST[:Mensuel][:random][:easy][:value])
+            list_of_awards << award.name
+          end
+        end
+        # 2 MEDIUM
+        while list_of_awards.length !=14 do
+          awa=''
+          awa=AWARD_LIST[:Mensuel][:random][:medium][:description].sample
+          if !list_of_awards.include?(awa)
+            award = Award.create!(child_id: child.id, name: awa, periodicity: "Mensuel", value: AWARD_LIST[:Mensuel][:random][:medium][:value])
+            list_of_awards << award.name
+          end
+        end
+        # 1 HARD
+        while list_of_awards.length !=15 do
+          awa=''
+          awa=AWARD_LIST[:Mensuel][:random][:hard][:description].sample
+          if !list_of_awards.include?(awa)
+            award = Award.create!(child_id: child.id, name: awa, periodicity: "Mensuel", value: AWARD_LIST[:Mensuel][:random][:hard][:value])
+            list_of_awards << award.name
+          end
+        end
+        # 1 EXTRA
+        while list_of_awards.length !=16 do
+          awa=''
+          awa=AWARD_LIST[:Mensuel][:random][:extra][:description].sample
+          if !list_of_awards.include?(awa)
+            award = Award.create!(child_id: child.id, name: awa, periodicity: "Mensuel", value: AWARD_LIST[:Mensuel][:random][:extra][:value])
+            list_of_awards << award.name
+          end
+        end
 
-      while list_of_tasks.length !=2 do
-        ta=''
-        task_type = TASK_TYPES.sample
-        ta = TASK_LIST[:easy][:task][task_type.to_sym].sample
-        if !list_of_tasks.include?(ta)
-          task = Task.create!(child_id: child.id, task_type_id: TaskType.find_by(name: task_type).id, name: ta, description: TASK_DESCRIPTIONS[ta], value: TASK_LIST[:easy][:value])
-          list_of_tasks << task.name
+        # on veut 2 tâches easy, 2 tâches medium et 1 tâche hard
+        # pour éviter d'avoir deux taches identiques on crée un array list_of_tasks[]
+first_december = Date.new(2024,12,01)
+      for day in 0..17 do
+
+          list_of_tasks = []
+        while list_of_tasks.length !=2 do
+          ta=''
+
+          task_type = TASK_TYPES.sample
+
+          ta = TASK_LIST[:easy][:task][task_type.to_sym].sample
+          if !list_of_tasks.include?(ta)
+            task = Task.create!(child_id: child.id, task_type_id: TaskType.find_by(name: task_type).id, name: ta, description: TASK_DESCRIPTIONS[ta], value: TASK_LIST[:easy][:value])
+            task.update(created_at: first_december.next_day(day.to_i))
+            list_of_tasks << task
+          end
+        end
+        while list_of_tasks.length !=4 do
+          ta=''
+          task_type = TASK_TYPES.sample
+          ta = TASK_LIST[:medium][:task][task_type.to_sym].sample
+          if !list_of_tasks.include?(ta)
+            task = Task.create!(child_id: child.id, task_type_id: TaskType.find_by(name: task_type).id, name: ta, description: TASK_DESCRIPTIONS[ta], value: TASK_LIST[:medium][:value])
+            task.update(created_at: first_december.next_day(day.to_i))
+            list_of_tasks << task
+          end
+        end
+        while list_of_tasks.length !=5 do
+          ta=''
+          task_type = TASK_TYPES.sample
+          ta = TASK_LIST[:hard][:task][task_type.to_sym].sample
+          if !list_of_tasks.include?(ta)
+            task = Task.create!(child_id: child.id, task_type_id: TaskType.find_by(name: task_type).id, name: ta, description: TASK_DESCRIPTIONS[ta], value: TASK_LIST[:hard][:value])
+            task.update(created_at: first_december.next_day(day.to_i))
+            list_of_tasks << task
+          end
+        end
+        ### création de tâches validées (3/4)
+        list_of_tasks.each do |task|
+          if rand(4) != 0
+            task.update(done: true)
+            child.week_points += task.value/3.0
+
+            child.month_points += task.value/3.0
+            child.update(week_points: child.week_points)
+            # reset des points de la semaine
+            child.update(week_points: 0) if day == 15
+            child.update(month_points: child.month_points)
+            TASK_RECORD << {"id" => child.id, "tasks" => ["done_date" => first_december.next_day(day.to_i), "task_type" => task.task_type_id, task_name: task.name]}
+          end
         end
       end
-      while list_of_tasks.length !=4 do
-        ta=''
-        task_type = TASK_TYPES.sample
-        ta = TASK_LIST[:medium][:task][task_type.to_sym].sample
-        if !list_of_tasks.include?(ta)
-          task = Task.create!(child_id: child.id, task_type_id: TaskType.find_by(name: task_type).id, name: ta, description: TASK_DESCRIPTIONS[ta], value: TASK_LIST[:medium][:value])
-          list_of_tasks << task.name
-        end
-      end
-      while list_of_tasks.length !=5 do
-        ta=''
-        task_type = TASK_TYPES.sample
-        ta = TASK_LIST[:hard][:task][task_type.to_sym].sample
-        if !list_of_tasks.include?(ta)
-          task = Task.create!(child_id: child.id, task_type_id: TaskType.find_by(name: task_type).id, name: ta, description: TASK_DESCRIPTIONS[ta], value: TASK_LIST[:hard][:value])
-          list_of_tasks << task.name
-        end
-      end
+    end
   end
-end
+
+
 
 puts "---Creating base users"
 BASE_USERS.each do |base_user|
@@ -459,3 +488,64 @@ BASE_USERS.each do |base_user|
   create_the_rest(family)
 end
 puts "---Base users CREATED"
+
+
+array_of_tasks = []
+
+
+first_child = TASK_RECORD.select {|child| child.values_at("id")[0] == Child.all.first.id}
+
+
+
+first_child.each do |task|
+  array_of_tasks << task.values_at("tasks")[0][0]
+
+  end
+ménage = []
+linge = []
+apprentissage = []
+cuisine = []
+hygiène = []
+chambre = []
+animaux = []
+
+
+
+array_of_tasks.each do |task|
+  case TaskType.all.find(task.values_at("task_type"))[0].name
+  when "Ménage"
+    ménage << task.values_at("task_name")
+  when "Animaux"
+    animaux << task.values_at("task_name")
+  when "Apprentissage"
+    apprentissage << task.values_at("task_name")
+  when "Cuisine"
+    cuisine << task.values_at("task_name")
+  when "Hygiène"
+    hygiène << task.values_at("task_name")
+  when "Linge"
+    linge << task.values_at("task_name")
+  when "Chambre"
+    chambre << task.values_at("task_name")
+  end
+end
+
+print "\n\n-------------rapport d'activité du premier child-------------------\n\n"
+print "mén : "
+print "ooooo"*ménage.length
+print "\nlin : "
+print "ooooo"*linge.length
+print "\napp : "
+print "ooooo"*apprentissage.length
+print "\ncui : "
+print "ooooo"*cuisine.length
+print "\nhyg : "
+print "ooooo"*hygiène.length
+print "\ncha : "
+print "ooooo"*chambre.length
+print "\nani : "
+print "ooooo"*animaux.length
+print "\n\n------------ fin rapport d'activité du premier child-------------------\n\n"
+print "------------- ses points en cagnotte------------------ \n"
+print " Points de semaine : #{Child.all.first.week_points}\n"
+print " Points du mois : #{Child.all.first.month_points}\n"
