@@ -5,8 +5,11 @@ class Child < ApplicationRecord
   has_one_attached :avatar
   before_create :set_avatar
 
+  attr_accessor :neuroatypical, :neuroatypical_type, :autonomy_level
+
   validates :first_name, presence: true
   validates :age, presence: true, numericality: { greater_than_or_equal_to: 3 }
+  validates :autonomy_level, inclusion: { in: 1..5 }, allow_nil: true
   #validates :day_points,  numericality: { only_numeric: true }
   #validates :week_points, numericality: { only_numeric: true }
   #validates :month_points, numericality: { only_numeric: true }

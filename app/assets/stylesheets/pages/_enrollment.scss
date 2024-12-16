@@ -1,0 +1,230 @@
+// Formulaire principal
+.enrollment {
+  background: linear-gradient(
+      rgba(255, 255, 255, 0.7),
+      rgba(255, 255, 255, 0.7)
+    ),
+    image-url("super.png");
+  background-size: contain;
+  background-position: bottom;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+.form {
+  &__slider-field {
+    @include flex-column;
+    gap: spacing("base");
+  }
+
+  &__slider-container {
+    position: relative;
+    padding: spacing("base") 0;
+  }
+
+  &__slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: spacing("xs");
+    border-radius: spacing("2xs");
+    background: color("light");
+    outline: none;
+
+    // Le track
+    &::-webkit-slider-runnable-track {
+      width: 100%;
+      height: spacing("xs");
+      background: linear-gradient(
+        to right,
+        color("primary", "lighter") 0%,
+        color("primary") 100%
+      );
+      border-radius: spacing("2xs");
+    }
+
+    // Le thumb
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: spacing("xl");
+      height: spacing("xl");
+      background: white;
+      border: 2px solid color("primary");
+      border-radius: 50%;
+      cursor: pointer;
+      margin-top: -8px; // Pour centrer verticalement
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: color("primary", "lighter");
+      }
+
+      &:active {
+        background: color("primary");
+        transform: scale(1.1);
+      }
+    }
+
+    // Firefox styles
+    &::-moz-range-track {
+      width: 100%;
+      height: spacing("xs");
+      background: linear-gradient(
+        to right,
+        color("primary", "lighter") 0%,
+        color("primary") 100%
+      );
+      border-radius: spacing("2xs");
+    }
+
+    &::-moz-range-thumb {
+      width: spacing("xl");
+      height: spacing("xl");
+      background: white;
+      border: 2px solid color("primary");
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: color("primary", "lighter");
+      }
+
+      &:active {
+        background: color("primary");
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  &__slider-value {
+    @include body-text("lg", "bold");
+    color: color("primary");
+    text-align: center;
+    margin-top: spacing("2xs");
+  }
+
+  &__slider-labels {
+    @include flex-between;
+    padding: 0;
+    margin-top: spacing("2xs");
+  }
+
+  &__slider-label {
+    @include body-text("xs");
+    color: color("dark", "light");
+    text-align: center;
+  }
+
+  &__group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: spacing("xl");
+    margin-bottom: spacing("xl");
+
+    @include responsive("sm") {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  // Les champs de formulaire
+  &__field {
+    @include flex-column;
+    gap: spacing("xs");
+  }
+
+  &__label {
+    @include body-text("sm", "bold");
+    color: color("dark");
+    margin-bottom: spacing("2xs");
+  }
+
+  &__input {
+    @include input-base;
+    width: 100%;
+    transition: all 0.2s ease;
+
+    &:focus {
+      border-color: color("primary");
+      box-shadow: 0 0 0 2px color("primary", "lighter");
+    }
+  }
+
+  &__select {
+    @include input-base;
+    width: 100%;
+    cursor: pointer;
+
+    &:focus {
+      border-color: color("primary");
+      box-shadow: 0 0 0 2px color("primary", "lighter");
+    }
+  }
+
+  // Le champ checkbox a besoin d'un traitement spécial
+  &__checkbox-field {
+    @include flex-start;
+    gap: spacing("sm");
+    align-items: center;
+
+    .form__checkbox {
+      width: spacing("lg");
+      height: spacing("lg");
+      cursor: pointer;
+      border: 2px solid color("dark", "lighter");
+      border-radius: spacing("2xs");
+      transition: all 0.2s ease;
+
+      &:checked {
+        background-color: color("primary");
+        border-color: color("primary");
+      }
+    }
+
+    .form__label {
+      margin-bottom: 0; // Annule la marge du label pour l'alignement
+    }
+  }
+
+  &__error {
+    @include body-text("xs");
+    color: color("red");
+    margin-top: spacing("2xs");
+  }
+
+  &__end {
+    @include flex-center;
+    margin-top: spacing("2xl");
+  }
+
+  &__button {
+    @include button-primary;
+    padding: spacing("base") spacing("xl");
+
+    &:hover {
+      transform: translateY(-1px);
+    }
+  }
+}
+
+// Section spécifique à l'inscription
+.enrollment {
+  &__form__group {
+    background-color: color("light", "lighter");
+    border-radius: spacing("xs");
+    padding: spacing("xl");
+    box-shadow: 0 spacing("2xs") spacing("base") rgba(0, 0, 0, 0.05);
+    @include slide-in("up");
+  }
+}
+
+// Gestion des champs de neuroatypie
+[data-enrollment-form-target="neuroTypeField"] {
+  grid-column: span 2; // Prend toute la largeur
+  transition: all 0.3s ease-in-out;
+
+  &.hidden {
+    display: none;
+    opacity: 0;
+  }
+}
