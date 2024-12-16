@@ -15,8 +15,6 @@ class ChildPolicy < ApplicationPolicy
 
   class Scope < ApplicationPolicy::Scope
     def resolve
-      if user.child
-        # TODO : implement with child profile
       if user.child?
         user.family.children.where(id: user.child_id)
       else

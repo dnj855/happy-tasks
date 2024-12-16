@@ -9,7 +9,7 @@
       <header class="child-card__header">
         <div class="child-card__header__identity">
           <div class="child-card__header__avatar">
-            <%= image_tag("super.png", alt: "Photo #{child.first_name}") %>
+            <%= cl_image_tag child.avatar.key, height: 50, width: 50, crop: :auto, gravity: :auto, alt: "Photo #{child.first_name}" %>
           </div>
           <h1 class="child-card__header__name"><%= child.first_name %></h1>
         </div>
