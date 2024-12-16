@@ -9,6 +9,10 @@
   background-position: bottom;
   background-attachment: fixed;
   background-repeat: no-repeat;
+
+  &__add-child-button {
+    @include flex-center;
+  }
 }
 
 .form {
@@ -215,6 +219,89 @@
     padding: spacing("xl");
     box-shadow: 0 spacing("2xs") spacing("base") rgba(0, 0, 0, 0.05);
     @include slide-in("up");
+  }
+
+  &__form {
+    &__group {
+      position: relative;
+      transition: all 0.3s ease;
+      opacity: 1;
+      transform: translateY(0);
+
+      &--entering {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      &--leaving {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+
+      &-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: spacing("base");
+      }
+    }
+
+    &__remove-button {
+      position: absolute;
+      top: spacing("sm");
+      right: spacing("sm");
+      background: none;
+      border: none;
+      color: #dc3545;
+      cursor: pointer;
+      padding: spacing("xs");
+      border-radius: 50%;
+      transition: background-color 0.2s ease;
+    }
+  }
+
+  &__add-child-button {
+    display: flex;
+    justify-content: center;
+    margin: spacing("lg") 0;
+
+    .form__add-button {
+      display: flex;
+      align-items: center;
+      gap: spacing("xs");
+      padding: spacing("sm") spacing("base");
+      border: 2px dashed #cbd5e0;
+      border-radius: 6px;
+      background: none;
+      color: #4a5568;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        border-color: color("primary");
+        color: color("primary");
+        background-color: rgba(color("primary"), 0.05);
+      }
+
+      &--disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+
+        &:hover {
+          border-color: #cbd5e0;
+          color: #4a5568;
+          background: none;
+        }
+      }
+
+      &__text {
+        margin-left: spacing("xs");
+      }
+
+      i {
+        font-size: 1.1em;
+      }
+    }
   }
 }
 
