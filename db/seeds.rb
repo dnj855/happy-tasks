@@ -319,7 +319,7 @@ def create_the_rest(family)
           week_points: 0,
           month_points: 0,)
         if child.age >= AGE_ACCOUNT
-          User.create!(family_id: family.id, first_name: child.first_name, last_name: family.name, email: "#{child.first_name}#{family.id}#{URL_PATH}", password: "happyT", child_id = child.id)
+          User.create!(family_id: family.id, first_name: child.first_name, last_name: family.name, email: "#{child.first_name}#{family.id}#{URL_PATH}", password: "happyT", child_id: child.id)
         end
         # array list_of_awards
 
