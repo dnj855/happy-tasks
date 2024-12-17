@@ -13,7 +13,7 @@
       <i class="fa fa-smile"></i>
       <span>Mes Privilèges</span>
     <% end %>
-    <%= link_to destroy_user_session_path, data: { method: :delete, turbo_confirm: "Confirmer la déconnexion" }, class: "tab-bar-item #{'active' if current_page?("#")}" do %>
+    <%= link_to destroy_user_session_path, data: { method: :delete }, class: "tab-bar-item #{'active' if current_page?("#")}" do %>
       <i class="fa fa-cog"></i>
       <span>Paramètres</span>
     <% end %>
@@ -31,7 +31,7 @@
       <i class="fa fa-smile"></i>
       <span>Privilèges</span>
     <% end %>
-    <%= link_to destroy_user_session_path, data: { method: :delete, turbo_confirm: "Confirmer la déconnexion" }, class: "tab-bar-item #{'active' if current_page?("#")}" do %>
+    <%= link_to destroy_user_session_path, data: { method: :delete }, class: "tab-bar-item #{'active' if current_page?("#")}" do %>
       <i class="fa fa-cog"></i>
       <span>Paramètres</span>
     <% end %>
