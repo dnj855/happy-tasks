@@ -11,7 +11,7 @@ export default class extends Controller {
     //console.log("Targets :", this.hasModalTarget);
     this.modalTarget.classList.remove("hidden");
     this.modalTarget.classList.add("open");
-    console.log("Classes actuelles :", this.modalTarget.classList.value);
+    //console.log("Classes actuelles :", this.modalTarget.classList.value);
   }
 
   close() {
