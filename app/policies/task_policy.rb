@@ -2,11 +2,16 @@ class TaskPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       if user.child?
-        scope.where(child: user.family.children)
+        scope.where(child_id: user.family.children.pluck(:id))
       else
         scope.where(child: user.family.children)
       end
     end
+  end
+
+  def show?
+    task = record
+    task.child.family == user.family
   end
 
   def index?
@@ -34,7 +39,7 @@ class TaskPolicy < ApplicationPolicy
   end
 
   def declare_done?
-    user.admin? || record.user_id == user.id
+    user.child? && record.child == user.child
   end
 
   # NOTE: Up to Pundit v2.3.1, the inheritance was declared as

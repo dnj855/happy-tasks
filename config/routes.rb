@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'family_tasks/index'
   devise_for :users
   root "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -9,7 +10,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  
+
   resources :families, only: [:new, :create] do
     member do
       get 'dashboard', to: 'dashboard#view', as: :child_dashboard
@@ -24,6 +25,8 @@ Rails.application.routes.draw do
       patch 'declare-done', to: 'tasks#declare_done'
     end
   end
+
+  resources :family_tasks, only: [:index]
 
   resources :awards, only: [:index, :new, :create, :edit, :update, :destroy]
 
