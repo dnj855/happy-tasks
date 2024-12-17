@@ -133,10 +133,11 @@ end
   
   end_prompt = '
   Note bien que les points des tâches accomplies seront divisées en 3, chaque tiers allant dans un compteur quotidien, hebdomadaire et mensuel.
+  Note également que les tâches doivent pouvoir être réalisées tous les jours, il ne faut donc pas de tâche dont la réussite se juge sur toute une semaine. On ne peut pas non plus avoir de tâche qui soit le résultat de quelque chose dont l\'enfant ne peut pas maîtriser le fait que cela survienne (nettoyer après avoir sali, par exemple, ne peut pas fonctionner).
   Classe les privilèges, dans chaque périodicité, selon son intérêt pour l\'enfant. Et attribue des points en fonction de cet intérêt.
   Les points des privilèges doivent donc tenir compte de cela (les points quotidiens doivent être compris entre 10 et 30 points, les points hebdomadaires entre 100 et 500 points et les points mensuels doivent être compris entre 300 et 2000). Un (et un seul) privilège quotidien sera systématiquement un temps spécial avec les parents.
   Tiens bien compte de l\'âge de l\'enfant pour définir ses tâches et ses privilèges. Toutes les tâches doivent avoir une tournure positive et être simples et précises. Tu dois également les catégoriser parmi cette liste :  "Chambre", "Linge", "Ménage", "Cuisine", "Animaux", "Apprentissage", "Hygiène" et préciser la catégorie au bon endroit dans ta réponse.
-  Ta réponse devra consister en un objet JSON, sans aucun texte introductif ou conclusif, sur le format suivant. Ce dernier point est impératif.
+  Ta réponse devra consister en un objet JSON, sans aucun texte introductif ou conclusif, sur le format suivant.
 {
   "prénom": "#PRENOM#",
   "tâches": [
