@@ -4,3 +4,12 @@
     gap: spacing("2xl");
   }
 }
+
+.child-card__body {
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.child-card__body.open {
+  max-height: 500px; /* Ajustez selon vos besoins */
+}
