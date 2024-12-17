@@ -1,5 +1,5 @@
 <%= turbo_stream.replace dom_id(@award) do %>
-  <%= render partial: "awards/award", locals: { 
+  <%= render partial: "awards/award", locals: {
     award: @award,
     points: @child.send(@award.points_method_for_periodicity),
     child: @child
