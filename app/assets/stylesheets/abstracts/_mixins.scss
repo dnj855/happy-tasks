@@ -97,7 +97,7 @@
   @include interactive;
   @include flex-center;
   padding: map-get($spacing, "sm") map-get($spacing, "base");
-  border-radius: map-get($border-radius, "full");
+  border-radius: map-get($border-radius, "2xl");
   border: none;
   font-weight: map-get($font-weights, "semibold");
 }
@@ -109,6 +109,7 @@
 
   &:hover:not(:disabled) {
     background-color: map-get(map-get($colors, "primary"), "dark");
+    color: white;
   }
 
   &:active:not(:disabled) {

@@ -3,6 +3,12 @@
     @include flex-between;
   }
 
+  &__container-error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   &__back-arrow {
     @include button-primary;
     box-shadow: shadow("lg");

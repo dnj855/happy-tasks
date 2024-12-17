@@ -8,10 +8,10 @@
         <i class="fas fa-check"></i>
         Ajouter une tâche
       <% end %>
-      <button class="mobile-menu__action">
+      <%= link_to tasks_path(child_id: child.id), class: "mobile-menu__action" do %>
         <i class="fas fa-trash"></i>
         Supprimer une tâche
-      </button>
+      <% end %>
       <%= link_to new_award_path(child_id: child.id), class: "mobile-menu__action" do %>
         <i class="fas fa-smile"></i>
         Ajouter un privilège

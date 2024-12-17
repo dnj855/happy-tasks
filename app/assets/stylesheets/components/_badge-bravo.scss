@@ -1,0 +1,20 @@
+.child-card__badge {
+  padding: spacing("2xs") spacing("sm");
+  background-color: color("green", "lighter");
+  color: color("green", "darker");
+  border-radius: 0.5rem;
+  font-size: font-size("xs");
+  font-weight: font-weight("semibold");
+  border: solid;
+  border-color: color("green", "darker");
+  min-width: 20%;
+  text-align: center;
+  transform: rotate(20deg) translateY(8px);
+}
+
+// .child-card__body__award__title {
+//   display: flex;
+//   flex-direction: row;
+//   flex-wrap: nowrap;
+//   align-items: center;
+// }

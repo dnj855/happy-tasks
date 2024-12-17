@@ -1,0 +1,13 @@
+.menu-horizontal {
+  display: none;
+  @include media(tabletAndUp) {
+    align-items: center;
+    display: flex;
+  }
+
+  &__right {
+    @include flex-between;
+    align-items: baseline;
+    gap: spacing("lg");
+  }
+}

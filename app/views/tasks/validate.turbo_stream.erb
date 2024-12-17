@@ -1,0 +1,18 @@
+<%= turbo_stream.replace @task do %>
+  <%= render @task %>
+<% end %>
+<%= turbo_stream.replace "child-#{@child.id}-day_points" do %>
+  <div class="child-card__header__points child-card__header__points--day animate__animated animate__flash animate__slow" id="child-<%= @child.id %>-day_points">
+    <span class="child-card__header__points-value"><%= @child.day_points %></span>
+  </div>
+<% end %>
+<%= turbo_stream.replace "child-#{@child.id}-week_points" do %>
+  <div class="child-card__header__points child-card__header__points--week animate__animated animate__flash animate__slow" id="child-<%= @child.id %>-week_points">
+    <span class="child-card__header__points-value"><%= @child.week_points %></span>
+  </div>
+<% end %>
+<%= turbo_stream.replace "child-#{@child.id}-month_points" do %>
+  <div class="child-card__header__points child-card__header__points--month animate__animated animate__flash animate__slow" id="child-<%= @child.id %>-month_points">
+    <span class="child-card__header__points-value"><%= @child.month_points %></span>
+  </div>
+<% end %>

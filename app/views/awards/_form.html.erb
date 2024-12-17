@@ -2,9 +2,9 @@
   <!-- Nom du privilège -->
   <div class="form__group">
     <%= f.label :name, "Nom", class: "form__label" %>
-    <%= f.text_field :name, class: "form__input #{@award.errors[:name].any? ? "form__input--error" : ""}", placeholder: "Nom du privilège", required: true %>
+    <%= f.text_field :name, class: "form__input #{@award.errors[:name].any? ? "form__input--error" : ""}", placeholder: "Nom du privilège"%>
     <% if @award.errors.include?(:name) %>
-      <p class="form__error text-sm text-color-error"><%= @award.errors[:name].first %></p>
+      <p class="form__error"><%= @award.errors[:name].first %></p>
     <% end %>
   </div>
   <!-- Description -->
@@ -22,7 +22,7 @@
   <!-- Périodicité -->
   <div class="form__group">
     <%= f.label :periodicity, "Périodicité", class: "form__label" %>
-    <%= f.select :periodicity, [['Quotidien', 'quotidien'], ['Hebdomadaire', 'hebdomadaire'], ['Mensuel', 'mensuel']], { prompt: "Choisissez une périodicité" }, class: "form__input #{@award.errors[:periodicity].any? ? "form__input--error" : ""}" %>
+    <%= f.select :periodicity, [['Quotidien', 'Quotidien'], ['Hebdomadaire', 'Hebdomadaire'], ['Mensuel', 'Mensuel']], { prompt: "Choisissez une périodicité" }, class: "form__input #{@award.errors[:periodicity].any? ? "form__input--error" : ""}" %>
     <% if @award.errors.include?(:periodicity) %>
       <p class="form__error"><%= @award.errors[:periodicity].first %></p>
     <% end %>

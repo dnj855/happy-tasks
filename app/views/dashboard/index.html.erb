@@ -21,19 +21,19 @@
       <header class="child-card__header">
         <div class="child-card__header__identity">
           <div class="child-card__header__avatar">
-            <%= image_tag("super.png", alt: "Photo #{child.first_name}") %>
+            <%= cl_image_tag child.avatar.key, height: 50, width: 50, crop: :auto, gravity: :auto, alt: "Photo #{child.first_name}" %>
           </div>
           <h1 class="child-card__header__name"><%= child.first_name %></h1>
         </div>
         <div class="child-card__header__points-container">
-          <div class="child-card__header__points child-card__header__points--day">
-            <span class="child-card__header__points-value" id="child-<%= child.id %>-day_points"><%= child.day_points %></span>
+          <div class="child-card__header__points child-card__header__points--day" id="child-<%= child.id %>-day_points">
+            <span class="child-card__header__points-value"><%= child.day_points %></span>
           </div>
-          <div class="child-card__header__points child-card__header__points--week">
-            <span class="child-card__header__points-value" id="child-<%= child.id %>-week_points"><%= child.week_points %></span>
+          <div class="child-card__header__points child-card__header__points--week" id="child-<%= child.id %>-week_points">
+            <span class="child-card__header__points-value"><%= child.week_points %></span>
           </div>
-          <div class="child-card__header__points child-card__header__points--month">
-            <span class="child-card__header__points-value" id="child-<%= child.id %>-month_points"><%= child.month_points %></span>
+          <div class="child-card__header__points child-card__header__points--month" id="child-<%= child.id %>-month_points">
+            <span class="child-card__header__points-value"><%= child.month_points %></span>
           </div>
           <div data-controller="mobile-menu" data-mobile-menu-child-id-value="<%= child.id %>"">
             <span data-action="click->mobile-menu#show"><i class="fa-solid fa-ellipsis-vertical child-card__header__menu"></i></span>

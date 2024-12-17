@@ -9,14 +9,14 @@ require 'date'
 URL_PATH = '@happy-tasks.click'
 # Super users
 BASE_USERS = [
-  [{ first_name: "Guillaume", last_name: "Fournier", email: "gf#{URL_PATH}", child: false, password: "happyT"},
-    { first_name: "Nelly", last_name: "Fournier", email: "nf#{URL_PATH}", child: false, password: "happyT"}],
-  [{ first_name: "Hélène", last_name: "Demanet", email: "hd#{URL_PATH}", child: false, password: "happyT"},
-    { first_name: "Pierre-Luc", last_name: "Demanet", email: "pld#{URL_PATH}", child: false, password: "happyT"}],
-  [{ first_name: "Emilie", last_name: "Vennat-Louveau", email: "evl#{URL_PATH}", child: false, password: "happyT"},
-    { first_name: "Xavier", last_name: "Vennat-Louveau", email: "xvl#{URL_PATH}", child: false, password: "happyT"}],
-  [{ first_name: "Cédric", last_name: "Lang-Roth", email: "clr#{URL_PATH}", child: false, password: "happyT"},
-    { first_name: "Vanessa", last_name: "Lang-Roth", email: "vlr#{URL_PATH}", child: false, password: "happyT"}]
+  [{ first_name: "Guillaume", last_name: "Fournier", email: "gf#{URL_PATH}", password: "happyT"},
+    { first_name: "Nelly", last_name: "Fournier", email: "nf#{URL_PATH}", password: "happyT"}],
+  [{ first_name: "Hélène", last_name: "Demanet", email: "hd#{URL_PATH}", password: "happyT"},
+    { first_name: "Pierre-Luc", last_name: "Demanet", email: "pld#{URL_PATH}", password: "happyT"}],
+  [{ first_name: "Emilie", last_name: "Vennat-Louveau", email: "evl#{URL_PATH}", password: "happyT"},
+    { first_name: "Xavier", last_name: "Vennat-Louveau", email: "xvl#{URL_PATH}", password: "happyT"}],
+  [{ first_name: "Cédric", last_name: "Lang-Roth", email: "clr#{URL_PATH}", password: "happyT"},
+    { first_name: "Vanessa", last_name: "Lang-Roth", email: "vlr#{URL_PATH}", password: "happyT"}]
 ]
 # Types de tâches
 TASK_TYPES = [
@@ -319,9 +319,7 @@ def create_the_rest(family)
           week_points: 0,
           month_points: 0,)
         if child.age >= AGE_ACCOUNT
-          User.create!(family_id: family.id, child_id: child.id, first_name: child.first_name, last_name: family.name, email: "#{child.first_name}#{family.id}#{URL_PATH}", password: "happyT", child: true)
-        else
-          User.create!(family_id: family.id, child_id: child.id, first_name: child.first_name, last_name: family.name, email: "#{child.first_name}#{family.id}#{URL_PATH}", password: "happyT", child: false)
+          User.create!(family_id: family.id, first_name: child.first_name, last_name: family.name, email: "#{child.first_name}#{family.id}#{URL_PATH}", password: "happyT", child_id: child.id)
         end
         # array list_of_awards
 

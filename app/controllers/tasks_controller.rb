@@ -4,7 +4,8 @@ class TasksController < ApplicationController
   before_action :set_children, only: %i[new create]
 
   def index
-    @tasks = Task.all
+    @family = current_user.family
+    @tasks = policy_scope(@family.tasks)
   end
 
   def new
@@ -16,7 +17,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
-
+    @child = Child.find(task_params[:child_id])
     authorize @task
 
     if @task.save
@@ -43,6 +44,14 @@ class TasksController < ApplicationController
   end
 
   def declare_done
+    @task = Task.find(params[:id])
+    authorize @task
+
+    if @task.update(completed: params[:completed])
+      render json: { message: 'Task updated successfully' }
+    else
+      render json: { error: 'Failed to update task' }, status: :unprocessable_entity
+    end
   end
 
   def validate
@@ -50,24 +59,25 @@ class TasksController < ApplicationController
     @task.update(validated: true)
     #puts " VVVVVVVVVVVVVVVVV"
     #puts @task.reload.validated
-    child = @task.child
+    @child = @task.child
     # j'ai forcé 3 en float sinon on arrondit pas au supérieur
     points = (@task.value / 3.0).round
-    child.update(
-      day_points: child.day_points + points,
-      week_points: child.week_points + points,
-      month_points: child.month_points + points
+    @child.update(
+      day_points: @child.day_points + points,
+      week_points: @child.week_points + points,
+      month_points: @child.month_points + points
     )
 
     respond_to do |format|
-      format.turbo_stream do
-        # puts "Est ce que turbo stream rendu pour la tâche #{@task.id} ou pas non didiou"
-        render turbo_stream: turbo_stream.replace(
-          @task,
-          partial: "tasks/task",
-          locals: { task: @task }
-        )
-      end
+      format.turbo_stream
+      # format.turbo_stream do
+      #   # puts "Est ce que turbo stream rendu pour la tâche #{@task.id} ou pas non didiou"
+      #   render turbo_stream: turbo_stream.replace(
+      #     @task,
+      #     partial: "tasks/task",
+      #     locals: { task: @task }
+      #   )
+      # end
       format.json do
         render json: {
           points: {

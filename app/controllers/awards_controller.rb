@@ -5,7 +5,7 @@ class AwardsController < ApplicationController
 
 
   def index
-  @children = policy_scope(Child)
+    @children = policy_scope(Child)
   end
 
   def new
@@ -23,7 +23,7 @@ class AwardsController < ApplicationController
   def create
     @award = Award.new(award_params)
     @award.value = award_params['value'].to_i
-
+    @child = Child.find(award_params[:child_id])
     authorize @award
 
     if @award.save
@@ -35,6 +35,9 @@ class AwardsController < ApplicationController
   end
 
   def edit
+    @award = Award.find(params[:id])
+    @children = current_user.family.children
+    @child = @award.child
     authorize @award
   end
 
@@ -47,7 +50,7 @@ class AwardsController < ApplicationController
     ActiveRecord::Base.transaction do
       if @award.update(award_params)
         @child.update!(points_method => @child.send(points_method) - @award.value)
-
+        @periodicity = points_method.match(/^(day|month|week)_points$/)
         respond_to do |format|
           format.turbo_stream
         end

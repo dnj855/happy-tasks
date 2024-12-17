@@ -1,0 +1,4 @@
+fr:
+  devise:
+    sessions:
+      signed_in: 'Bienvenue ! Vous êtes maintenant connecté à HappyTasks.'

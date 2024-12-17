@@ -1,2 +1,32 @@
-<h1>Dashboard#view</h1>
-<p>Find me in app/views/dashboard/view.html.erb</p>
+<div class="container">
+  <div class="headers__container">
+    <h1><%= @child.first_name %> <%= @family.name %></h1>
+    <div class="child-card__header__avatar">
+      <%= image_tag("super.png", alt: "Photo #{@child.first_name}") %>
+    </div>
+  </div>
+</div>
+
+<div class="child-card__wrapper">
+  <div class="child-card">
+    <header class="child-card__header">
+      <div class="child-card__header__points-container">
+        <div class="child-card__header__points child-card__header__points--day">
+          <span class="child-card__header__points-value"><%= @child.day_points %></span>
+        </div>
+        <div class="child-card__header__points child-card__header__points--week">
+          <span class="child-card__header__points-value"><%= @child.week_points %></span>
+        </div>
+        <div class="child-card__header__points child-card__header__points--month">
+          <span class="child-card__header__points-value"><%= @child.month_points %></span>
+        </div>
+      </div>
+    </header>
+
+    <section class="child-card__body">
+      <% @child.tasks.each do |task| %>
+        <%= render 'tasks/task_child', task: task %>
+      <% end %>
+    </section>
+  </div>
+</div>
