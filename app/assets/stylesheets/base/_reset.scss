@@ -24,6 +24,8 @@ html {
 body {
   min-height: 100vh;
   scroll-behavior: smooth;
+  padding-bottom: 60px;
+  &.landing {padding-bottom: 0;}
 }
 
 // Groupes de contenu
