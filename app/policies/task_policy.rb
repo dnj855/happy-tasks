@@ -51,8 +51,8 @@ class TaskPolicy < ApplicationPolicy
   end
 
   private
+
   def not_a_child?
     !user.child? && user.family == record.child.family
   end
-
 end
