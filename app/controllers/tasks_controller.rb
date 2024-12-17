@@ -6,7 +6,7 @@ class TasksController < ApplicationController
   def index
     @family = current_user.family
     @tasks = policy_scope(@family.tasks)
-  end
+   end
 
   def new
     @task = Task.new
@@ -57,10 +57,7 @@ class TasksController < ApplicationController
   def validate
     authorize @task
     @task.update(validated: true)
-    #puts " VVVVVVVVVVVVVVVVV"
-    #puts @task.reload.validated
     @child = @task.child
-    # j'ai forcé 3 en float sinon on arrondit pas au supérieur
     points = (@task.value / 3.0).ceil
     @child.update(
       day_points: @child.day_points + points,
@@ -70,14 +67,6 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream
-      # format.turbo_stream do
-      #   # puts "Est ce que turbo stream rendu pour la tâche #{@task.id} ou pas non didiou"
-      #   render turbo_stream: turbo_stream.replace(
-      #     @task,
-      #     partial: "tasks/task",
-      #     locals: { task: @task }
-      #   )
-      # end
       format.json do
         render json: {
           points: {
