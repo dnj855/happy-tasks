@@ -28,25 +28,11 @@ export default class extends Controller {
           }),
         });
 
-        //.then(response => {
         if (!response.ok) {
           throw new Error("Erreur lors de la mise à jour de la tâche");
         }
         const streamContent = await response.text();
         Turbo.renderStreamMessage(streamContent);
-        //return response.json();
-        //})
-        //.then(data => {
-        //console.log('Tâche mise à jour', data);
-        //// Mise à jour des points de l'enfant dans l'interface
-        //const childPoints = data.points;
-        //const taskElement = event.target.closest('.task');
-
-        //taskElement.querySelector('.child-day-points').textContent = childPoints.day_points;
-        //taskElement.querySelector('.child-week-points').textContent = childPoints.week_points;
-        //taskElement.querySelector('.child-month-points').textContent = childPoints.month_points;
-
-        //    })
       } catch (error) {
         console.error(error);
         event.target.checked = !isChecked;
