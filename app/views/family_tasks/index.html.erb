@@ -30,7 +30,7 @@
         </div>
       </header>
       <section class="child-card__body">
-        <% child.tasks.each do |task| %>
+        <% child.tasks.today.each do |task| %>
           <%= render task %>
         <% end %>
       </section>

@@ -58,18 +58,20 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     authorize @task
 
-    if @task.update(completed: params[:completed])
-      render json: { message: 'Task updated successfully' }
+    if current_user.child? && @task.child == current_user.child
+      if @task.update(done: params[:completed])
+        render json: { message: 'Tâche faite', completed: @task.done }
+      else
+        render json: { error: 'Erreur lors de la mise à jour de la tâche' }, status: :unprocessable_entity
+      end
     else
-      render json: { error: 'Failed to update task' }, status: :unprocessable_entity
+      render json: { error: 'Accès interdit' }, status: :forbidden
     end
   end
 
   def validate
     authorize @task
     @task.update(validated: true)
-    #puts " VVVVVVVVVVVVVVVVV"
-    #puts @task.reload.validated
     @child = @task.child
     # j'ai forcé 3 en float sinon on arrondit pas au supérieur
     points = (@task.value / 3.0).ceil
