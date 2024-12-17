@@ -18,6 +18,7 @@ class DashboardController < ApplicationController
       @child = current_user.child
       @family = @child.family
       @children = @family.children
+      @tasks_today = @child.tasks.today
       authorize @family
     else
       redirect_to root_path, alert: "Accès non autorisé."
