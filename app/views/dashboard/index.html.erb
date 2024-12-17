@@ -9,8 +9,10 @@
       <button class="modal__close" data-action="click->graph-modal#close">&times;</button>
       <h2>Enfants</h2>
       <ul>
+      <% 30.times do %>
       <% @children.each do |child| %>
         <li><%= child.first_name %></li>
+      <% end %>
       <% end %>
     </ul>
   </div>

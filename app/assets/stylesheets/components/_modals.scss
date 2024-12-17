@@ -35,14 +35,13 @@
 }
 
 .modal__content {
-  position: absolute;
-  top: 0;
-  right: 0;
+  position: relative;
   max-width: 90%;
   max-height: 90%;
   background: white;
   border-radius: 8px;
   padding: 1rem;
+  overflow-y: auto;
   transform: scale(0);
   transition: transform 0.3s ease;
 }
