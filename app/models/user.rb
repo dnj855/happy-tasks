@@ -2,6 +2,7 @@ class User < ApplicationRecord
   # has_many :children
   belongs_to :family
   belongs_to :child, optional: true
+  has_many :notifications, class_name: 'Noticed::Notification', as: :recipient
 
   validates :first_name, presence: true
 
