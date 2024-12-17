@@ -1,9 +1,9 @@
 <div class="tab-bar">
   <% if current_user.child? %>
     <!-- Nav-bar pour les enfants -->
-    <%= link_to family_dashboard_path, class: "tab-bar-item #{'active' if current_page?(family_dashboard_path)}" do %>
+    <%= link_to family_tasks_path, class: "tab-bar-item #{'active' if current_page?(family_tasks_path)}" do %>
       <i class="fa fa-users"></i>
-      <span>Ma famille</span>
+      <span>Ma Famille</span>
     <% end %>
     <%= link_to family_dashboard_path, class: "tab-bar-item #{'active' if request.path.start_with?(family_dashboard_path)}" do %>
       <i class="fa fa-check"></i>

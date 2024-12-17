@@ -3,6 +3,17 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[edit update destroy validate]
   before_action :set_children, only: %i[new create]
 
+  def family_tasks
+    @family = current_user.family
+    @tasks = @family.tasks
+
+    authorize @family, :view? if current_user.child?
+
+    respond_to do |format|
+      format.html
+    end
+  end
+
   def index
     @family = current_user.family
     @tasks = policy_scope(@family.tasks)
