@@ -1,6 +1,6 @@
 class FamiliesController < ApplicationController
   skip_before_action :authenticate_user!
-  before_action :set_family, only: [:new_children, :create_children]
+  before_action :set_family, only: [:new_children, :create_children, :barkley_tutorial]
   layout "enrollment"
 
   def new
@@ -44,7 +44,10 @@ class FamiliesController < ApplicationController
       CreateTasksJob.perform_later(child)
     end
     session[:pending_family_id] = @family.id
-    redirect_to new_user_registration_path
+    redirect_to barkley_tutorial_family_path(@family)
+  end
+
+  def barkley_tutorial
   end
 
   private

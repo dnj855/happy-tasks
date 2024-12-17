@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       get 'dashboard', to: 'dashboard#view', as: :child_dashboard
       get 'add-children', to: "families#new_children"
       post 'add-children', to: "families#create_children", as: :create_children
+      get 'barkley-tutorial', to: "families#barkley_tutorial"
     end
   end
 
