@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   after_action :verify_authorized, except: :index, unless: :skip_pundit?
   after_action :verify_policy_scoped, only: :index, unless: :skip_pundit?
 
+  skip_after_action :verify_policy_scoped, if: :mission_control_controller?
+
   layout :layout_by_resource
 
   private
@@ -19,5 +21,9 @@ class ApplicationController < ActionController::Base
     else
       "application"
     end
+  end
+
+  def mission_control_controller?
+    is_a?(::MissionControl::Jobs::QueuesController) || is_a?(::MissionControl::Jobs::JobsController)
   end
 end
