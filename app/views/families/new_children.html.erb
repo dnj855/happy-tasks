@@ -1,0 +1,24 @@
+<div class="container" data-controller="children-form">
+  <div class="progress-bar progress-bar--animated">
+    <div class="progress-bar__track">
+      <div class="progress-bar__indicator progress-bar__indicator--40"></div>
+    </div>
+  </div>
+  <h1>Ravi de vous accueillir, famille <%= @family.name %> 👋</h1>
+  <h4>Il est temps maintenant de nous en dire un peu plus sur les enfants de la famille</h4>
+  <%= form_with(model: @family, class:"form", url: create_children_family_path(@family), method: "post") do |f| %>
+    <div data-children-form-target="childrenContainer">
+      <%= f.fields_for :children do |child_form| %>
+        <%= render 'child_fields', f: child_form %>
+      <% end %>
+    </div>
+    <div class="enrollment__add-child-button">
+      <button type="button" class="form__add-button" data-action="click->children-form#addChild">
+        <i class="fas fa-plus"></i><span class="form__add-button__text">Ajouter un enfant</span>
+      </button>
+    </div>
+    <div class="form__end">
+      <%= f.submit "Etape suivante", class: "form__button" %>
+    </div>
+  <% end %>
+</div>

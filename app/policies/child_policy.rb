@@ -3,6 +3,10 @@ class ChildPolicy < ApplicationPolicy
     true
   end
 
+  def view?
+    user.child? && user.child_id == record.id
+  end
+
   # NOTE: Up to Pundit v2.3.1, the inheritance was declared as
   # `Scope < Scope` rather than `Scope < ApplicationPolicy::Scope`.
   # In most cases the behavior will be identical, but if updating existing

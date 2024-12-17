@@ -1,22 +1,20 @@
-<!-- DISCLAIMER: This template is an exmaple template, feel free to visit hyperUI.com or DaisyUI.com to change specific section by copy pasting the code -->
-
 <div class="menu-horizontal navbar bg-base-100 fixed top-0 left-0 right-0 z-50">
     <div class="flex-1">
-        <%= image_tag("super.png", alt: "Lightning Landing Logo", class: "w-10 h-10") %> <!-- Change your logo here  -->
-        <a href="/" class="btn btn-ghost text-xl">Happy Tasks</a> <!-- Change your company name here  -->
+        <%= image_tag("super.png", alt: "HappyTasks", class: "w-10 h-10") %>
+        <a href="/" class="btn btn-ghost text-xl">HappyTasks</a>
     </div>
-    <div class="flex-none">
-        <ul class="menu menu-horizontal px-1 ">
-            <li><a href="#services">Pourquoi choisir Happy Tasks ?</a></li>
-            <li><a href="#pricing">Tarifs</a></li>
-            <li><a href="#testimonials">Témoignages</a></li>
-        </ul>
-    </div>
+    <ul class="menu-horizontal__right">
+        <li><a href="#services">Pourquoi choisir Happy Tasks ?</a></li>
+        <li><a href="#testimonials">Témoignages</a></li>
+        <% if user_signed_in? %>
+        <li><%= link_to "Mon tableau de bord", family_dashboard_path, class: "button__primary" %></li>
+        <% else %>
+        <li><%= link_to "Se connecter", new_user_session_path, class: "button__primary" %></li>
+        <% end %>
+    </ul>
 </div>
 <div class="hero bg-base-200 min-h-screen">
     <div class="hero-content flex-col lg:flex-row-reverse">
-        <!-- Use a screenshot/demo/image of your best work that instantly shows value -->
-        <!-- Replace the hero-image.png in the images folder with your own image -->
         <%= image_tag("super-blue.png", class: "max-w-sm rounded-lg shadow-2xl lg:max-w-xl", alt: "Portfolio showcase of successful client projects") %>
         <div>
             <!-- Keep it short, focus on the value you deliver -->
@@ -25,7 +23,11 @@
             <p class="py-6">Encouragez votre enfant TDAH à participer aux tâches quotidiennes à la maison en tenant compte des études de psychologie.</p>
             <div class="flex flex-col items-start">
                 <!-- Action-oriented CTA that creates urgency -->
-                <a href="#cta" class="button-primary">Rejoindre Happy Tasks</a>
+                <% if user_signed_in? %>
+            <%= link_to "Mon tableau de bord", family_dashboard_path, class: "button__primary" %>
+            <% else %>
+            <%= link_to "Rejoignez la HappyTeam !", new_family_path, class: "button__primary" %>
+            <% end %>
                 <!-- Social Proof: Change profile picture of users to your own profile picture and text to your own text-->
                 <div class="avatar-group -space-x-6 rtl:space-x-reverse mt-3" style="display: none">
                     <div class="avatar">

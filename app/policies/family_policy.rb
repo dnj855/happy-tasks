@@ -1,5 +1,17 @@
 class FamilyPolicy < ApplicationPolicy
+  def view?
+    user.child? && user.family == record
+  end
+
   def create?
+    true
+  end
+
+  def new_children?
+    true
+  end
+
+  def create_children?
     true
   end
   # NOTE: Up to Pundit v2.3.1, the inheritance was declared as
@@ -10,8 +22,12 @@ class FamilyPolicy < ApplicationPolicy
 
   class Scope < ApplicationPolicy::Scope
     # NOTE: Be explicit about which records you allow access to!
-    # def resolve
-    #   scope.all
-    # end
+    def resolve
+      if user.child?
+        scope.where(id: user.family_id)
+      else
+        scope.all
+      end
+    end
   end
 end

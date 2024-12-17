@@ -1,18 +1,37 @@
 <div class="tab-bar">
-  <%= link_to family_dashboard_path, class: "tab-bar-item #{'active' if current_page?(family_dashboard_path)}" do %>
-    <i class="fa fa-users"></i>
-    <span>Ma famille</span>
-  <% end %>
-  <%= link_to new_task_path(child_id: current_user.family.children.first.id), class: "tab-bar-item #{'active' if request.path.start_with?(tasks_path)}" do %>
-    <i class="fa fa-check"></i>
-    <span>Tâches</span>
-  <% end %>
-  <%= link_to (current_user.child ? awards_path : new_award_path(child_id: current_user.family.children.first.id)), class: "tab-bar-item #{'active' if request.path.start_with?(awards_path)}" do %>
-    <i class="fa fa-smile"></i>
-    <span>Privilèges</span>
-  <% end %>
-  <% unless current_user.child? %>
-    <%= link_to destroy_user_session_path, data:{turbo_method: :delete, turbo_confirm: "Confirmer la déconnexion"}, class: "tab-bar-item #{'active' if current_page?("#")}" do %>
+  <% if current_user.child? %>
+    <!-- Nav-bar pour les enfants -->
+    <%= link_to family_dashboard_path, class: "tab-bar-item #{'active' if current_page?(family_dashboard_path)}" do %>
+      <i class="fa fa-users"></i>
+      <span>Ma famille</span>
+    <% end %>
+    <%= link_to family_dashboard_path, class: "tab-bar-item #{'active' if request.path.start_with?(family_dashboard_path)}" do %>
+      <i class="fa fa-check"></i>
+      <span>Mes Tâches</span>
+    <% end %>
+    <%= link_to awards_path, class: "tab-bar-item #{'active' if request.path.start_with?(awards_path)}" do %>
+      <i class="fa fa-smile"></i>
+      <span>Mes Privilèges</span>
+    <% end %>
+    <%= link_to destroy_user_session_path, data: { turbo_method: :delete, turbo_confirm: "Confirmer la déconnexion" }, class: "tab-bar-item #{'active' if current_page?("#")}" do %>
+      <i class="fa fa-cog"></i>
+      <span>Paramètres</span>
+    <% end %>
+  <% else %>
+    <!-- Nav-bar pour les parents -->
+    <%= link_to family_dashboard_path, class: "tab-bar-item #{'active' if current_page?(family_dashboard_path)}" do %>
+      <i class="fa fa-users"></i>
+      <span>Ma famille</span>
+    <% end %>
+    <%= link_to new_task_path(child_id: current_user.family.children.first.id), class: "tab-bar-item #{'active' if request.path.start_with?(tasks_path)}" do %>
+      <i class="fa fa-check"></i>
+      <span>Tâches</span>
+    <% end %>
+    <%= link_to new_award_path(child_id: current_user.family.children.first.id), class: "tab-bar-item #{'active' if request.path.start_with?(awards_path)}" do %>
+      <i class="fa fa-smile"></i>
+      <span>Privilèges</span>
+    <% end %>
+    <%= link_to destroy_user_session_path, data: { turbo_method: :delete, turbo_confirm: "Confirmer la déconnexion" }, class: "tab-bar-item #{'active' if current_page?("#")}" do %>
       <i class="fa fa-cog"></i>
       <span>Paramètres</span>
     <% end %>

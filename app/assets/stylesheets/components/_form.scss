@@ -5,6 +5,14 @@
 .form {
   @include flex-column;
   gap: spacing("base");
+
+  &__add-button {
+    @include button-base;
+
+    &__text {
+      margin-left: spacing("xs");
+    }
+  }
   &__group {
     @include flex-column;
     margin-bottom: spacing("base");

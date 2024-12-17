@@ -1,16 +1,21 @@
-<h1>Créer ma famille</h1>
 <div class="container">
+  <div class="progress-bar progress-bar--animated">
+    <div class="progress-bar__track">
+      <div class="progress-bar__indicator progress-bar__indicator--10"></div>
+    </div>
+  </div>
+  <h1>Bienvenue dans la HappyTeam</h1>
+  <h4>Pour commencer, comment voulez-vous que nous appelions votre famille ?</h4>
   <%= form_with model: @family, class:"form" do |f| %>
-    <div class="form__group">
+    <div class="enrollment__form__group">
       <%= f.label :name, "Nom de la famille", class: "form__label" %>
-      <%= f.text_field :name, class: "form__input #{@family.errors[:name].any? ? "form__input--error" : ""}", placeholder: "Nom de la famille" %>
+      <%= f.text_field :name, class: "form__input #{@family.errors[:name].any? ? "form__input--error" : ""}" %>
       <% if @family.errors.include?(:name) %>
         <p class="form__error"><%= @family.errors[:name].first %></p>
       <% end %>
     </div>
-
     <div class="form__end">
-      <%= f.submit "Créer ma famille", class: "form__button" %>
+      <%= f.submit "Etape suivante", class: "form__button" %>
     </div>
   <% end %>
 </div>
