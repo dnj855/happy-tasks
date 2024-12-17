@@ -8,4 +8,6 @@ class Task < ApplicationRecord
 
   before_validation { self.value = value.to_i }
   validates :value, presence: true, numericality: { only_numeric: true }
+
+  scope :today, -> { where("DATE(created_at) = ?", Date.today) }
 end

@@ -10,6 +10,7 @@ class DashboardController < ApplicationController
       end
     else
     end
+    @children = Child.includes(:tasks).where(family_id: @family.id)
   end
 
   def view

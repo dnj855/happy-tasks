@@ -1,10 +1,22 @@
-<div class="container">
+<div class="container" data-controller="graph-modal">
   <div class="headers__container">
     <h1>Famille <%= @family.name %></h1>
+    <i class="fa-solid fa-chart-line headers__icon" data-action="click->graph-modal#open"></i>
+  </div>
+
+  <div id="graph-modal" class="modal hidden" data-graph-modal-target="modal">
+    <div class="modal__content">
+      <button class="modal__close" data-action="click->graph-modal#close">&times;</button>
+      <h2>Enfants</h2>
+      <ul>
+      <% @children.each do |child| %>
+        <li><%= child.first_name %></li>
+      <% end %>
+    </ul>
   </div>
 </div>
 <div class="child-card__wrapper">
-  <% @family.children.each do |child| %>
+  <% @children.each do |child| %>
     <div class="child-card">
       <header class="child-card__header">
         <div class="child-card__header__identity">
@@ -30,7 +42,7 @@
         </div>
       </header>
       <section class="child-card__body">
-        <% child.tasks.each do |task| %>
+        <% child.tasks.today.each do |task| %>
           <%= render task %>
         <% end %>
       </section>
