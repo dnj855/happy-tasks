@@ -171,4 +171,13 @@ end
     prompt + end_prompt
   end
 
+  {
+        id: 451,
+        first_name: Child.find(451).first_name,
+        age: Child.find(451).age,
+        neuroatypical: "0",
+        neuroatypical_type: nil,
+        autonomy_level: 4
+      }
+
 end
