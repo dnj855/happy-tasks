@@ -1,9 +1,5 @@
-<%= turbo_stream.replace dom_id(@award) do %>
-  <%= render partial: "awards/award", locals: { 
-    award: @award,
-    points: @child.send(@award.points_method_for_periodicity),
-    child: @child
-  } %>
+<%= turbo_stream.replace dom_id(@child) do %>
+  <%= render partial: "child", locals: { child: @child } %>
 <% end %>
 <%= turbo_stream.replace "child-#{@child.id}-#{@award.points_method_for_periodicity}" do %>
   <div class="child-card__header__points animate__animated animate__flash animate__slow child-card__header__points--<%= @periodicity %>" id="child-<%= @child.id %>-<%= @award.points_method_for_periodicity %>">
