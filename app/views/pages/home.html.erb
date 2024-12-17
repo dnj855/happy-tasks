@@ -7,9 +7,9 @@
         <li><a href="#services">Pourquoi choisir Happy Tasks ?</a></li>
         <li><a href="#testimonials">Témoignages</a></li>
         <% if user_signed_in? %>
-        <li><%= link_to "Mon tableau de bord", family_dashboard_path, class: "button__primary" %></li>
+        <li><%= link_to "Mon tableau de bord", family_dashboard_path, class: "button__primary", data: {turbo: false} %></li>
         <% else %>
-        <li><%= link_to "Se connecter", new_user_session_path, class: "button__primary" %></li>
+        <li><%= link_to "Se connecter", new_user_session_path, class: "button__primary", data: {turbo: false} %></li>
         <% end %>
     </ul>
 </div>
@@ -24,9 +24,9 @@
             <div class="flex flex-col items-start">
                 <!-- Action-oriented CTA that creates urgency -->
                 <% if user_signed_in? %>
-            <%= link_to "Mon tableau de bord", family_dashboard_path, class: "button__primary" %>
+            <%= link_to "Mon tableau de bord", family_dashboard_path, class: "button__primary", data: {turbo: false} %>
             <% else %>
-            <%= link_to "Rejoignez la HappyTeam !", new_family_path, class: "button__primary" %>
+            <%= link_to "Rejoignez la HappyTeam !", new_family_path, class: "button__primary", data: {turbo: false} %>
             <% end %>
                 <!-- Social Proof: Change profile picture of users to your own profile picture and text to your own text-->
                 <div class="avatar-group -space-x-6 rtl:space-x-reverse mt-3" style="display: none">
