@@ -61,7 +61,7 @@ class TasksController < ApplicationController
     #puts @task.reload.validated
     @child = @task.child
     # j'ai forcé 3 en float sinon on arrondit pas au supérieur
-    points = (@task.value / 3.0).round
+    points = (@task.value / 3.0).ceil
     @child.update(
       day_points: @child.day_points + points,
       week_points: @child.week_points + points,

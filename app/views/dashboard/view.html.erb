@@ -24,7 +24,7 @@
     </header>
 
     <section class="child-card__body">
-      <% @child.tasks.each do |task| %>
+      <% @tasks_today.each do |task| %>
         <%= render 'tasks/task_child', task: task %>
       <% end %>
     </section>
