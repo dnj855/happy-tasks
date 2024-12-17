@@ -26,7 +26,10 @@ class FamiliesController < ApplicationController
       child_instance = Child.create!(
         first_name: child[:first_name],
         age: child[:age],
-        family_id: @family.id
+        family_id: @family.id,
+        day_points: 0,
+        week_points: 0,
+        month_points: 0
       )
       {
         id: child_instance.id,
@@ -37,10 +40,11 @@ class FamiliesController < ApplicationController
         autonomy_level: child[:autonomy_level].to_i
       }
     end
-    session[:pending_children_data] = children_data
     children_data.each do |child|
       CreateTasksJob.perform_later(child)
     end
+    session[:pending_family_id] = @family.id
+    redirect_to new_user_registration_path
   end
 
   private
