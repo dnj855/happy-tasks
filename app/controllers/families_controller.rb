@@ -38,7 +38,9 @@ class FamiliesController < ApplicationController
       }
     end
     session[:pending_children_data] = children_data
-    CreateTasksJob.perform_later(children_data)
+    children_data.each do |child|
+      CreateTasksJob.perform_later(child)
+    end
   end
 
   private
