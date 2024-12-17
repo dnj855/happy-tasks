@@ -35,6 +35,4 @@ Rails.application.routes.draw do
   get 'dashboard/children', to: 'children#new', as: :new_child
   post 'dashboard/children', to: 'children#create', as: :create_child
 
-  mount MissionControl::Jobs::Engine, at: "/jobs"
-
 end
