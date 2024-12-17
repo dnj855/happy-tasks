@@ -60,6 +60,7 @@ class TasksController < ApplicationController
 
     if current_user.child? && @task.child == current_user.child
       if @task.update(done: params[:completed])
+        NewCommentNotifier.with(record: @comment).deliver_later(@user)
         render json: { message: 'Tâche faite', completed: @task.done }
       else
         render json: { error: 'Erreur lors de la mise à jour de la tâche' }, status: :unprocessable_entity
