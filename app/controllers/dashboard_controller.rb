@@ -16,7 +16,7 @@ class DashboardController < ApplicationController
       counts[child.id] = TaskType.all.each_with_object({}) do |task_type, task_hash|
         # Sélectionner les tâches complétées et réalisées dans le mois courant pour le task_type,
         tasks_in_month = child.tasks
-        .where(task_type_id: task_type.id, done: true)
+        .where(task_type_id: task_type.id, validated: true)
         .where(created_at: Time.current.beginning_of_month..Time.current.end_of_month)
         # puis compter le nombre de tâches réalisées dans le mois courant pour ce type
         task_hash[task_type.name] = tasks_in_month.count
