@@ -3,7 +3,7 @@
   <div class="headers__container">
     <h1><%= @child.first_name %> <%= @family.name %></h1>
     <div class="child-card__header__avatar">
-      <%= image_tag("super.png", alt: "Photo #{@child.first_name}") %>
+      <%= cl_image_tag @child.avatar.key, crop: :auto, gravity: :auto, alt: "Photo #{@child.first_name}" %>
     </div>
   </div>
 
