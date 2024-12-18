@@ -3,8 +3,12 @@
 // ==========================================================================
 
 .child-card {
+
+  margin-bottom: 1rem;
+
   &__header {
     @include flex-between;
+    border-radius: spacing("base") spacing("base") 0 0;
     padding: spacing("2xs") spacing("xs");
     background-color: color("yellow", "lighter");
     border-bottom: 1px solid color("light", "base");
@@ -90,8 +94,10 @@
   &__body {
     @include card-base;
     @include flex-column;
+    border-radius: 0 0 spacing("base") spacing("base");
     gap: spacing("xs");
     padding: 0;
+    //margin-bottom: 0.5rem;
 
     &__periodicity {
       margin: spacing("xs") spacing("xs");
@@ -144,4 +150,15 @@
       }
     }
   }
+}
+
+.child-card__header__chevron-icon {
+  transition: transform 0.3s ease;
+
+  &.is-open {
+    transform: rotate(0deg); // Vers le bas quand ouvert
+  }
+
+  // Par défaut, tourné vers la droite
+  transform: rotate(-90deg);
 }
