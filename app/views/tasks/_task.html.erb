@@ -1,10 +1,18 @@
-<div class="child-card__body__award <%= task.validated? ? "child-card__body__award--disabled" : "" %>"
+<div class="child-card__body__award <%= task.validated? ? "child-card__body__award--disabled" : "" %> <%= task.done && !task.validated? ? "child-card__body__award--pending" : "" %>""
      data-controller="task-done"
      data-task-done-id-value="<%= task.id %>"
      data-task-done-user-role-value="parent"
      id="<%= dom_id(task) %>">
   <div class="child-card__body__award__title">
-    <p class="child-card__body__award__title--name"><%= task.name %> (<%= task.value %> points)</p>
+    <p class="child-card__body__award__title--name">
+      <%= task.name %> (<%= task.value %> points)
+      <% if task.done && !task.validated? %>
+        <span class="task-pending-indicator"
+              title="<%= task.child.first_name %> a terminé cette tâche et attend votre validation !">
+          ✅
+        </span>
+      <% end %>
+    </p>
     <p class="child-card__body__award__title--description"><%= task.description %></p>
   </div>
   <div class="task-switch">
@@ -20,3 +28,19 @@
     <% end %>
   </div>
 </div>
+
+<style>
+.child-card__body__award--pending {
+  background-color: #fffbe6; /* Légère couleur de fond pour indiquer une tâche en attente */
+}
+
+.task-pending-indicator {
+  margin-left: 0.5rem;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+</style>
