@@ -61,6 +61,9 @@ gem "sassc-rails"
 # Solid Queue
 gem "solid_queue"
 
+# Solid cable
+gem "solid_cable"
+
 # OpenAI
 gem "ruby-openai"
 
