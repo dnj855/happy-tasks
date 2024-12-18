@@ -178,7 +178,7 @@
     }
 
     &-input:checked + &-label {
-      background-color: color("primary", "base");
+      background-color: color("yellow", "base");
       color: white;
     }
   }
