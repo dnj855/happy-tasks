@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_17_162709) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_16_222419) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -67,65 +67,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_17_162709) do
     t.index ["family_id"], name: "index_children_on_family_id"
   end
 
-  create_table "comments", force: :cascade do |t|
-    t.string "content"
-    t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_comments_on_user_id"
-  end
-
   create_table "families", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "noticed_events", force: :cascade do |t|
-    t.string "type"
-    t.string "record_type"
-    t.bigint "record_id"
-    t.jsonb "params"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "notifications_count"
-    t.index ["record_type", "record_id"], name: "index_noticed_events_on_record"
-  end
-
-  create_table "noticed_notifications", force: :cascade do |t|
-    t.string "type"
-    t.bigint "event_id", null: false
-    t.string "recipient_type", null: false
-    t.bigint "recipient_id", null: false
-    t.datetime "read_at", precision: nil
-    t.datetime "seen_at", precision: nil
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["event_id"], name: "index_noticed_notifications_on_event_id"
-    t.index ["recipient_type", "recipient_id"], name: "index_noticed_notifications_on_recipient"
-  end
-
-  create_table "notifications", force: :cascade do |t|
-    t.bigint "recipient_id", null: false
-    t.bigint "task_id", null: false
-    t.bigint "child_id", null: false
-    t.string "message"
-    t.boolean "read", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["child_id"], name: "index_notifications_on_child_id"
-    t.index ["recipient_id"], name: "index_notifications_on_recipient_id"
-    t.index ["task_id"], name: "index_notifications_on_task_id"
-  end
-
-  create_table "solid_cable_connections", force: :cascade do |t|
-    t.string "connection_id", null: false
-    t.integer "subscriber_id"
-    t.string "subscriber_type"
-    t.string "channel", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["subscriber_id", "subscriber_type", "channel"], name: "index_solid_cable_connections_on_subscriber_and_channel", unique: true
   end
 
   create_table "solid_queue_blocked_executions", force: :cascade do |t|
@@ -294,10 +239,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_17_162709) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "awards", "children"
   add_foreign_key "children", "families"
-  add_foreign_key "comments", "users"
-  add_foreign_key "notifications", "children"
-  add_foreign_key "notifications", "tasks"
-  add_foreign_key "notifications", "users", column: "recipient_id"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_failed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade

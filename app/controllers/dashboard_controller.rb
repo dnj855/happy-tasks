@@ -2,8 +2,6 @@ class DashboardController < ApplicationController
   before_action :set_family
 
   def index
-    @message = "Vous avez une nouvelle tâche à vérifier"
-    @user = current_user
     if current_user.child?
       if @family
         redirect_to child_dashboard_family_path(@family)
