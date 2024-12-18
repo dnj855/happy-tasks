@@ -1,4 +1,7 @@
 fr:
   devise:
     sessions:
-      signed_in: 'Bienvenue ! Vous êtes maintenant connecté à HappyTasks.'
+      signed_in: "Bienvenue ! Vous êtes maintenant connecté à HappyTasks."
+    registrations:
+      user:
+        signed_up: "Félicitations ! Vous avez créé votre espace famille sur HappyTasks !"

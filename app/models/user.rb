@@ -3,6 +3,8 @@ class User < ApplicationRecord
   belongs_to :family
   belongs_to :child, optional: true
 
+  validates :first_name, presence: true
+
   def child?
     self.child.present?
   end

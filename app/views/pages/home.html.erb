@@ -13,22 +13,18 @@
         <% end %>
     </ul>
 </div>
-<div class="hero bg-base-200 min-h-screen">
+<div class="hero bg-base-200 d-inline-block">
     <div class="hero-content flex-col lg:flex-row-reverse">
-        <%= image_tag("super-blue.png", class: "max-w-sm rounded-lg shadow-2xl lg:max-w-xl", alt: "Portfolio showcase of successful client projects") %>
+        <%= image_tag("super-blue.png", class: "max-w-sm rounded-lg shadow-2xl lg:max-w-xl img-homepage", alt: "Portfolio showcase of successful client projects") %>
         <div>
-            <!-- Keep it short, focus on the value you deliver -->
             <h1 class="text-5xl font-bold">Retrouvez du zen dans la maison</h1>
-            <!-- Explain how you deliver on the promise, be specific -->
             <p class="py-6">Encouragez votre enfant TDAH à participer aux tâches quotidiennes à la maison en tenant compte des études de psychologie.</p>
             <div class="flex flex-col items-start">
-                <!-- Action-oriented CTA that creates urgency -->
                 <% if user_signed_in? %>
             <%= link_to "Mon tableau de bord", family_dashboard_path, class: "button__primary", data: {turbo: false} %>
             <% else %>
             <%= link_to "Rejoignez la HappyTeam !", new_family_path, class: "button__primary", data: {turbo: false} %>
             <% end %>
-                <!-- Social Proof: Change profile picture of users to your own profile picture and text to your own text-->
                 <div class="avatar-group -space-x-6 rtl:space-x-reverse mt-3" style="display: none">
                     <div class="avatar">
                         <div class="w-12">
@@ -59,7 +55,6 @@
 <!-- The problem we solve -->
 <div class="p-8 md:p-12 lg:px-16 lg:py-24">
     <div class="mx-auto max-w-lg text-center">
-        <!-- Change the text to your own text, explain the problem you solve and try to use data to make it more convincing-->
         <h2 class="text-2xl font-bold md:text-3xl">« Je répète, une fois, dix fois, je crie… ça ne change rien.»</h2>
         <p class="hidden sm:mt-4 sm:block">Grâce à Happy Tasks basé sur le programme Barkley, aidez votre enfant à s'organiser et améliorez le quotidien de la famille.</p>
     </div>
@@ -72,28 +67,27 @@
     <div class="container mx-auto px-12 bg-base-200 rounded-lg p-12">
         <h2 class="text-4xl font-bold text-base-content">Pourquoi choisir Happy Tasks?</h2>
         <p class="mb-4 mt-2 text-base-content/80">Nos familles ont choisi Happy Tasks pour sa prise en main rapide et intuitive.</p>
-        <!-- Add screenshots of your best work here, make it visually appealing, jsut replace the serviceN.png with your own images -->
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 col-span-1 min-h-[200px] bg-[url('<%= asset_path("paint.png") %>')] bg-cover bg-center group hover:bg-primary">
+          <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 col-span-1 min-h-[200px] bg-[url('<%= asset_path("paint.png") %>')] bg-cover bg-center group hover:bg-primary overflow-hidden">
             <div class="card-body mt-auto bg-base-100/0 opacity-0 group-hover:opacity-100 group-hover:bg-primary rounded-lg transition-all duration-300">
                 <h2 class="card-title text-black">Création rapide du profil de la famille</h2>
             </div>
             <div class="absolute inset-0 bg-[#b9174a]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
           </div>
-          <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 lg:col-span-2 min-h-[200px] bg-[url('<%= asset_path("idea.png") %>')] bg-cover bg-center group hover:bg-primary">
+          <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 lg:col-span-2 min-h-[200px] bg-[url('<%= asset_path("idea.png") %>')] bg-cover bg-center group hover:bg-primary overflow-hidden">
             <div class="card-body mt-auto bg-base-100/0 opacity-0 group-hover:opacity-100 group-hover:bg-primary rounded-lg transition-all duration-300">
                 <h2 class="card-title text-black">Large choix de tâches prédéfinies dans l'application</h2>
             </div>
             <div class="absolute inset-0 bg-[#b9174a]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
           </div>
-          <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 lg:col-span-2 min-h-[200px] bg-[url('<%= asset_path("love.png") %>')] bg-cover bg-center group hover:bg-primary">
+          <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 lg:col-span-2 min-h-[200px] bg-[url('<%= asset_path("love.png") %>')] bg-cover bg-center group hover:bg-primary overflow-hidden">
             <div class="card-body mt-auto bg-base-100/0 opacity-0 group-hover:opacity-100 group-hover:bg-primary rounded-lg transition-all duration-300">
                 <h2 class="card-title text-black">Personnalisation des tâches et ses propres récompenses</h2>
             </div>
             <div class="absolute inset-0 bg-[#b9174a]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
           </div>
-          <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 col-span-1 min-h-[200px] bg-[url('<%= asset_path("zen.png") %>')] bg-cover bg-center group hover:bg-primary">
+          <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 col-span-1 min-h-[200px] bg-[url('<%= asset_path("zen.png") %>')] bg-cover bg-center group hover:bg-primary overflow-hidden">
             <div class="card-body mt-auto bg-base-100/0 opacity-0 group-hover:opacity-100 group-hover:bg-primary rounded-lg transition-all duration-300">
                 <h2 class="card-title text-black">Suivi des tâches réalisées par l'enfant</h2>
             </div>
@@ -103,7 +97,7 @@
         </div>
     </div>
 </div>
-<!-- pricing -->
+<%# <!-- pricing -->
 <div class="py-24 sm:py-32" id="pricing" style="display: none">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
       <div class="mx-auto max-w-2xl sm:text-center">
@@ -152,13 +146,13 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> %>
   <!-- Testimonials -->
     <div class="mx-auto max-w-screen-xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16" id="testimonials">
       <h2 class="text-center text-4xl font-bold tracking-tight sm:text-5xl">
         Consultez les avis de nos familles abonnées
       </h2>
-      <div class="mt-8 [column-fill:_balance] sm:columns-2 sm:gap-6 lg:columns-3 lg:gap-8">
+      <div class="mt-8 [column-fill:_balance] sm:columns-2 sm:gap-6 lg:columns-2 lg:gap-8">
         <div class="mb-8 sm:break-inside-avoid">
           <blockquote class="rounded-lg bg-base-200 p-6 shadow-sm sm:p-8">
             <div class="flex items-center gap-4">
@@ -169,18 +163,17 @@
               />
               <div>
                 <div class="flex justify-center gap-0.5 text-accent">
-                  <i data-lucide="star"></i>
-                  <i data-lucide="star"></i>
-                  <i data-lucide="star"></i>
-                  <i data-lucide="star"></i>
-                  <i data-lucide="star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-regular fa-star"></i>
                 </div>
                 <p class="mt-0.5 text-lg font-medium">Emilie V-L</p>
               </div>
             </div>
             <p class="mt-4 text-base-600">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ad mollitia rerum quo unde
-              neque atque molestias quas pariatur! Sint, maxime?
+              Je tiens à partager mon expérience avec cette application de gestion de tâches, qui a véritablement changé notre quotidien. Notre fille de 10 ans, a été diagnostiquée autiste et présente également des symptômes du TDAH. Gérer son emploi du temps et l'aider à rester organisée était un vrai défi avant que nous ne découvrions cette app. L'intégration du programme Barkley dans l'application est un atout incroyable. Les rappels visuels, les récompenses motivantes et la structuration claire des tâches lui permettent de rester concentrée tout au long de la journée. Les tâches sont bien divisées, ce qui l'aide à comprendre et à accomplir chaque étape. Je recommande vivement cette application à toute famille ayant un enfant autiste ou avec des troubles de l’attention. Elle offre un soutien précieux pour aider nos enfants à rester organisés tout en s’adaptant à leurs besoins spécifiques. Une vraie bouffée d’air frais pour nous !
             </p>
           </blockquote>
         </div>
@@ -194,19 +187,17 @@
               />
               <div>
                 <div class="flex justify-center gap-0.5 text-accent">
-                  <i data-lucide="star"></i>
-                  <i data-lucide="star"></i>
-                  <i data-lucide="star"></i>
-                  <i data-lucide="star"></i>
-                  <i data-lucide="star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-regular fa-star"></i>
                 </div>
                 <p class="mt-0.5 text-lg font-medium">Guillaume F.</p>
               </div>
             </div>
             <p class="mt-4 text-base-700">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit esse delectus,
-              maiores fugit, reiciendis culpa inventore sint accusantium libero dolore eos quasi a ex
-              aliquam molestiae. Tenetur hic delectus maxime.
+             En tant que père, j'ai toujours cherché des moyens d'aider mes filles à organiser leurs journées, surtout avec leurs emplois du temps très chargés entre l’école, les activités et la maison. Cette application a vraiment fait une différence dans notre quotidien ! Chacune de mes filles l’utilise à sa manière, et j’apprécie que l’application soit suffisamment flexible pour s’adapter à leurs besoins. La plus grande, utilise l'application pour gérer ses devoirs et ses tâches quotidiennes, tandis que laplus jeune d'en sert principalement pour apprendre à organiser ses petites tâches à la maison, comme ranger sa chambre ou préparer ses affaires pour le lendemain. Je recommande vivement cette application à tous les parents avec plusieurs enfants. Elle est suffisamment polyvalente pour s'adapter à différents âges et besoins, tout en restant ludique et motivante. C’est un vrai coup de cœur chez nous !
             </p>
           </blockquote>
         </div>
@@ -220,17 +211,17 @@
               />
               <div>
                 <div class="flex justify-center gap-0.5 text-accent">
-                  <i data-lucide="star"></i>
-                  <i data-lucide="star"></i>
-                  <i data-lucide="star"></i>
-                  <i data-lucide="star"></i>
-                  <i data-lucide="star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
                 </div>
                 <p class="mt-0.5 text-lg font-medium">Cédric L-R</p>
               </div>
             </div>
             <p class="mt-4 text-base-700">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, fuga?
+              Je suis vraiment impressionné par cette application de gestion de tâches. Notre fille a été diagnostiquée avec le TDAH il y a quelques années, et comme beaucoup de parents dans notre situation, nous avons essayé de nombreuses méthodes pour l'aider à mieux gérer son emploi du temps. Cette application a été une vraie révélation pour nous. Ce qui m'a tout de suite séduit, c'est la façon dont l'application a été conçue pour capter l'attention de notre fille sans la submerger. Les tâches sont bien structurées et divisées en petites étapes, ce qui l’aide à ne pas se sentir accablée. Elle peut se connecter avec son téléphone et visualiser ses objectifs de manière claire, et le système de récompenses la motive énormément à accomplir ses tâches. Je recommande vivement cette application à tous les parents d'adolescents atteints de TDAH. C'est un outil simple mais incroyablement efficace pour aider nos enfants à rester organisés, à gérer leur temps et à se sentir plus autonomes au quotidien.
             </p>
           </blockquote>
         </div>
@@ -244,21 +235,17 @@
               />
               <div>
                 <div class="flex justify-center gap-0.5 text-accent">
-                  <i data-lucide="star"></i>
-                  <i data-lucide="star"></i>
-                  <i data-lucide="star"></i>
-                  <i data-lucide="star"></i>
-                  <i data-lucide="star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
                 </div>
                 <p class="mt-0.5 text-lg font-medium">Hélène D.</p>
               </div>
             </div>
             <p class="mt-4 text-base-700">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cupiditate officia natus
-              blanditiis rerum incidunt ex autem repudiandae doloribus eveniet quia? Culpa commodi
-              quae atque perspiciatis? Provident, magni beatae saepe porro aspernatur facere neque
-              sunt possimus assumenda perspiciatis aperiam quisquam animi libero voluptatem fuga.
-              Repudiandae, facere? Nemo reprehenderit quas ratione quis.
+              En tant que jeune maman, j’ai toujours cherché des moyens ludiques et pratiques pour aider ma fille à s'organiser, surtout avec ses journées bien remplies entre l'école, les activités et les moments de jeu. Cette application a été une véritable trouvaille ! Ma fille adore l’utiliser et elle est très motivée par les petites tâches à accomplir chaque jour. Je trouve aussi que l'application l’aide à développer un sens de la responsabilité et de l’autonomie, tout en restant ludique et amusante. Je recommande cette application à toutes les mamans (et papas) d’enfants jeunes et curieux, qui souhaitent les aider à s’organiser de manière fun et interactive.
             </p>
           </blockquote>
         </div>
@@ -267,80 +254,83 @@
 <!-- FAQ -->
 <div class="mx-auto max-w-screen-xl px-4 py-12 sm:px-6 sm:py-12 lg:px-8 lg:py-16 my-26" id="faq">
   <div class="grid gap-4 lg:grid-cols-3 lg:gap-8">
-  <div class="h-auto">
+    <div class="h-auto">
       <p class="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">FAQ</p>
-      <h2 class="text-base font-semibold leading-7 text-primary">Tout ce que vous devez savoir sur Happy Tasks</h2>
-  </div>
-  <div class="h-auto lg:col-span-2">
-    <div class="join join-vertical w-full">
-      <div class="collapse collapse-arrow join-item border-base-300 border">
-        <input type="radio" name="my-accordion-4" checked="checked" />
-        <div class="collapse-title text-xl font-medium">En quoi consiste l'application Happy Tasks?</div>
-        <div class="collapse-content">
-          <p>L’objectif de cette application est de vous aider à:</p>
-          <ul class="list-disc pl-6 mt-2">
-            <li>Motiver votre enfant à faire les tâches domestiques</li>
-            <li>Établir un système de récompenses par points, points qui permettent ensuite à l’enfant de choisir des privilèges</li>
-            <li>Récompenser les efforts de votre enfant</li>
-            <li>Adapter les tâches demandées au profil de votre enfant</li>
-            <li>Rendre votre enfant autonome dans l'accomplissement de certaines tâches</li>
-          </ul>
-      </div>
+      <h2 class="text-base font-semibold leading-7 text-primary">Tout savoir sur HappyTasks en quelques minutes</h2>
     </div>
-    <div class="collapse collapse-arrow join-item border-base-300 border">
-      <input type="radio" name="my-accordion-4" />
-      <div class="collapse-title text-xl font-medium">C'est quoi le programme Barkley ?</div>
-      <div class="collapse-content">
-        <p>Happy Tasks se base sur un programme de thérapie cognitivo-comportementale, développé il y a 50 ans par R.A. Barkley, psychologue américain. Il a montré, dans de nombreuses études, son efficacité pour améliorer à long terme le fonctionnement de l’enfant TDAH et de sa famille.</p><br>
-        <p>Ce programmme permet de:</p>
-        <ul class="list-disc pl-6 mt-2">
-          <li>mieux comprendre le fonctionnement complexe de votre enfant ;</li>
-          <li>mettre en place des stratégies de contrôle efficaces, cohérentes et adaptées au comportement de votre enfant qui permettront à long terme un meilleur fonctionnement et une meilleure qualité de vie de la famille ;</li>
-          <li>restaurer l’image que vous avez de votre enfant et de vous-même ;</li>
-          <li>rétablir des relations positives avec votre enfant pour un apaisement des relations familiales.</li>
-        </ul>
-      </div>
-    </div>
-    <div class="collapse collapse-arrow join-item border-base-300 border">
-      <input type="radio" name="my-accordion-4" />
-      <div class="collapse-title text-xl font-medium">Que dois-je paramétrer ?</div>
-      <div class="collapse-content">
-        <li>Je crée le profil de ma famille : parent(s), enfant(s).</li>
-        <li>Avec mon enfant, je choisis 5 tâches que je lui attribue parmi les suggestions ou je crée mes propres tâches. </li>
-        <li>Nous décidons de la valeur de chaque tâche en nombre de points et des privilèges gagnés.</li>
-      </div>
-    </div>
-    <div class="collapse collapse-arrow join-item border-base-300 border">
-      <input type="radio" name="my-accordion-4" />
-      <div class="collapse-title text-xl font-medium">Comment bien s'y prendre ?</div>
-      <div class="collapse-content">
-      <p>Voici des conseils pour se lancer dans Happy Tasks :</p>
-      <ul class="list-disc pl-6 mt-2">
-        <li>Adapter les tâches et les nombres de jetons à l’âge de votre enfant.</li>
-        <li>Choisir des tâches variées et éviter la lassitude en les changeant régulièrement, comme en changeant les privilèges.</li>
-        <li>Garder le système comme valorisant, ne pas retirer de jetons à l'enfant, même en cas de comportement inadapté.</li>
-        <li>Donner les jetons à la fin de la réalisation de la tâche et non à distance</li>
-        <li>Sourire et féliciter son enfant quand vous donnez les jetons.</li>
-      </ul>
-    </div>
-      </div>
-      <div class="collapse collapse-arrow join-item border-base-300 border">
-          <input type="radio" name="my-accordion-4" />
-          <div class="collapse-title text-xl font-medium">Mon enfant n'est pas TDAH, puis-je utiliser Happy Tasks ?</div>
+    <div class="h-auto lg:col-span-2">
+      <div class="join join-vertical w-full">
+        <div class="collapse collapse-arrow join-item border-base-300 border">
+          <input type="radio" name="my-accordion-4" checked="checked" />
+          <div class="collapse-title text-xl font-medium">À quoi sert HappyTasks ?</div>
           <div class="collapse-content">
-              <p>Le programme Barkley est conçu principalement pour aider les parents d'enfants atteints de TDAH (trouble déficitaire de l’attention avec ou sans hyperactivité). Cependant, il repose sur des principes de gestion du comportement et de renforcement positif qui peuvent être utiles pour d'autres enfants, notamment ceux qui rencontrent des défis dans la gestion des émotions, du comportement ou de la discipline.</p>
+            <p>HappyTasks est une application qui permet de :</p>
+            <ul class="list-disc pl-6 mt-2">
+              <li>Transformer les tâches quotidiennes en moments de réussite pour votre enfant</li>
+              <li>Créer un système de récompenses personnalisé et motivant</li>
+              <li>Développer l'autonomie de manière ludique et positive</li>
+              <li>Adapter les objectifs aux capacités spécifiques de votre enfant</li>
+              <li>Renforcer la confiance en soi à travers des succès quotidiens</li>
+            </ul>
           </div>
-      </div>
-      <div class="collapse collapse-arrow join-item border-base-300 border">
+        </div>
+        <div class="collapse collapse-arrow join-item border-base-300 border">
           <input type="radio" name="my-accordion-4" />
-          <div class="collapse-title text-xl font-medium">Combien coûte Happy Tasks ?</div>
+          <div class="collapse-title text-xl font-medium">Pourquoi le programme Barkley est-il efficace ?</div>
           <div class="collapse-content">
-              <p>L'abonnement à Happy Tasks pour l'ensemble de la famille est au tarif de 3€ par mois.</p>
+            <p>Le programme Barkley est une méthode scientifiquement prouvée, développée par le Dr. Russell Barkley, expert mondial du TDAH. Après 50 ans de recherche et d'application, son efficacité est démontrée pour améliorer durablement la qualité de vie des familles.</p><br>
+            <p>Les bénéfices concrets du programme :</p>
+            <ul class="list-disc pl-6 mt-2">
+              <li>Une meilleure compréhension des besoins spécifiques de votre enfant</li>
+              <li>Des stratégies concrètes et adaptées pour gérer le quotidien sereinement</li>
+              <li>Un renforcement de l'estime de soi, tant pour l'enfant que pour les parents</li>
+              <li>Des relations familiales plus harmonieuses et positives</li>
+            </ul>
           </div>
+        </div>
+        <div class="collapse collapse-arrow join-item border-base-300 border">
+          <input type="radio" name="my-accordion-4" />
+          <div class="collapse-title text-xl font-medium">Comment démarrer avec HappyTasks ?</div>
+          <div class="collapse-content">
+            <p>Le démarrage se fait en 3 étapes simples :</p>
+            <ul class="list-disc pl-6 mt-2">
+              <li>Créez votre espace familial en quelques clics</li>
+              <li>Notre système exclusif vous propose une série de tâches et de privilèges adaptés à votre enfant</li>
+              <li>Personnalisez avec lui ces tâches et privilèges</li>
+            </ul>
+          </div>
+        </div>
+        <div class="collapse collapse-arrow join-item border-base-300 border">
+          <input type="radio" name="my-accordion-4" />
+          <div class="collapse-title text-xl font-medium">Les clés du succès avec HappyTasks</div>
+          <div class="collapse-content">
+            <p>Nos conseils d'experts pour une expérience réussie :</p>
+            <ul class="list-disc pl-6 mt-2">
+              <li>Personnalisez les objectifs selon l'âge et les capacités de votre enfant</li>
+              <li>Renouvelez régulièrement les tâches et les récompenses pour maintenir la motivation</li>
+              <li>Restez toujours dans le positif : les points se gagnent mais ne se perdent jamais</li>
+              <li>Récompensez immédiatement après la réalisation d'une tâche</li>
+              <li>Célébrez chaque succès avec enthousiasme et bienveillance</li>
+            </ul>
+          </div>
+        </div>
+        <div class="collapse collapse-arrow join-item border-base-300 border">
+          <input type="radio" name="my-accordion-4" />
+          <div class="collapse-title text-xl font-medium">HappyTasks est-il adapté à tous les enfants ?</div>
+          <div class="collapse-content">
+            <p>Bien que conçu initialement pour les enfants ayant un TDAH, Happy Tasks s'adapte parfaitement à tous les enfants. Son approche positive et structurée aide chaque enfant à développer son autonomie et sa confiance en soi, qu'il ait des besoins spécifiques ou non. La méthode est particulièrement efficace pour les enfants qui ont besoin de structure, de motivation ou d'aide dans l'organisation.</p>
+          </div>
+        </div>
+        <div class="collapse collapse-arrow join-item border-base-300 border">
+          <input type="radio" name="my-accordion-4" />
+          <div class="collapse-title text-xl font-medium">Quel est le tarif de HappyTasks ?</div>
+          <div class="collapse-content">
+            <p>Happy Tasks est accessible à 1.50€ par mois pour toute la famille, sans limite du nombre d'enfants. L'abonnement inclut toutes les fonctionnalités et les mises à jour régulières de l'application.</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </div>
 <!-- final CTA -->
 <section class="mb-12 lg:mb-24">
@@ -352,18 +342,18 @@
               </span>
               <br>
               <span class="block">
-                  Rejoignez la communtauté des Happy Families !
+                  Rejoignez la communauté des Happy Families !
               </span>
           </h2>
           <div class="lg:mt-0 lg:flex-shrink-0">
-              <div class=" inline-flex rounded-md shadow mt-8 lg:mt-0">
-                  <a href="#cta" class="button-primary">Télécharger Happy Tasks</a>
+              <div class=" inline-flex rounded-md mt-8 lg:mt-0">
+                  <%= link_to "Rejoindre la Happy Team", new_family_path, class:"button__primary" %>
               </div>
           </div>
       </div>
   </div>
 </section>
-    <!-- Footer -->
+<!-- Footer -->
 <footer class="footer bg-neutral text-neutral-content p-10">
     <nav>
         <h6 class="footer-title text-white">Suivez-nous</h6>

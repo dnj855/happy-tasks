@@ -1,9 +1,9 @@
 <div class="tab-bar">
   <% if current_user.child? %>
     <!-- Nav-bar pour les enfants -->
-    <%= link_to family_dashboard_path, class: "tab-bar-item #{'active' if current_page?(family_dashboard_path)}" do %>
+    <%= link_to family_tasks_path, class: "tab-bar-item #{'active' if current_page?(family_tasks_path)}" do %>
       <i class="fa fa-users"></i>
-      <span>Ma famille</span>
+      <span>Ma Famille</span>
     <% end %>
     <%= link_to family_dashboard_path, class: "tab-bar-item #{'active' if request.path.start_with?(family_dashboard_path)}" do %>
       <i class="fa fa-check"></i>
@@ -13,7 +13,7 @@
       <i class="fa fa-smile"></i>
       <span>Mes Privilèges</span>
     <% end %>
-    <%= link_to destroy_user_session_path, data: { turbo_method: :delete, turbo_confirm: "Confirmer la déconnexion" }, class: "tab-bar-item #{'active' if current_page?("#")}" do %>
+    <%= link_to destroy_user_session_path, data: {turbo_method: :delete}, class: "tab-bar-item #{'active' if current_page?("#")}" do %>
       <i class="fa fa-cog"></i>
       <span>Paramètres</span>
     <% end %>
@@ -31,7 +31,7 @@
       <i class="fa fa-smile"></i>
       <span>Privilèges</span>
     <% end %>
-    <%= link_to destroy_user_session_path, data: { turbo_method: :delete, turbo_confirm: "Confirmer la déconnexion" }, class: "tab-bar-item #{'active' if current_page?("#")}" do %>
+    <%= link_to destroy_user_session_path, data: {turbo_method: :delete}, class: "tab-bar-item #{'active' if current_page?("#")}" do %>
       <i class="fa fa-cog"></i>
       <span>Paramètres</span>
     <% end %>

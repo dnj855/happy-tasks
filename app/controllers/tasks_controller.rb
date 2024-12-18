@@ -3,6 +3,17 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[edit update destroy validate]
   before_action :set_children, only: %i[new create]
 
+  def family_tasks
+    @family = current_user.family
+    @tasks = @family.tasks
+
+    authorize @family, :view? if current_user.child?
+
+    respond_to do |format|
+      format.html
+    end
+  end
+
   def index
     @family = current_user.family
     @tasks = policy_scope(@family.tasks)
@@ -47,10 +58,14 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     authorize @task
 
-    if @task.update(completed: params[:completed])
-      render json: { message: 'Task updated successfully' }
+    if current_user.child? && @task.child == current_user.child
+      if @task.update(done: params[:completed])
+        render json: { message: 'Tâche faite', completed: @task.done }
+      else
+        render json: { error: 'Erreur lors de la mise à jour de la tâche' }, status: :unprocessable_entity
+      end
     else
-      render json: { error: 'Failed to update task' }, status: :unprocessable_entity
+      render json: { error: 'Accès interdit' }, status: :forbidden
     end
   end
 

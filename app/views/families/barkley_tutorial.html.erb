@@ -1,0 +1,136 @@
+<div class="container">
+  <div class="progress-bar progress-bar--animated">
+    <div class="progress-bar__track">
+      <div class="progress-bar__indicator progress-bar__indicator--70"></div>
+    </div>
+  </div>
+  <div class="processing-indicator">
+    <div class="processing-indicator__spinner"></div>
+    <p class="processing-indicator__text">Nous préparons votre espace...</p>
+  </div>
+  <div data-controller="tutorial">
+    <!-- Slide 1 : Introduction -->
+    <div data-tutorial-target="slide" class="enrollment__form__group">
+      <h1>C'est parti ! 🚀</h1>
+      <h4>Nous sommes en train de créer un programme personnalisé pour la famille <%= @family.name %></h4>
+      <div class="tutorial__content">
+        <div class="tutorial__card">
+          <div class="tutorial__icon">⚙️</div>
+          <div class="tutorial__text">
+            <h3>Création en cours...</h3>
+            <p>Notre système analyse les informations de <%= @family.children.count > 1 ? "vos #{@family.children.count} enfants" : "votre enfant" %> pour générer des tâches et des privilèges adaptés à <%= @family.children.count > 1 ? "chacun d'eux" : "lui" %>.</p>
+          </div>
+        </div>
+      </div>
+      <div class="form__end">
+        <button class="form__button" data-action="tutorial#nextSlide">Découvrir la méthode</button>
+      </div>
+    </div>
+    <!-- Slide 2 : La méthode adaptée -->
+    <div data-tutorial-target="slide" class="enrollment__form__group hidden">
+      <h2>Une méthode sur mesure</h2>
+      <div class="tutorial__content">
+        <div class="tutorial__cards">
+          <div class="tutorial__card">
+            <div class="tutorial__icon">📊</div>
+            <div class="tutorial__text">
+              <h3>Adapté à l'âge</h3>
+              <p>Des objectifs calibrés pour <%= @family.children.count > 1 ? "chaque âge" : "l'âge de #{@family.children.first.first_name}" %></p>
+            </div>
+          </div>
+          <div class="tutorial__card">
+            <div class="tutorial__icon">🎯</div>
+            <div class="tutorial__text">
+              <h3>Niveau d'autonomie</h3>
+              <p>Des challenges progressifs selon les capacités de chacun</p>
+            </div>
+          </div>
+          <div class="tutorial__card">
+            <div class="tutorial__icon">🧠</div>
+            <div class="tutorial__text">
+              <h3>Besoins spécifiques</h3>
+              <p>Une approche adaptée aux particularités de chaque enfant</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form__end">
+        <button class="form__button" data-action="tutorial#nextSlide">Suivant</button>
+      </div>
+    </div>
+    <!-- Slide 3 : Concrètement -->
+    <div data-tutorial-target="slide" class="enrollment__form__group hidden">
+      <h2>Comment ça fonctionne ?</h2>
+      <div class="tutorial__content">
+        <div class="tutorial__timeline">
+          <div class="tutorial__step">
+            <div class="tutorial__step-number">1</div>
+            <div class="tutorial__step-content">
+              <h3>Tâches et Points</h3>
+              <p>Chaque tâche accomplie rapporte des points qui alimentent trois compteurs :</p>
+              <div class="tutorial__counters">
+                <div class="tutorial__counter">
+                  <div class="tutorial__counter-icon">📅</div>
+                  <div class="tutorial__counter-text">
+                    <strong>Quotidien</strong>
+                    <span>Pour les privilèges du jour</span>
+                  </div>
+                </div>
+                <div class="tutorial__counter">
+                  <div class="tutorial__counter-icon">📆</div>
+                  <div class="tutorial__counter-text">
+                    <strong>Hebdomadaire</strong>
+                    <span>Pour les privilèges de la semaine</span>
+                  </div>
+                </div>
+                <div class="tutorial__counter">
+                  <div class="tutorial__counter-icon">🗓️</div>
+                  <div class="tutorial__counter-text">
+                    <strong>Mensuel</strong>
+                    <span>Pour les grands privilèges</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tutorial__step">
+            <div class="tutorial__step-number">2</div>
+            <div class="tutorial__step-content">
+              <h3>Privilège immédiat</h3>
+              <p>Dès qu'une tâche est validée, les points sont instantanément crédités. Votre enfant peut directement échanger ses points contre des privilèges adaptés !</p>
+              <div class="tutorial__reward-example">
+                <div class="tutorial__reward-task">✅ Ranger sa chambre</div>
+                <div class="tutorial__reward-arrow">➡️</div>
+                <div class="tutorial__reward-points">+10 points</div>
+                <div class="tutorial__reward-arrow">➡️</div>
+                <div class="tutorial__reward-privilege">30min de jeux vidéo</div>
+              </div>
+            </div>
+          </div>
+          <div class="tutorial__step">
+            <div class="tutorial__step-number">3</div>
+            <div class="tutorial__step-content">
+              <h3>Motivation constante</h3>
+              <p>Ce système de privilège immédiat est particulièrement efficace pour les enfants TDAH, qui ont besoin de voir le résultat direct de leurs efforts.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form__end">
+        <button class="form__button" data-action="tutorial#nextSlide">J'ai compris</button>
+      </div>
+    </div>
+    <!-- Slide 4 : Final -->
+    <div data-tutorial-target="slide" class="enrollment__form__group hidden">
+      <h2>Votre espace est presque prêt !</h2>
+      <div class="tutorial__content tutorial__content--centered">
+        <div class="tutorial__final">
+          <div class="tutorial__icon tutorial__icon--large">✨</div>
+          <p class="tutorial__final-text">Plus qu'une étape : créez votre compte pour accéder à votre programme personnalisé</p>
+        </div>
+      </div>
+      <div class="form__end">
+        <%= link_to "Créer mon compte", new_user_registration_path, class: "form__button" %>
+      </div>
+    </div>
+  </div>

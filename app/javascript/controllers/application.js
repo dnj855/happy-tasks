@@ -7,7 +7,7 @@ const controllers = Object.values(Chartjs).filter(
 ) ;
 Chart.register(...controllers) ;
 // Configure Stimulus development experience
-application.debug = false
-window.Stimulus   = application
+application.debug = false;
+window.Stimulus = application;
 
-export { application }
+export { application };
