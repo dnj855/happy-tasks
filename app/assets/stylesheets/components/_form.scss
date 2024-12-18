@@ -113,6 +113,7 @@
       border-radius: radius("full");
       background-color: color("light", "base");
       color: color("dark", "base");
+      touch-action: manipulation;
 
       &:hover {
         background-color: color("light", "dark");
