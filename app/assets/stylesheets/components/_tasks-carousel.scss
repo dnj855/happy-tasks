@@ -1,0 +1,104 @@
+// Conteneur principal
+.tasks-carousel {
+  @include container;
+  position: relative;
+  overflow: hidden;
+
+  &__title {
+    @include heading("2xl");
+    margin-bottom: spacing("lg");
+    text-align: center;
+  }
+
+  &__graph {
+    canvas {
+      width: 100% !important;
+      height: auto !important;
+      min-height: spacing-multiply("4xl", 2);
+    }
+  }
+
+  &__viewport {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__slides {
+    display: flex;
+    transition: transform 0.3s ease-in-out;
+    width: 100%;
+  }
+
+  &__slide {
+    flex: 0 0 100%;
+    width: 100%;
+
+    &.is-active {
+      opacity: 1;
+    }
+  }
+
+  // Navigation
+  &__nav {
+    @include flex-between;
+    margin-top: spacing("lg");
+  }
+
+  &__button {
+    @include button-base;
+    padding: spacing("sm") spacing("base");
+    color: color("primary");
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    &--prev {
+      margin-right: spacing("sm");
+    }
+
+    &--next {
+      margin-left: spacing("sm");
+    }
+  }
+
+  // Indicateurs
+  &__indicators {
+    @include flex-center;
+    margin-top: spacing("base");
+    gap: spacing("xs");
+  }
+
+  &__indicator {
+    width: spacing("sm");
+    height: spacing("sm");
+    border-radius: 50%;
+    background-color: color("primary", "lighter");
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &.is-active {
+      background-color: color("primary");
+    }
+  }
+
+  // Graph container
+  &__graph {
+    @include flex-column;
+    align-items: center;
+    padding: spacing("lg");
+
+    h4 {
+      @include heading("xl");
+      margin-bottom: spacing("base");
+    }
+
+    p {
+      @include body-text("lg");
+      margin-bottom: spacing("lg");
+      color: color("dark", "light");
+    }
+  }
+}

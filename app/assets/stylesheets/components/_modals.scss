@@ -22,6 +22,12 @@
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 2000;
+
+  &__overlay {
+    z-index: 1999;
+    position: fixed;
+  }
 }
 
 #graph-modal.modal.open {

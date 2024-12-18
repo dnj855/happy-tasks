@@ -1,11 +1,37 @@
-<h1><%= Date.today.strftime("%B %Y") %></h3>
-<%= content_tag :div, class: "tasks-graphs-container" do %>
-  <% @children.each do |child| %>
-    <div class="tasks-graph" data-controller="chart"
-     data-chart-task-counts-value="<%= @task_counts[child.id].to_json %>">
-      <h2><%= child.first_name %></h2>
-      <h3><%=@task_counts[child.id].values.sum%>Tâches réalisées</h3>
-      <canvas id="tasksGraph-<%= child.id %>" width="400" height="200"></canvas>
+<div class="tasks-carousel" data-controller="carousel chart">
+  <h1 class="tasks-carousel__title"><%= Date.today.strftime("%B %Y") %></h1>
+  <div class="tasks-carousel__viewport">
+    <div class="tasks-carousel__slides" data-carousel-target="slides">
+      <% @children.each_with_index do |child, index| %>
+        <div class="tasks-carousel__slide <%= 'is-active' if index.zero? %>"
+             data-carousel-target="slide"
+             >
+          <div class="tasks-carousel__graph" data-controller="chart" data-chart-task-counts-value="<%= @task_counts[child.id].to_json %>">
+            <h4><%= child.first_name %></h4>
+            <p><%=@task_counts[child.id].values.sum%> tâches réalisées</p>
+            <canvas id="tasksGraph-<%= child.id %>"></canvas>
+          </div>
+        </div>
+      <% end %>
     </div>
-  <% end %>
-<% end %>
+  </div>
+  <div class="tasks-carousel__nav">
+    <button class="tasks-carousel__button tasks-carousel__button--prev" 
+            data-action="carousel#previous"
+            data-carousel-target="prevButton">
+      Précédent
+    </button>
+    <button class="tasks-carousel__button tasks-carousel__button--next"
+            data-action="carousel#next"
+            data-carousel-target="nextButton">
+      Suivant
+    </button>
+  </div>
+  <div class="tasks-carousel__indicators" data-carousel-target="indicators">
+    <% @children.each_with_index do |_, index| %>
+      <div class="tasks-carousel__indicator <%= 'is-active' if index.zero? %>"
+           data-action="click->carousel#goToSlide"
+        data-carousel-slide-index="<%= index %>"></div>
+    <% end %>
+  </div>
+</div>
