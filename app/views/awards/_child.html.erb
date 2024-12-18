@@ -1,10 +1,17 @@
-<div class="child-card" id="<%= dom_id(child) %>">
-  <header class="child-card__header">
-    <div class="child-card__header__identity">
-      <div class="child-card__header__avatar">
-        <%= cl_image_tag child.avatar.key, height: 50, width: 50, crop: :auto, gravity: :auto, alt: "Photo #{child.first_name}" %>
+<div class="child-card" id="<%= dom_id(child) %>" data-controller="child-card">
+  <header class="child-card__header" data-action="click->child-card#toggle">
+    <div class="child-card__header__child">
+      <div class="child-card__header__chevron">
+        <i class="fa-solid fa-chevron-down child-card__header__chevron-icon"
+           data-child-card-target="chevron"
+           aria-label="Afficher/masquer les détails"></i>
       </div>
-      <h1 class="child-card__header__name"><%= child.first_name %></h1>
+      <div class="child-card__header__identity">
+        <div class="child-card__header__avatar">
+          <%= cl_image_tag child.avatar.key, height: 50, width: 50, crop: :auto, gravity: :auto, alt: "Photo #{child.first_name}" %>
+        </div>
+        <h1 class="child-card__header__name"><%= child.first_name %></h1>
+      </div>
     </div>
     <div class="child-card__header__points-container">
       <div class="child-card__header__points child-card__header__points--day" id="child-<%= child.id %>-day_points">
@@ -18,7 +25,7 @@
       </div>
     </div>
   </header>
-  <section class="child-card__body child-card__wrapper">
+  <section class="child-card__body child-card__wrapper" data-child-card-target="body" style="display: <%= @children.first == child ? "block" : "none" %>;">
     <% day_awards = child.awards.select {|award| award.periodicity == 'Quotidien'} %>
     <% partial_name = current_user.child? ? "award-card-by-child" : "award-card" %>
 
