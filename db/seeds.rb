@@ -472,19 +472,21 @@ first_december = Date.new(2024,12,01)
               child.update(month_points: child.month_points)
               TASK_RECORD << {"id" => child.id, "tasks" => ["done_date" => first_december.next_day(day.to_i), "task_type" => task.task_type_id, task_name: task.name]}
             end
-          else
-            if rand(4) != 0
-              task.update(validated: true)
-              child.day_points += (task.value/3.0).ceil
-              child.week_points += (task.value/3.0).ceil
 
-              child.month_points += (task.value/3.0).ceil
-              child.update(day_points: child.day_points)
-              child.update(week_points: child.week_points)
+          #else
+           # if rand(4) != 0
+            #  task.update(validated: true)
+             # child.day_points += (task.value/3.0).ceil
+              #child.week_points += (task.value/3.0).ceil
+#
+ #             child.month_points += (task.value/3.0).ceil
+  #            child.update(day_points: child.day_points)
+   #           child.update(week_points: child.week_points)
+#
+ #             child.update(month_points: child.month_points)
+  #            TASK_RECORD << {"id" => child.id, "tasks" => ["done_date" => first_december.next_day(day.to_i), "task_type" => task.task_type_id, task_name: task.name]}
+   #         end
 
-              child.update(month_points: child.month_points)
-              TASK_RECORD << {"id" => child.id, "tasks" => ["done_date" => first_december.next_day(day.to_i), "task_type" => task.task_type_id, task_name: task.name]}
-            end
           end
         end
       end
