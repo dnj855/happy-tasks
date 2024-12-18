@@ -31,12 +31,17 @@ class FamiliesController < ApplicationController
         week_points: 0,
         month_points: 0
       )
+      neuro_types = []
+      neuro_types << "TSA" if child[:tsa] == "1"
+      neuro_types << "TDA/H" if child[:tdah] == "1"
+      neuro_types << "DYS" if child[:dys] == "1"
+      neuro_types << "Autre" if child[:autre] == "1"
       {
         id: child_instance.id,
         first_name: child[:first_name],
         age: child[:age],
         neuroatypical: child[:neuroatypical] == "1",
-        neuroatypical_type: child[:neuroatypical] == "1" ? child[:neuroatypical_type] : nil,
+        neuroatypical_types: neuro_types,
         autonomy_level: child[:autonomy_level].to_i
       }
     end
@@ -59,7 +64,10 @@ class FamiliesController < ApplicationController
         :first_name,
         :age,
         :neuroatypical,
-        :neuroatypical_type,
+        :tsa,
+        :tdah,
+        :dys,
+        :autre,
         :autonomy_level
       ])
   end

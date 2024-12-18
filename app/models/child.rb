@@ -6,7 +6,7 @@ class Child < ApplicationRecord
   has_one_attached :avatar
   before_create :set_avatar
 
-  attr_accessor :neuroatypical, :neuroatypical_type, :autonomy_level
+  attr_accessor :neuroatypical, :neuroatypical_type, :autonomy_level, :tsa, :tdah, :dys, :autre
 
   validates :first_name, presence: true
   validates :age, presence: true, numericality: { greater_than_or_equal_to: 3 }
