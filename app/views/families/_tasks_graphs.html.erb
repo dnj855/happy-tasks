@@ -1,5 +1,5 @@
 <div class="tasks-carousel" data-controller="carousel chart">
-  <h1 class="tasks-carousel__title"><%= Date.today.strftime("%B %Y") %></h1>
+  <h1 class="tasks-carousel__title"><%= l(Date.today, format: "%B %Y").capitalize %></h1>
   <div class="tasks-carousel__viewport">
     <div class="tasks-carousel__slides" data-carousel-target="slides">
       <% @children.each_with_index do |child, index| %>
