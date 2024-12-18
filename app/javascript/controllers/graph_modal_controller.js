@@ -1,21 +1,42 @@
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from "@hotwired/stimulus";
 
-// Connects to data-controller="graph-modal"
 export default class extends Controller {
-  static targets = ["modal"];
-  connect() {
-    //console.log("connecté")
-  }
-  open() {
-    //console.log("connecté");
-    //console.log("Targets :", this.hasModalTarget);
-    this.modalTarget.classList.remove("hidden");
+  static targets = ["overlay", "modal", "content"];
+  // static values = { familyId: Number };  Récupération de l'id de la famille
+  scrollPosition = 0;
+
+  // Ouvrir la modale
+  open(event) {
+    event.preventDefault();
+    this.scrollPosition = window.scrollY;
+
+    this.overlayTarget.classList.add("open");
     this.modalTarget.classList.add("open");
-    //console.log("Classes actuelles :", this.modalTarget.classList.value);
+    this._disableScroll();
   }
 
-  close() {
+  // Fermer la modale
+  close(event) {
+    event.preventDefault();
+    this.overlayTarget.classList.remove("open");
     this.modalTarget.classList.remove("open");
-    setTimeout(() => this.modalTarget.classList.add("hidden"), 300);
+    this._enableScroll();
+  }
+
+  stopPropagation(event) {
+    event.stopPropagation();
+  }
+
+  _disableScroll() {
+    document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.width = "100%";
+  }
+
+  _enableScroll() {
+    document.body.style.overflow = "";
+    document.body.style.position = "";
+    document.body.style.width = "";
+    window.scrollTo(0, this.scrollPosition);
   }
 }

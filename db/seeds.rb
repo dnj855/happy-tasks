@@ -20,7 +20,7 @@ BASE_USERS = [
 ]
 # Types de tâches
 TASK_TYPES = [
-  "Chambre", "Linge", "Ménage", "Cuisine", "Animaux", "Apprentissage", "Hygiène"
+  "Animaux", "Apprentissage", "Chambre", "Cuisine", "Hygiène", "Linge", "Ménage"
 ]
 # liste des tâches
 TASK_LIST = {
@@ -462,9 +462,9 @@ first_december = Date.new(2024,12,01)
         list_of_tasks.each do |task|
           if rand(4) != 0
             task.update(done: true)
-            child.week_points += task.value/3.0
+            child.week_points += (task.value/3.0).ceil
 
-            child.month_points += task.value/3.0
+            child.month_points += (task.value/3.0).ceil
             child.update(week_points: child.week_points)
             # reset des points de la semaine
             child.update(week_points: 0) if day == 15

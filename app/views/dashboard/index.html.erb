@@ -1,18 +1,18 @@
 <div class="container" data-controller="graph-modal">
   <div class="headers__container">
     <h1>Famille <%= @family.name %></h1>
+    <span data-action="click->graph-modal#open">
     <i class="fa-solid fa-chart-line headers__icon" data-action="click->graph-modal#open"></i>
   </div>
-
+<!--l'overlay-->
+  <div data-graph-modal-target="overlay" class="overlay" data-action="click->graph-modal#close"></div>
+<!--la modale et le content-->
   <div id="graph-modal" class="modal hidden" data-graph-modal-target="modal">
-    <div class="modal__content">
-      <button class="modal__close" data-action="click->graph-modal#close">&times;</button>
-      <h2>Enfants</h2>
-      <ul>
-      <% @children.each do |child| %>
-        <li><%= child.first_name %></li>
-      <% end %>
-    </ul>
+  <div class="modal__content" data-graph-modal-target="content">
+    <button data-action="click->graph-modal#close" class="modal__close">&times;</button>
+
+      <%= render partial: "families/tasks_graphs", locals: { children: @children, task_counts: @task_counts } %>
+
   </div>
 </div>
 <div class="child-card__wrapper">
