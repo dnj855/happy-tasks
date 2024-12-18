@@ -18,7 +18,7 @@
       </div>
     </div>
   </header>
-  <section class="child-card__body">
+  <section class="child-card__wrapper">
     <% day_awards = child.awards.select {|award| award.periodicity == 'Quotidien'} %>
     <% partial_name = current_user.child? ? "award-card-by-child" : "award-card" %>
 
