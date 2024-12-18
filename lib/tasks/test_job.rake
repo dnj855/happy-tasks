@@ -16,12 +16,13 @@ namespace :test do
       family: family
     )
     
+    puts "Création des données à passer au job"
     child_data = {
       id: child.id,
       first_name: "Cédric",
       age: 4,
       neuroatypical: true,
-      neuroatypical_type: "TDAH",
+      neuroatypical_types: ["TDAH", "TSA"],
       autonomy_level: 2
     }
     
@@ -31,7 +32,7 @@ namespace :test do
       age: child_data[:age],
       autonomy_level: child_data[:autonomy_level],
       neuroatypical: child_data[:neuroatypical],
-      neuroatypical_type: child_data[:neuroatypical_type]
+      neuroatypical_types: child_data[:neuroatypical_types]
     }
     
     # Ajoutons un log pour voir le prompt généré
