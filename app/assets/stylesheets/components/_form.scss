@@ -6,6 +6,32 @@
   @include flex-column;
   gap: spacing("base");
 
+  &__checkbox-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: spacing("base");
+    padding: spacing("base");
+    background-color: white;
+    border-radius: spacing("xs");
+    border: 1px solid color("light", "dark");
+  }
+
+  &__checkbox-field {
+    display: flex;
+    align-items: center;
+    gap: spacing("sm");
+
+    .form__label {
+      margin-bottom: 0;
+      font-weight: normal;
+    }
+
+    .form__checkbox {
+      width: spacing("lg");
+      height: spacing("lg");
+    }
+  }
+
   &__add-button {
     @include button-base;
 
@@ -113,6 +139,7 @@
       border-radius: radius("full");
       background-color: color("light", "base");
       color: color("dark", "base");
+      touch-action: manipulation;
 
       &:hover {
         background-color: color("light", "dark");

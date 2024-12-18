@@ -39,6 +39,19 @@ export default class extends Controller {
       }
     });
 
+    const neuroTypeField = template.querySelector(
+      "[data-enrollment-form-target='neuroTypeField']"
+    );
+    if (neuroTypeField) {
+      neuroTypeField.classList.add("hidden");
+
+      // Réinitialiser le select de neuroatypie
+      const neuroTypeSelect = neuroTypeField.querySelector("select");
+      if (neuroTypeSelect) {
+        neuroTypeSelect.selectedIndex = 0;
+      }
+    }
+
     template.classList.add("enrollment__form__group--entering");
 
     this.childrenContainerTarget.appendChild(template);

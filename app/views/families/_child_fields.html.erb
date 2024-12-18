@@ -19,7 +19,7 @@
     <% end %>
   </div>
   <div class="form__checkbox-field">
-    <%= f.label :neuroatypical, "Neuroatypie ?", class: "form__label" %>
+    <%= f.label :neuroatypical, "Est-il atteint d'une neuroatypie ?", class: "form__label" %>
     <%= f.check_box :neuroatypical, class: "form__checkbox",
     data: { action: "change->enrollment-form#toggleNeuroType" } %>
   </div>
@@ -44,10 +44,24 @@
     </div>
   </div>
   <div data-enrollment-form-target="neuroTypeField" class="form__field hidden">
-    <%= f.label :neuroatypical_type, "Type de neuroatypie", class: "form__label" %>
-    <%= f.select :neuroatypical_type, 
-    ["TSA", "TDA/H", "DYS", "Autre"], 
-    { prompt: "Sélectionner" }, 
-    class: "form__select" %>
+    <%= f.label :neuroatypical_types, "Type de neuroatypie", class: "form__label" %>
+    <div class="form__checkbox-group">
+      <div class="form__checkbox-field">
+        <%= f.check_box :tsa, class: "form__checkbox" %>
+        <%= f.label :tsa, "TSA", class: "form__label" %>
+      </div>
+      <div class="form__checkbox-field">
+        <%= f.check_box :tdah, class: "form__checkbox" %>
+        <%= f.label :tdah, "TDA/H", class: "form__label" %>
+      </div>
+      <div class="form__checkbox-field">
+        <%= f.check_box :dys, class: "form__checkbox" %>
+        <%= f.label :dys, "DYS", class: "form__label" %>
+      </div>
+      <div class="form__checkbox-field">
+        <%= f.check_box :autre, class: "form__checkbox" %>
+        <%= f.label :autre, "Autre", class: "form__label" %>
+      </div>
+    </div>
   </div>
 </div>

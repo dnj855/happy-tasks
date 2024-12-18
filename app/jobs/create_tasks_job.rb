@@ -10,7 +10,7 @@ def perform(child_data)
       age: child_data[:age],
       autonomy_level: child_data[:autonomy_level],
       neuroatypical: child_data[:neuroatypical],
-      neuroatypical_type: child_data[:neuroatypical_type]
+      neuroatypical_types: child_data[:neuroatypical_types]
     )
 
   Rails.logger.info "Démarrage du job pour l'enfant #{child.first_name} (ID: #{child.id})"
@@ -127,7 +127,7 @@ end
     end
   end
 
-  def format_prompt(first_name:, age:, autonomy_level:, neuroatypical:, neuroatypical_type:)
+  def format_prompt(first_name:, age:, autonomy_level:, neuroatypical:, neuroatypical_types:)
     base_prompt = 'Tu es spécialiste en psychologie comportementale, expert des travaux du psychologue américain Barkley et notamment de sa méthode de guidance parentale pour faciliter la vie quotidienne des familles.
   En fonction des paramètres suivants, crée 5 tâches (2 faciles, 2 moyennes et 1 difficile) et 15 privilèges (5 quotidiens, 5 hebdomadaires et 5 mensuels) pour l\'enfant #PRENOM#, âgé de #AGE# ans dont l\'autonomie est jugée à #AUTONOMY_LEVEL#/5 par ses parents.'
   
@@ -162,22 +162,12 @@ end
     
     prompt = base_prompt.gsub('#PRENOM#', first_name.to_s).gsub('#AGE#', age.to_s).gsub('#AUTONOMY_LEVEL#', autonomy_level.to_s)
     
-    if neuroatypical
-      prompt += ". L'enfant est neuroatypique"
-      prompt += " (#{neuroatypical_type})" if neuroatypical_type.present?
-      prompt += ". Adapte les tâches et privilèges en conséquence"
+    if neuroatypical && neuroatypical_types.present?
+      types_text = neuroatypical_types.join(" et ")
+      prompt += ". L'enfant présente les neuroatypies suivantes : #{types_text}. Adapte les tâches et privilèges en conséquence"
     end
     
     prompt + end_prompt
   end
-
-  {
-        id: 451,
-        first_name: Child.find(451).first_name,
-        age: Child.find(451).age,
-        neuroatypical: "0",
-        neuroatypical_type: nil,
-        autonomy_level: 4
-      }
 
 end
