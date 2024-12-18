@@ -8,6 +8,7 @@
     padding: spacing("2xs") spacing("xs");
     background-color: color("yellow", "lighter");
     border-bottom: 1px solid color("light", "base");
+    min-height: 79.5px;
 
     // Conteneur gauche avec avatar et nom
     &__identity {
