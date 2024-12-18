@@ -7,7 +7,7 @@
       <h1>Coffre aux trésors</h1>
     </div>
   </div>
-  <div class="child-card__body">
+  <div class="child-card__wrapper">
     <% @children.each do |child| %>
       <%= render partial: "child", locals: { child: child } %>
     <% end %>

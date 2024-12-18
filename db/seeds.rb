@@ -461,7 +461,7 @@ first_december = Date.new(2024,12,01)
         ### création de tâches validées (3/4)
         list_of_tasks.each do |task|
           if rand(4) != 0
-            task.update(validated: true)
+            task.update(done: true)
             child.week_points += (task.value/3.0).ceil
 
             child.month_points += (task.value/3.0).ceil

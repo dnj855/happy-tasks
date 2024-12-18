@@ -1,4 +1,4 @@
-<div class="child-card__body">
+<div>
   <h4 class="child-card__body__periodicity"><%= periodicity.capitalize %></h4>
   <% awards.each do |award| %>
     <%= render partial: "award", locals: { award: award, points: points, child: child } %>

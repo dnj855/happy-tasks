@@ -6,21 +6,13 @@ export default class extends Controller {
   scrollPosition = 0;
 
   // Ouvrir la modale
-  async open(event) {
+  open(event) {
     event.preventDefault();
     this.scrollPosition = window.scrollY;
 
-    const url = window.location.href;
-    try {
-      const response = await fetch(url, { headers: { "Accept": "text/html" } });
-      const html = await response.text();
-      this.contentTarget.innerHTML = this.extractContent(html);
-      this.overlayTarget.classList.add("open");
-      this.modalTarget.classList.add("open");
-      this._disableScroll();
-    } catch (error) {
-      console.error("Erreur lors de la mise à jour de la modale :", error);
-    }
+    this.overlayTarget.classList.add("open");
+    this.modalTarget.classList.add("open");
+    this._disableScroll();
   }
 
   // Fermer la modale
@@ -33,14 +25,6 @@ export default class extends Controller {
 
   stopPropagation(event) {
     event.stopPropagation();
-  }
-
-  extractContent(html) {
-    // Parse la réponse HTML pour extraire uniquement le contenu de la modale
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, "text/html");
-    const modalContent = doc.querySelector("#graph-modal .modal__content");
-    return modalContent ? modalContent.innerHTML : "";
   }
 
   _disableScroll() {
