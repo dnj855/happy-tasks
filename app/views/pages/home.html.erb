@@ -23,7 +23,6 @@
                 <div class="flex space-x-4">
                   <% if user_signed_in? %>
                     <%= link_to "Mon tableau de bord", family_dashboard_path, class: "button__primary", data: {turbo: false} %>
-                    <%= link_to "Se connecter", new_user_session_path, class: "button__primary", data: {turbo: false} %>
                   <% else %>
                     <%= link_to "Rejoignez la HappyTeam !", new_family_path, class: "button__primary", data: {turbo: false} %>
                     <%= link_to "Se connecter", new_user_session_path, class: "button__primary", data: {turbo: false} %>
