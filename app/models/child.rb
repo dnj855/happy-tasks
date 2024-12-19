@@ -28,21 +28,21 @@ class Child < ApplicationRecord
     if saved_change_to_day_points?
       broadcast_replace_to "child-#{id}-day_points",
                          target: "child-#{id}-day_points",
-                         partial: "children/points",
+                         partial: "children/points_update",
                          locals: { points: day_points, child: self, point_type: 'day' }
     end
   
     if saved_change_to_week_points?
       broadcast_replace_to "child-#{id}-week_points",
                          target: "child-#{id}-week_points",
-                         partial: "children/points",
+                         partial: "children/points_update",
                          locals: { points: week_points, child: self, point_type: 'week' }
     end
   
     if saved_change_to_month_points?
       broadcast_replace_to "child-#{id}-month_points",
                          target: "child-#{id}-month_points",
-                         partial: "children/points",
+                         partial: "children/points_update",
                          locals: { points: month_points, child: self, point_type: 'month' }
     end
   end
