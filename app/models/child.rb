@@ -36,7 +36,7 @@ class Child < ApplicationRecord
       # Broadcast des awards quotidiens
       awards.where(periodicity: 'Quotidien').each do |award|
         Rails.logger.debug "Broadcasting award update for award #{award.id}"
-        broadcast_update_to "child-#{id}-awards",
+        broadcast_replace_to "child-#{id}-awards",
                            target: dom_id(award),
                            partial: "awards/award",
                            locals: { award: award, points: day_points, child: self }
@@ -53,7 +53,7 @@ class Child < ApplicationRecord
       
       awards.where(periodicity: 'Hebdomadaire').each do |award|
         Rails.logger.debug "Broadcasting award update for award #{award.id}"
-        broadcast_update_to "child-#{id}-awards",
+        broadcast_replace_to "child-#{id}-awards",
                            target: dom_id(award),
                            partial: "awards/award",
                            locals: { award: award, points: week_points, child: self }
@@ -70,7 +70,7 @@ class Child < ApplicationRecord
       
       awards.where(periodicity: 'Mensuel').each do |award|
         Rails.logger.debug "Broadcasting award update for award #{award.id}"
-        broadcast_update_to "child-#{id}-awards",
+        broadcast_replace_to "child-#{id}-awards",
                            target: dom_id(award),
                            partial: "awards/award",
                            locals: { award: award, points: month_points, child: self }
