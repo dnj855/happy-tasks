@@ -18,7 +18,7 @@ class TasksController < ApplicationController
     @family = current_user.family
     @children = @family.children
     @tasks = policy_scope(@family.tasks)
-   end
+  end
 
   def new
     @task = Task.new
