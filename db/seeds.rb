@@ -423,7 +423,7 @@ def create_the_rest(family)
         # on veut 2 tâches easy, 2 tâches medium et 1 tâche hard
         # pour éviter d'avoir deux taches identiques on crée un array list_of_tasks[]
 first_december = Date.new(2024,12,01)
-      for day in 0..17 do
+      for day in 0..(Date.today.day - 1) do
 
           list_of_tasks = []
         while list_of_tasks.length !=2 do
@@ -460,15 +460,16 @@ first_december = Date.new(2024,12,01)
         end
         ### création de tâches validées (3/4)
         list_of_tasks.each do |task|
-          if day!= 17
+          child.update(week_points: 0) if first_december.next_day(day).strftime('%a') == "Mon"# reset des points de la semaine chaque lundi
+          if day!= Date.today.day - 1
             if rand(4) != 0
               task.update(validated: true)
               child.week_points += (task.value/3.0).ceil
 
               child.month_points += (task.value/3.0).ceil
               child.update(week_points: child.week_points)
-              # reset des points de la semaine
-              child.update(week_points: 0) if day == 15
+
+
               child.update(month_points: child.month_points)
               TASK_RECORD << {"id" => child.id, "tasks" => ["done_date" => first_december.next_day(day.to_i), "task_type" => task.task_type_id, task_name: task.name]}
             end
