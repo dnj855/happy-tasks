@@ -1,12 +1,13 @@
+  <%= turbo_stream_from "child-#{child.id}-awards-by-child" %>
 <div
-id="<%= dom_id(award) %>"
+id="<%= dom_id(award) %>-by-child"
 class="child-card__body__award <%= award.value > points && !award.given? ? "child-card__body__award--disabled" : "" %>"
 >
-    <div class="child-card__body__award__title">
-      <p class="child-card__body__award__title--name"><%= award.name %> (<%= award.value %> points)</p>
-      <p class="child-card__body__award__title--description"><%= award.description %></p>
-    </div>
-      <% if award.given? %>
-        <span class="child-card__badge">Bravo</span>
-      <% end %>
+  <div class="child-card__body__award__title">
+    <p class="child-card__body__award__title--name"><%= award.name %> (<%= award.value %> points)</p>
+    <p class="child-card__body__award__title--description"><%= award.description %></p>
+  </div>
+  <% if award.given? %>
+    <span class="child-card__badge">Bravo</span>
+  <% end %>
 </div>

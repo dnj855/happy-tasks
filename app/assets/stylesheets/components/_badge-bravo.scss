@@ -9,12 +9,22 @@
   border-color: color("green", "darker");
   min-width: 20%;
   text-align: center;
-  transform: rotate(20deg) translateY(8px);
+
+  animation: stamp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  transform-origin: center;
+  will-change: transform, opacity; // Optimise le rendu
+  backface-visibility: hidden; // Réduit les glitchs
+  opacity: 0;
 }
 
-// .child-card__body__award__title {
-//   display: flex;
-//   flex-direction: row;
-//   flex-wrap: nowrap;
-//   align-items: center;
-// }
+@keyframes stamp {
+  0% {
+    opacity: 0;
+    transform: scale(1.5) rotate(30deg) translateY(-10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: rotate(20deg) translateY(5px);
+  }
+}

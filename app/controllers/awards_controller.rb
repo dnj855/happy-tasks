@@ -52,7 +52,9 @@ class AwardsController < ApplicationController
         @child.update!(points_method => @child.send(points_method) - @award.value)
         @periodicity = points_method.match(/^(day|month|week)_points$/)
         respond_to do |format|
-          format.turbo_stream
+          format.json
+            render json: {"OK" => "OK"}
+        #   format.turbo_stream
         end
       else
         render :edit, status: :unprocessable_entity

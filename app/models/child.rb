@@ -1,4 +1,5 @@
 class Child < ApplicationRecord
+  include ActionView::RecordIdentifier
   belongs_to :family
   has_many :users
   has_many :tasks, dependent: :destroy
@@ -26,24 +27,68 @@ class Child < ApplicationRecord
 
   def broadcast_points
     if saved_change_to_day_points?
+      Rails.logger.debug "Broadcasting day points update for child #{id}"
       broadcast_replace_to "child-#{id}-day_points",
                          target: "child-#{id}-day_points",
                          partial: "children/points_update",
                          locals: { points: day_points, child: self, point_type: 'day' }
+      
+      # Broadcast des awards quotidiens
+      awards.where(periodicity: 'Quotidien').each do |award|
+        Rails.logger.debug "Broadcasting award update for award #{award.id}"
+        broadcast_replace_to "child-#{id}-awards",
+                           target: dom_id(award),
+                           partial: "awards/award",
+                           locals: { award: award, points: day_points, child: self }
+        broadcast_replace_to "child-#{id}-awards-by-child",
+                           target: "#{dom_id(award)}-by-child",
+                           partial: "awards/award-by-child",
+                           locals: { award: award, points: day_points, child: self }
+      end
+
+      
     end
   
+    # Même chose pour les points hebdomadaires
     if saved_change_to_week_points?
+      Rails.logger.debug "Broadcasting week points update for child #{id}"
       broadcast_replace_to "child-#{id}-week_points",
                          target: "child-#{id}-week_points",
                          partial: "children/points_update",
                          locals: { points: week_points, child: self, point_type: 'week' }
+      
+      awards.where(periodicity: 'Hebdomadaire').each do |award|
+        Rails.logger.debug "Broadcasting award update for award #{award.id}"
+        broadcast_replace_to "child-#{id}-awards",
+                           target: dom_id(award),
+                           partial: "awards/award",
+                           locals: { award: award, points: week_points, child: self }
+        broadcast_replace_to "child-#{id}-awards-by-child",
+                           target: "#{dom_id(award)}-by-child",
+                           partial: "awards/award-by-child",
+                           locals: { award: award, points: week_points, child: self }
+      end
     end
   
+    # Et mensuels
     if saved_change_to_month_points?
+      Rails.logger.debug "Broadcasting month points update for child #{id}"
       broadcast_replace_to "child-#{id}-month_points",
                          target: "child-#{id}-month_points",
                          partial: "children/points_update",
                          locals: { points: month_points, child: self, point_type: 'month' }
+      
+      awards.where(periodicity: 'Mensuel').each do |award|
+        Rails.logger.debug "Broadcasting award update for award #{award.id}"
+        broadcast_replace_to "child-#{id}-awards",
+                           target: dom_id(award),
+                           partial: "awards/award",
+                           locals: { award: award, points: month_points, child: self }
+        broadcast_replace_to "child-#{id}-awards-by-child",
+                           target: "#{dom_id(award)}-by-child",
+                           partial: "awards/award-by-child",
+                           locals: { award: award, points: month_points, child: self }
+      end
     end
   end
 
