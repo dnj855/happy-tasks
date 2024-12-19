@@ -1,7 +1,5 @@
 import { Controller } from "@hotwired/stimulus";
-import { Turbo } from "@hotwired/turbo-rails";
 
-// Connects to data-controller="task-done"
 export default class extends Controller {
   static targets = ["taskDone"];
   static values = { id: Number, userRole: String };
@@ -13,7 +11,6 @@ export default class extends Controller {
     const isChecked = event.target.checked;
 
     if (this.userRoleValue === "parent") {
-      // Envoie la requête PATCH pour valider/dévalider la tâche
       try {
         const response = await fetch(`/tasks/${this.idValue}/validate`, {
           method: "PATCH",
@@ -21,7 +18,7 @@ export default class extends Controller {
             "X-CSRF-Token": document.querySelector('[name="csrf-token"]')
               .content,
             "Content-Type": "application/json",
-            Accept: "text/vnd.turbo-stream.html",
+            Accept: "application/json", // On change le format accepté
           },
           body: JSON.stringify({
             validated: isChecked,
@@ -31,8 +28,10 @@ export default class extends Controller {
         if (!response.ok) {
           throw new Error("Erreur lors de la mise à jour de la tâche");
         }
-        const streamContent = await response.text();
-        Turbo.renderStreamMessage(streamContent);
+
+        const data = await response.json();
+        console.log("Tâche validée", data);
+        // Les points seront mis à jour automatiquement via le broadcast
       } catch (error) {
         console.error(error);
         event.target.checked = !isChecked;
@@ -40,7 +39,7 @@ export default class extends Controller {
     }
 
     if (this.userRoleValue === "child") {
-      // Envoie la requête PATCH pour signaler que la tâche a été effectuée par l'enfant
+      // Cette partie reste inchangée car elle utilise déjà JSON
       try {
         const response = await fetch(`/tasks/${this.idValue}/declare-done`, {
           method: "PATCH",

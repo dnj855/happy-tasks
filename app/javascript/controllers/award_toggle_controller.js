@@ -17,7 +17,7 @@ export default class extends Controller {
         headers: {
           "X-CSRF-Token": token,
           "Content-Type": "application/json",
-          Accept: "text/vnd.turbo-stream.html",
+          Accept: "application/json",
         },
         body: JSON.stringify({
           given: isChecked,

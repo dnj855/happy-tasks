@@ -34,6 +34,7 @@ class DashboardController < ApplicationController
       ## récupération des données pour les graphs
 
       authorize @family
+      
     else
       redirect_to root_path, alert: "Accès non autorisé."
     end

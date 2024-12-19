@@ -14,21 +14,23 @@
       </div>
     </div>
     <div class="child-card__header__points-container">
-      <div class="child-card__header__points child-card__header__points--day" id="child-<%= child.id %>-day_points">
-        <span class="child-card__header__points-value"><%= child.day_points %></span>
+      <div class="child-card__header__points child-card__header__points--day">
+        <%= turbo_stream_from "child-#{child.id}-day_points" %>
+        <%= render partial: "children/points", locals: { points: child.day_points, child: child, point_type: 'day' } %>
       </div>
-      <div class="child-card__header__points child-card__header__points--week" id="child-<%= child.id %>-week_points">
-        <span class="child-card__header__points-value"><%= child.week_points %></span>
+      <div class="child-card__header__points child-card__header__points--week">
+        <%= turbo_stream_from "child-#{child.id}-week_points" %>
+        <%= render partial: "children/points", locals: { points: child.week_points, child: child, point_type: 'week' } %>
       </div>
-      <div class="child-card__header__points child-card__header__points--month" id="child-<%= child.id %>-month_points">
-        <span class="child-card__header__points-value"><%= child.month_points %></span>
+      <div class="child-card__header__points child-card__header__points--month">
+        <%= turbo_stream_from "child-#{child.id}-month_points" %>
+        <%= render partial: "children/points", locals: { points: child.month_points, child: child, point_type: 'month' } %>
       </div>
     </div>
   </header>
   <section class="child-card__body child-card__wrapper" data-child-card-target="body" style="display: <%= @children.first == child ? "block" : "none" %>;">
     <% day_awards = child.awards.select {|award| award.periodicity == 'Quotidien'} %>
     <% partial_name = current_user.child? ? "award-card-by-child" : "award-card" %>
-
     <%= render partial: partial_name, locals: { awards: day_awards, periodicity: 'Quotidien', period: "day", points: child.day_points, child: child } %>
     <% week_awards = child.awards.select {|award| award.periodicity == 'Hebdomadaire'} %>
     <%= render partial: partial_name, locals: { awards: week_awards, periodicity: 'Hebdomadaire', period: "week", points: child.week_points, child: child } %>

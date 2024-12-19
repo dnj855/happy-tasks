@@ -6,29 +6,29 @@
       <%= cl_image_tag @child.avatar.key, crop: :auto, gravity: :auto, alt: "Photo #{@child.first_name}" %>
     </div>
   </div>
-
-
-<div class="child-card__wrapper">
-  <div class="child-card">
-    <header class="child-card__header child-card__header__child">
-      <div class="child-card__header__points-container">
-        <div class="child-card__header__points child-card__header__points--day">
-          <span class="child-card__header__points-value"><%= @child.day_points %></span>
+  <div class="child-card__wrapper">
+    <div class="child-card">
+      <header class="child-card__header child-card__header__child">
+        <div class="child-card__header__points-container">
+          <div class="child-card__header__points child-card__header__points--day">
+            <%= turbo_stream_from "child-#{@child.id}-day_points" %>
+            <%= render partial: "children/points", locals: { points: @child.day_points, child: @child, point_type: 'day' } %>
+          </div>
+          <div class="child-card__header__points child-card__header__points--week">
+            <%= turbo_stream_from "child-#{@child.id}-week_points" %>
+            <%= render partial: "children/points", locals: { points: @child.week_points, child: @child, point_type: 'week' } %>
+          </div>
+          <div class="child-card__header__points child-card__header__points--month">
+            <%= turbo_stream_from "child-#{@child.id}-month_points" %>
+            <%= render partial: "children/points", locals: { points: @child.month_points, child: @child, point_type: 'month' } %>
+          </div>
         </div>
-        <div class="child-card__header__points child-card__header__points--week">
-          <span class="child-card__header__points-value"><%= @child.week_points %></span>
-        </div>
-        <div class="child-card__header__points child-card__header__points--month">
-          <span class="child-card__header__points-value"><%= @child.month_points %></span>
-        </div>
-      </div>
-    </header>
-
-    <section class="child-card__body">
-      <% @tasks_today.each do |task| %>
-        <%= render 'tasks/task_child', task: task %>
-      <% end %>
-    </section>
+      </header>
+      <section class="child-card__body">
+        <% @tasks_today.each do |task| %>
+          <%= render 'tasks/task_child', task: task %>
+        <% end %>
+      </section>
+    </div>
   </div>
-</div>
 </div>

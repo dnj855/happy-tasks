@@ -81,13 +81,12 @@ class TasksController < ApplicationController
     )
 
     respond_to do |format|
-      format.turbo_stream
       format.json do
         render json: {
           points: {
-            day_points: child.day_points,
-            week_points: child.week_points,
-            month_points: child.month_points
+            day_points: @child.day_points,
+            week_points: @child.week_points,
+            month_points: @child.month_points
           }
         }
       end
