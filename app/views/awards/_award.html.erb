@@ -1,3 +1,4 @@
+  <%= turbo_stream_from "child-#{child.id}-awards", channel: "Turbo::StreamsChannel" %>
 <div
 id="<%= dom_id(award) %>"
 class="child-card__body__award <%= award.value > points || award.given? ? "child-card__body__award--disabled" : ""%>"

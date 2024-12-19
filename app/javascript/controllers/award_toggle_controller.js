@@ -1,5 +1,4 @@
 import { Controller } from "@hotwired/stimulus";
-import { Turbo } from "@hotwired/turbo-rails";
 
 export default class extends Controller {
   static values = {
@@ -28,9 +27,6 @@ export default class extends Controller {
         event.target.checked = !isChecked;
         throw new Error("Network response was not ok");
       }
-
-      const streamContent = await response.text();
-      Turbo.renderStreamMessage(streamContent);
     } catch (error) {
       console.error("Error:", error);
       event.target.checked = !isChecked;
