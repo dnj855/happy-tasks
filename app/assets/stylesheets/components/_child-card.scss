@@ -159,6 +159,7 @@
 
 .child-card__header__chevron-icon {
   transition: transform 0.3s ease;
+  padding-right: 5px;
 
   &.is-open {
     transform: rotate(0deg); // Vers le bas quand ouvert
