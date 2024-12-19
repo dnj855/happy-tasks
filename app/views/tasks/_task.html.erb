@@ -1,8 +1,4 @@
-<%= turbo_stream_from "task-#{task.id}" %>
 <div class="child-card__body__award <%= task.validated? ? "child-card__body__award--disabled" : "" %> <%= task.done && !task.validated? ? "child-card__body__award--pending" : "" %>"
-     data-controller="task-done"
-     data-task-done-id-value="<%= task.id %>"
-     data-task-done-user-role-value="<%= user.child? ? "child" : "parent" %>"
      id="<%= dom_id(task) %>">
   <div class="child-card__body__award__title">
     <p class="child-card__body__award__title--name">
@@ -17,9 +13,10 @@
     <p class="child-card__body__award__title--description"><%= task.description %></p>
   </div>
   <div class="task-switch">
-    <input type="checkbox" <%= 'checked' if task.validated || (task.done && user.child?) %>
-             class="task-switch__toggle"
-             data-action="change->task-done#updateTask">
+    <input type="checkbox" 
+         class="task-switch__toggle"
+         data-action="change->task-done#updateTask"
+    <%= 'checked' if (task.done? && role == "child") || task.validated? %>>
   </div>
 </div>
 <style>

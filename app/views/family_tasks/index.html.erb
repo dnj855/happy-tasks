@@ -45,7 +45,17 @@
         </header>
         <section class="child-card__body" data-child-card-target="body" style="display: <%= @family.children.first == child ? "block" : "none" %>;">
           <% child.tasks.today.each do |task| %>
-            <%= render partial: "tasks/task", locals: { child: child, user: current_user, task: task } %>
+            <% if current_user.child? %>
+              <%= turbo_stream_from "task-child-#{task.id}" %>
+            <% else %>
+              <%= turbo_stream_from "task-parent-#{task.id}" %>
+            <% end %>
+            <div data-controller="task-done"
+              data-task-done-user-role-value="<%= current_user.child? ? "child" : "parent" %>"
+              data-task-done-id-value="<%= task.id %>"
+              data-task-done-status-value="<%= task.validated? ? "validated" : task.done? ? "done" : "normal" %>">
+              <%= render partial: "tasks/task", locals: { task: task, role: current_user.child? ? "child" : "parent" } %>
+            </div>
           <% end %>
         </section>
       </div>

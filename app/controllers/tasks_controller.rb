@@ -61,6 +61,7 @@ class TasksController < ApplicationController
     
     if current_user.child? && @task.child == current_user.child
       if @task.update(done: params[:completed])
+        @task.broadcast_tasks
         render json: { message: 'Tâche faite', completed: @task.done }
       else
         render json: { error: 'Erreur lors de la mise à jour de la tâche' }, status: :unprocessable_entity
@@ -68,7 +69,6 @@ class TasksController < ApplicationController
     else
       render json: { error: 'Accès interdit' }, status: :forbidden
     end
-    @task.broadcast_tasks(current_user)
   end
 
   def validate
@@ -93,7 +93,7 @@ class TasksController < ApplicationController
         }
       end
     end
-    @task.broadcast_tasks(current_user)
+    @task.broadcast_tasks
   end
 
   private
