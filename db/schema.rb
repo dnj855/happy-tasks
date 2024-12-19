@@ -67,42 +67,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_18_162660) do
     t.index ["family_id"], name: "index_children_on_family_id"
   end
 
-  create_table "comments", force: :cascade do |t|
-    t.string "content"
-    t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_comments_on_user_id"
-  end
-
   create_table "families", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "noticed_events", force: :cascade do |t|
-    t.string "type"
-    t.string "record_type"
-    t.bigint "record_id"
-    t.jsonb "params"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "notifications_count"
-    t.index ["record_type", "record_id"], name: "index_noticed_events_on_record"
-  end
-
-  create_table "noticed_notifications", force: :cascade do |t|
-    t.string "type"
-    t.bigint "event_id", null: false
-    t.string "recipient_type", null: false
-    t.bigint "recipient_id", null: false
-    t.datetime "read_at", precision: nil
-    t.datetime "seen_at", precision: nil
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["event_id"], name: "index_noticed_notifications_on_event_id"
-    t.index ["recipient_type", "recipient_id"], name: "index_noticed_notifications_on_recipient"
   end
 
   create_table "solid_cable_messages", force: :cascade do |t|
@@ -280,7 +248,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_18_162660) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "awards", "children"
   add_foreign_key "children", "families"
-  add_foreign_key "comments", "users"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_failed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
