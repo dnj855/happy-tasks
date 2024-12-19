@@ -57,7 +57,7 @@
         </header>
         <section class="child-card__body" data-child-card-target="body" style="display: <%= @children.first == child ? "block" : "none" %>;">
           <% child.tasks.today.each do |task| %>
-            <%= render task %>
+            <%= render partial: "tasks/task", locals: { child: child, user: current_user, task: task } %>
           <% end %>
         </section>
       </div>

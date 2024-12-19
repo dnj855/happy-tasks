@@ -58,7 +58,7 @@ class TasksController < ApplicationController
   def declare_done
     @task = Task.find(params[:id])
     authorize @task
-
+    
     if current_user.child? && @task.child == current_user.child
       if @task.update(done: params[:completed])
         render json: { message: 'Tâche faite', completed: @task.done }
@@ -68,6 +68,7 @@ class TasksController < ApplicationController
     else
       render json: { error: 'Accès interdit' }, status: :forbidden
     end
+    @task.broadcast_tasks(current_user)
   end
 
   def validate
@@ -80,7 +81,7 @@ class TasksController < ApplicationController
       week_points: @child.week_points + points,
       month_points: @child.month_points + points
     )
-
+    
     respond_to do |format|
       format.json do
         render json: {
@@ -92,6 +93,7 @@ class TasksController < ApplicationController
         }
       end
     end
+    @task.broadcast_tasks(current_user)
   end
 
   private
