@@ -39,7 +39,7 @@ class TaskPolicy < ApplicationPolicy
   end
 
   def declare_done?
-    user.child? && record.child == user.child
+    true
   end
 
   # NOTE: Up to Pundit v2.3.1, the inheritance was declared as

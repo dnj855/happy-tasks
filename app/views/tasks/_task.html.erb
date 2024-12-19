@@ -2,7 +2,7 @@
 <div class="child-card__body__award <%= task.validated? ? "child-card__body__award--disabled" : "" %> <%= task.done && !task.validated? ? "child-card__body__award--pending" : "" %>"
      data-controller="task-done"
      data-task-done-id-value="<%= task.id %>"
-     data-task-done-user-role-value="parent"
+     data-task-done-user-role-value="<%= user.child? ? "child" : "parent" %>"
      id="<%= dom_id(task) %>">
   <div class="child-card__body__award__title">
     <p class="child-card__body__award__title--name">
@@ -17,16 +17,10 @@
     <p class="child-card__body__award__title--description"><%= task.description %></p>
   </div>
   <div class="task-switch">
-    <% if user.child? %>
-      <!-- Checkbox désactivée pour les enfants -->
-      <input type="checkbox" disabled <%= 'checked' if task.validated %>
-             class="task-switch__toggle">
-    <% else %>
-      <!-- Checkbox interactive pour les parents -->
-      <input type="checkbox" <%= 'checked' if task.validated %>
+    <!-- Checkbox interactive pour les parents -->
+    <input type="checkbox" <%= 'checked' if task.validated %>
              class="task-switch__toggle"
              data-action="change->task-done#updateTask">
-    <% end %>
   </div>
 </div>
 <style>
