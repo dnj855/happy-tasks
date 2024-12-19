@@ -33,7 +33,7 @@
         </header>
         <section class="child-card__body">
           <% child.tasks.today.each do |task| %>
-            <%= render task %>
+            <%= render partial: 'tasks/task', locals: { user: current_user, child: child, task: task } %>
           <% end %>
         </section>
       </div>
