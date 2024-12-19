@@ -16,6 +16,7 @@ class TasksController < ApplicationController
 
   def index
     @family = current_user.family
+    @children = @family.children
     @tasks = policy_scope(@family.tasks)
    end
 

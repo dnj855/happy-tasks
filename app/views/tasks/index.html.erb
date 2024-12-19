@@ -2,36 +2,47 @@
   <div class="headers__container">
     <h1>Famille <%= @family.name %></h1>
   </div>
-  <div class="container child-card__wrapper">
+  <div class="child-card__wrapper">
     <% @family.children.each do |child| %>
-      <div class="child-card">
-        <header class="child-card__header">
-          <div class="child-card__header__identity">
-            <div class="child-card__header__avatar">
-              <%= image_tag("super.png", alt: "Photo #{child.first_name}") %>
+      <div class="child-card" data-controller="child-card">
+        <header class="child-card__header" data-action="click->child-card#toggle">
+            <div class="child-card__header__child">
+              <div class="child-card__header__chevron">
+                <i class="fa-solid fa-chevron-down child-card__header__chevron-icon"
+                   data-child-card-target="chevron"
+                   aria-label="Afficher/masquer les tâches"></i>
+              </div>
+              <div class="child-card__header__identity">
+                <div class="child-card__header__avatar">
+                  <%= cl_image_tag child.avatar.key, height: 50, width: 50, crop: :auto, gravity: :auto, alt: "Photo #{child.first_name}" %>
+                </div>
+                <h1 class="child-card__header__name"><%= child.first_name %></h1>
+              </div>
             </div>
-            <h1 class="child-card__header__name"><%= child.first_name %></h1>
-          </div>
-          <div class="child-card__header__points-container">
-            <div class="child-card__header__points child-card__header__points--day">
-              <%= turbo_stream_from "child-#{child.id}-day_points" %>
-              <%= render partial: "children/points", locals: { points: child.day_points, child: child, point_type: 'day' } %>
+            <div class="child-card__header__points-container">
+              <div class="child-card__header__points-group">
+                <div class="child-card__header__points child-card__header__points--day" id="child-<%= child.id %>-day_points">
+                  <span class="child-card__header__points-value"><%= child.day_points %></span>
+                </div>
+                <div class="child-card__header__points child-card__header__points--week" id="child-<%= child.id %>-week_points">
+                  <span class="child-card__header__points-value"><%= child.week_points %></span>
+                </div>
+                <div class="child-card__header__points child-card__header__points--month" id="child-<%= child.id %>-month_points">
+                  <span class="child-card__header__points-value"><%= child.month_points %></span>
+                </div>
+              </div>
+
+              <div class="child-card__header__separator"></div>
+
+              <div data-controller="mobile-menu" data-mobile-menu-child-id-value="<%= child.id %>" class="child-card__header__menu-container">
+                <button class="child-card__header__menu-button" data-action="click->mobile-menu#show">
+                  <i class="fa-solid fa-bars"></i>
+                </button>
+                <%= render partial: "shared/mobile-child-menu", locals: { child: child } %>
+              </div>
             </div>
-            <div class="child-card__header__points child-card__header__points--week">
-              <%= turbo_stream_from "child-#{child.id}-week_points" %>
-              <%= render partial: "children/points", locals: { points: child.week_points, child: child, point_type: 'week' } %>
-            </div>
-            <div class="child-card__header__points child-card__header__points--month">
-              <%= turbo_stream_from "child-#{child.id}-month_points" %>
-              <%= render partial: "children/points", locals: { points: child.month_points, child: child, point_type: 'month' } %>
-            </div>
-            <div data-controller="mobile-menu" data-mobile-menu-child-id-value="<%= child.id %>"">
-              <span data-action="click->mobile-menu#show"><i class="fa-solid fa-ellipsis-vertical child-card__header__menu"></i></span>
-              <%= render partial: "shared/mobile-child-menu", locals: { child: child } %>
-            </div>
-          </div>
-        </header>
-        <section class="child-card__body">
+          </header>
+        <section class="child-card__body" data-child-card-target="body" style="display: <%= @children.first == child ? "block" : "none" %>;">
           <% child.tasks.today.each do |task| %>
             <%= render 'delete', task: task %>
           <% end %>
