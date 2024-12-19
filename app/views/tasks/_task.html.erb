@@ -17,8 +17,7 @@
     <p class="child-card__body__award__title--description"><%= task.description %></p>
   </div>
   <div class="task-switch">
-    <!-- Checkbox interactive pour les parents -->
-    <input type="checkbox" <%= 'checked' if task.validated %>
+    <input type="checkbox" <%= 'checked' if task.validated || (task.done && user.child?) %>
              class="task-switch__toggle"
              data-action="change->task-done#updateTask">
   </div>
