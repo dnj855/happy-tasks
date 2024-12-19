@@ -40,7 +40,13 @@ class Child < ApplicationRecord
                            target: dom_id(award),
                            partial: "awards/award",
                            locals: { award: award, points: day_points, child: self }
+        broadcast_replace_to "child-#{id}-awards-by-child",
+                           target: "#{dom_id(award)}-by-child",
+                           partial: "awards/award-by-child",
+                           locals: { award: award, points: day_points, child: self }
       end
+
+      
     end
   
     # Même chose pour les points hebdomadaires
@@ -56,6 +62,10 @@ class Child < ApplicationRecord
         broadcast_replace_to "child-#{id}-awards",
                            target: dom_id(award),
                            partial: "awards/award",
+                           locals: { award: award, points: week_points, child: self }
+        broadcast_replace_to "child-#{id}-awards-by-child",
+                           target: "#{dom_id(award)}-by-child",
+                           partial: "awards/award-by-child",
                            locals: { award: award, points: week_points, child: self }
       end
     end
@@ -73,6 +83,10 @@ class Child < ApplicationRecord
         broadcast_replace_to "child-#{id}-awards",
                            target: dom_id(award),
                            partial: "awards/award",
+                           locals: { award: award, points: month_points, child: self }
+        broadcast_replace_to "child-#{id}-awards-by-child",
+                           target: "#{dom_id(award)}-by-child",
+                           partial: "awards/award-by-child",
                            locals: { award: award, points: month_points, child: self }
       end
     end
