@@ -12,17 +12,20 @@ class Task < ApplicationRecord
 
   scope :today, -> { where("DATE(created_at) = ?", Date.today) }
 
-  def broadcast_tasks(user)
-    broadcast_replace_to "task-#{self.id}",
-    target: dom_id(self),
-    partial: "tasks/task",
-    locals: { task: self, user: user }
+  def broadcast_tasks
+    # Broadcast pour les parents
+    broadcast_replace_to "task-parent-#{self.id}",
+      target: dom_id(self),
+      partial: "tasks/task",
+      locals: { task: self, role: "parent" }
+      
+    # Broadcast pour les enfants
+    broadcast_replace_to "task-child-#{self.id}",
+      target: dom_id(self),
+      partial: "tasks/task",
+      locals: { task: self, role: "child" }
   end
 
   private
-
-  def task_changed?
-    saved_change_to_done? || saved_change_to_validated?
-  end
 
 end
