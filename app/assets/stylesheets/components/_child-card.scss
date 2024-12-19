@@ -54,6 +54,42 @@
       gap: spacing("xs");
     }
 
+    &__points-group {
+      @include flex-start;
+      gap: spacing("xs");
+    }
+
+    &__separator {
+      width: 1px;
+      min-height: 2.5rem;
+      background-color: color("light", "base");
+    }
+
+    &__menu-container {
+      position: relative;
+    }
+
+    &__menu-button {
+      @include flex-center;
+      background-color: color("light");
+      border: 1px solid color("light", "dark");
+      padding: spacing("2xs") spacing("xs");
+      border-radius: radius("base");
+      box-shadow: shadow("sm");
+      transition: all 0.2s ease;
+      min-height: 2.5rem;
+
+      &:hover {
+        background-color: color("light", "lighter");
+        border-color: color("light", "darker");
+      }
+
+      i {
+        font-size: font-size("base");
+        color: color("dark", "base");
+      }
+    }
+
     &__points {
       @include flex-center;
       padding: spacing("2xs") spacing("sm");
@@ -160,6 +196,7 @@
 .child-card__header__chevron-icon {
   transition: transform 0.3s ease;
   padding-right: 5px;
+  color: color("primary", "base");
 
   &.is-open {
     transform: rotate(0deg); // Vers le bas quand ouvert

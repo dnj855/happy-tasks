@@ -32,17 +32,24 @@
               </div>
             </div>
             <div class="child-card__header__points-container">
-              <div class="child-card__header__points child-card__header__points--day" id="child-<%= child.id %>-day_points">
-                <span class="child-card__header__points-value"><%= child.day_points %></span>
+              <div class="child-card__header__points-group">
+                <div class="child-card__header__points child-card__header__points--day" id="child-<%= child.id %>-day_points">
+                  <span class="child-card__header__points-value"><%= child.day_points %></span>
+                </div>
+                <div class="child-card__header__points child-card__header__points--week" id="child-<%= child.id %>-week_points">
+                  <span class="child-card__header__points-value"><%= child.week_points %></span>
+                </div>
+                <div class="child-card__header__points child-card__header__points--month" id="child-<%= child.id %>-month_points">
+                  <span class="child-card__header__points-value"><%= child.month_points %></span>
+                </div>
               </div>
-              <div class="child-card__header__points child-card__header__points--week" id="child-<%= child.id %>-week_points">
-                <span class="child-card__header__points-value"><%= child.week_points %></span>
-              </div>
-              <div class="child-card__header__points child-card__header__points--month" id="child-<%= child.id %>-month_points">
-                <span class="child-card__header__points-value"><%= child.month_points %></span>
-              </div>
-              <div data-controller="mobile-menu" data-mobile-menu-child-id-value="<%= child.id %>"">
-                <span data-action="click->mobile-menu#show"><i class="fa-solid fa-ellipsis-vertical child-card__header__menu"></i></span>
+
+              <div class="child-card__header__separator"></div>
+
+              <div data-controller="mobile-menu" data-mobile-menu-child-id-value="<%= child.id %>" class="child-card__header__menu-container">
+                <button class="child-card__header__menu-button" data-action="click->mobile-menu#show">
+                  <i class="fa-solid fa-bars"></i>
+                </button>
                 <%= render partial: "shared/mobile-child-menu", locals: { child: child } %>
               </div>
             </div>
