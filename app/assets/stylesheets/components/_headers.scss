@@ -1,6 +1,7 @@
 .headers {
   &__container {
     @include flex-between;
+    color: color("primary", "base");
   }
 
   &__container-error {
