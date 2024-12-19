@@ -1,4 +1,5 @@
 class Task < ApplicationRecord
+  include ActionView::RecordIdentifier
   belongs_to :child
   belongs_to :task_type
 
@@ -10,4 +11,18 @@ class Task < ApplicationRecord
   validates :value, presence: true, numericality: { only_numeric: true }
 
   scope :today, -> { where("DATE(created_at) = ?", Date.today) }
+
+  def broadcast_tasks(user)
+    broadcast_replace_to "task-#{self.id}",
+    target: dom_id(self),
+    partial: "tasks/task",
+    locals: { task: self, user: user }
+  end
+
+  private
+
+  def task_changed?
+    saved_change_to_done? || saved_change_to_validated?
+  end
+
 end

@@ -1,4 +1,5 @@
-<div class="child-card__body__award <%= task.validated? ? "child-card__body__award--disabled" : "" %> <%= task.done && !task.validated? ? "child-card__body__award--pending" : "" %>""
+<%= turbo_stream_from "task-#{task.id}" %>
+<div class="child-card__body__award <%= task.validated? ? "child-card__body__award--disabled" : "" %> <%= task.done && !task.validated? ? "child-card__body__award--pending" : "" %>"
      data-controller="task-done"
      data-task-done-id-value="<%= task.id %>"
      data-task-done-user-role-value="parent"
@@ -16,7 +17,7 @@
     <p class="child-card__body__award__title--description"><%= task.description %></p>
   </div>
   <div class="task-switch">
-    <% if current_user.child? %>
+    <% if user.child? %>
       <!-- Checkbox désactivée pour les enfants -->
       <input type="checkbox" disabled <%= 'checked' if task.validated %>
              class="task-switch__toggle">
@@ -28,19 +29,18 @@
     <% end %>
   </div>
 </div>
-
 <style>
-.child-card__body__award--pending {
-  background-color: #fffbe6; /* Légère couleur de fond pour indiquer une tâche en attente */
-}
+  .child-card__body__award--pending {
+    background-color: #fffbe6; /* Légère couleur de fond pour indiquer une tâche en attente */
+  }
 
-.task-pending-indicator {
-  margin-left: 0.5rem;
-  animation: pulse 1.5s infinite;
-}
+  .task-pending-indicator {
+    margin-left: 0.5rem;
+    animation: pulse 1.5s infinite;
+  }
 
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.2); }
-}
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+  }
 </style>
