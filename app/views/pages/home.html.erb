@@ -19,12 +19,16 @@
         <div>
             <h1 class="text-5xl font-bold">Retrouvez du zen dans la maison</h1>
             <p class="py-6">Encouragez votre enfant TDAH à participer aux tâches quotidiennes à la maison en tenant compte des études de psychologie.</p>
-            <div class="flex flex-col items-start">
-                <% if user_signed_in? %>
-            <%= link_to "Mon tableau de bord", family_dashboard_path, class: "button__primary", data: {turbo: false} %>
-            <% else %>
-            <%= link_to "Rejoignez la HappyTeam !", new_family_path, class: "button__primary", data: {turbo: false} %>
-            <% end %>
+            <div class="flex flex-col items-center">
+                <div class="flex space-x-4">
+                  <% if user_signed_in? %>
+                    <%= link_to "Mon tableau de bord", family_dashboard_path, class: "button__primary", data: {turbo: false} %>
+                    <%= link_to "Se connecter", new_user_session_path, class: "button__primary", data: {turbo: false} %>
+                  <% else %>
+                    <%= link_to "Rejoignez la HappyTeam !", new_family_path, class: "button__primary", data: {turbo: false} %>
+                    <%= link_to "Se connecter", new_user_session_path, class: "button__primary", data: {turbo: false} %>
+                  <% end %>
+                </div>
                 <div class="avatar-group -space-x-6 rtl:space-x-reverse mt-3" style="display: none">
                     <div class="avatar">
                         <div class="w-12">
