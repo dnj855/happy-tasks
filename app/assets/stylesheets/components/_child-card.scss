@@ -21,7 +21,7 @@
     // Conteneur gauche avec avatar et nom
     &__identity {
       @include flex-start;
-      gap: spacing("base");
+      gap: spacing("2xs");
     }
 
     &__menu {
@@ -51,12 +51,12 @@
     // Conteneur des points
     &__points-container {
       @include flex-start;
-      gap: spacing("xs");
+      gap: spacing("2xs");
     }
 
     &__points-group {
       @include flex-start;
-      gap: spacing("xs");
+      gap: spacing("2xs");
     }
 
     &__separator {
@@ -73,7 +73,7 @@
       @include flex-center;
       background-color: color("light");
       border: 1px solid color("light", "dark");
-      padding: spacing("2xs") spacing("xs");
+      padding: spacing("2xs") spacing("2xs");
       border-radius: radius("base");
       box-shadow: shadow("sm");
       transition: all 0.2s ease;
