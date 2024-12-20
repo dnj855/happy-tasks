@@ -3,26 +3,21 @@ class DashboardController < ApplicationController
 
   def index
     if current_user.child?
-      if @family
-        redirect_to child_dashboard_family_path(@family)
-      else
-        redirect_to root_path, alert: "Aucune famille trouvée."
-      end
+      handle_child_user
     else
+      @family = current_user.family
+      
+      children_for_stats = @family.children.select(:id)
+      @task_counts = TaskStatisticsCalculator.new(children_for_stats).calculate_monthly_stats
+
+      @children = @family.children
+        .includes(avatar_attachment: :blob)  # Correction du N+1 sur ActiveStorage
+      
+      @todays_tasks = Task.where(
+        child_id: @children.pluck(:id),
+        created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day
+      ).group_by(&:child_id)
     end
-    @family = current_user.family
-    @children = @family.children
-    @task_counts = @children.each_with_object({}) do |child, counts|
-      counts[child.id] = TaskType.all.each_with_object({}) do |task_type, task_hash|
-        # Sélectionner les tâches complétées et réalisées dans le mois courant pour le task_type,
-        tasks_in_month = child.tasks
-        .where(task_type_id: task_type.id, validated: true)
-        .where(created_at: Time.current.beginning_of_month..Time.current.end_of_month)
-        # puis compter le nombre de tâches réalisées dans le mois courant pour ce type
-        task_hash[task_type.name] = tasks_in_month.count
-      end
-    end
-    @children = Child.includes(:tasks).where(family_id: @family.id)
   end
 
   def view
@@ -31,7 +26,6 @@ class DashboardController < ApplicationController
       @family = @child.family
       @children = @family.children
       @tasks_today = @child.tasks.today
-      ## récupération des données pour les graphs
 
       authorize @family
       
@@ -44,6 +38,14 @@ class DashboardController < ApplicationController
 
   def set_family
     @family = current_user.family
+  end
+
+  def handle_child_user
+    if @family
+      redirect_to child_dashboard_family_path(@family)
+    else
+      redirect_to root_path, alert: "Aucune famille trouvée."
+    end
   end
 
 end

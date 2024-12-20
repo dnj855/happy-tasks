@@ -8,6 +8,7 @@ class Task < ApplicationRecord
   validates :child_id, presence: { message: "Vous devez choisir un enfant." }
 
   before_validation { self.value = value.to_i }
+  after_commit :bust_stats_cache
   validates :value, presence: true, numericality: { only_numeric: true }
 
   scope :today, -> { where("DATE(created_at) = ?", Date.today) }
@@ -23,6 +24,10 @@ class Task < ApplicationRecord
 
   def task_changed?
     saved_change_to_done? || saved_change_to_validated?
+  end
+
+  def bust_stats_cache
+    Rails.cache.delete_matched("monthly_stats/*")
   end
 
 end
