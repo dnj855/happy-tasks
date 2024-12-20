@@ -2,28 +2,41 @@ import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
   static targets = ["overlay", "modal", "content"];
-  // static values = { familyId: Number };  Récupération de l'id de la famille
   scrollPosition = 0;
 
-  // Ouvrir la modale
   async open(event) {
     event.preventDefault();
     this.scrollPosition = window.scrollY;
 
-    const url = window.location.href;
     try {
-      const response = await fetch(url, { headers: { "Accept": "text/html" } });
-      const html = await response.text();
-      this.contentTarget.innerHTML = this.extractContent(html);
+      // Afficher d'abord la modale vide avec un loader
       this.overlayTarget.classList.add("open");
       this.modalTarget.classList.add("open");
+      this.contentTarget.innerHTML =
+        '<div class="loading">Chargement des statistiques...</div>';
       this._disableScroll();
+
+      // Charger les statistiques
+      const statsUrl = `/dashboard/statistics`;
+      const response = await fetch(statsUrl, {
+        headers: { Accept: "text/html" },
+      });
+      const html = await response.text();
+
+      // Mettre à jour le contenu en incluant le bouton de fermeture
+      this.contentTarget.innerHTML = `
+        <button data-action="click->graph-modal#close" class="modal__close">&times;</button>
+        ${html}
+      `;
     } catch (error) {
       console.error("Erreur lors de la mise à jour de la modale :", error);
+      this.contentTarget.innerHTML = `
+        <button data-action="click->graph-modal#close" class="modal__close">&times;</button>
+        <div class="error">Une erreur est survenue lors du chargement des statistiques.</div>
+      `;
     }
   }
 
-  // Fermer la modale
   close(event) {
     event.preventDefault();
     this.overlayTarget.classList.remove("open");
@@ -33,14 +46,6 @@ export default class extends Controller {
 
   stopPropagation(event) {
     event.stopPropagation();
-  }
-
-  extractContent(html) {
-    // Parse la réponse HTML pour extraire uniquement le contenu de la modale
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, "text/html");
-    const modalContent = doc.querySelector("#graph-modal .modal__content");
-    return modalContent ? modalContent.innerHTML : "";
   }
 
   _disableScroll() {

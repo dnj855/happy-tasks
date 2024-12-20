@@ -7,11 +7,8 @@ class DashboardController < ApplicationController
     else
       @family = current_user.family
       
-      children_for_stats = @family.children.select(:id)
-      @task_counts = TaskStatisticsCalculator.new(children_for_stats).calculate_monthly_stats
-
       @children = @family.children
-        .includes(avatar_attachment: :blob)  # Correction du N+1 sur ActiveStorage
+        .includes(avatar_attachment: :blob)
       
       @todays_tasks = Task.where(
         child_id: @children.pluck(:id),
@@ -32,6 +29,15 @@ class DashboardController < ApplicationController
     else
       redirect_to root_path, alert: "Accès non autorisé."
     end
+  end
+
+  def statistics
+    @family = current_user.family
+    children_for_stats = @family.children.select(:id)
+    @task_counts = TaskStatisticsCalculator.new(children_for_stats).calculate_monthly_stats
+    @children = @family.children
+    
+    render partial: "families/tasks_graphs", layout: false
   end
 
   private

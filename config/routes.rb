@@ -31,6 +31,12 @@ Rails.application.routes.draw do
 
   resources :awards, only: [:index, :new, :create, :edit, :update, :destroy]
 
+  resources :dashboard, only: :view do
+    collection do
+      get :statistics
+    end
+  end
+
   get 'dashboard', to: 'dashboard#index', as: :family_dashboard
   get 'dashboard/children', to: 'children#new', as: :new_child
   post 'dashboard/children', to: 'children#create', as: :create_child

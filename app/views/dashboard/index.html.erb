@@ -11,7 +11,9 @@
   <div id="graph-modal" class="modal hidden" data-graph-modal-target="modal">
     <div class="modal__content" data-graph-modal-target="content">
       <button data-action="click->graph-modal#close" class="modal__close">&times;</button>
-      <%= render partial: "families/tasks_graphs", locals: { children: @children, task_counts: @task_counts } %>
+      <%= turbo_frame_tag "statistics" do %>
+        <div class="loading-spinner">Chargement des statistiques...</div>
+      <% end %>
     </div>
   </div>
   <div class="child-card__wrapper">
