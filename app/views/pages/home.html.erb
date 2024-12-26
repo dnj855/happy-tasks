@@ -24,7 +24,7 @@
                   <% if user_signed_in? %>
                     <%= link_to "Mon tableau de bord", family_dashboard_path, class: "button__primary", data: {turbo: false} %>
                   <% else %>
-                    <%= link_to "Rejoignez la HappyTeam !", new_family_path, class: "button__primary", data: {turbo: false} %>
+                    <%= link_to "Rejoignez la HappyTeam !", "#", class: "button__primary button__primary--disabled", data: {turbo: false} %>
                     <%= link_to "Se connecter", new_user_session_path, class: "button__primary", data: {turbo: false} %>
                   <% end %>
                 </div>
@@ -350,7 +350,7 @@
           </h2>
           <div class="lg:mt-0 lg:flex-shrink-0">
               <div class=" inline-flex rounded-md mt-8 lg:mt-0">
-                  <%= link_to "Rejoindre la Happy Team", new_family_path, class:"button__primary" %>
+                  <%= link_to "Rejoindre la Happy Team", "#", class: "button__primary button__primary--disabled" %>
               </div>
           </div>
       </div>
