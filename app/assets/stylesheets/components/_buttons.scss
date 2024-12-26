@@ -1,5 +1,48 @@
 .button {
   &__primary {
     @include button-primary;
+
+    &--disabled {
+      background-color: color("primary", "lighter");
+      color: color("dark", "lighter");
+      cursor: not-allowed;
+      position: relative;
+
+      // Désactiver les effets de hover du bouton primary
+      &:hover {
+        background-color: color("primary", "lighter");
+        transform: none;
+      }
+
+      // Tooltip au hover
+      &:hover::after {
+        content: "Disponible très prochainement";
+        position: absolute;
+        bottom: calc(100% + #{spacing("xs")});
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: color("primary");
+        padding: spacing("sm") spacing("base");
+        border-radius: 4px;
+        @include body-text("base", "bold");
+        color: color("light", "base");
+        white-space: nowrap;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        z-index: 10;
+        @include fade-in;
+      }
+
+      // Flèche du tooltip
+      &:hover::before {
+        content: "";
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        border: solid transparent;
+        border-top-color: color("primary");
+        border-width: spacing("2xs");
+      }
+    }
   }
 }
