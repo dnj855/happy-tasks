@@ -31,7 +31,7 @@ TASK_LIST = {
       Linge: ["Ranger le linge", "Apporter le linge", "Trier les chaussettes par paire", "Mettre le linge sale dans le panier"],
       Ménage: ["Passer l'aspirateur", "Passer le balai", "Essuyer une petite table ou un bureau", "Nettoyer les interrupteurs ou poignées de porte"],
       Cuisine: ["Mettre la table", "Débarrasser la table", "Apporter les condiments ou les boissons sur la table", "Aider à plier des serviettes ou des torchons"],
-      Animaux: ["Nourrir les animaux", "Sortir les animaux", "Remplir l’eau des animaux", "Brosser doucement un animal sous supervision"],
+      Animaux: ["Nourrir les animaux", "Sortir les animaux", "Remplir l'eau des animaux", "Brosser doucement un animal sous supervision"],
       Apprentissage: ["Faire ses devoirs", "Pratiquer une activité", "Lire un livre ou une bande dessinée pendant un temps défini", "Apprendre à écrire une phrase ou à dessiner quelque chose de nouveau"],
       Hygiène: ["Se brosser les dents", "Faire sa toilette", "Ranger ses affaires de toilette après utilisation", "Plier et ranger sa serviette"]
     }
@@ -422,7 +422,9 @@ def create_the_rest(family)
 
         # on veut 2 tâches easy, 2 tâches medium et 1 tâche hard
         # pour éviter d'avoir deux taches identiques on crée un array list_of_tasks[]
-first_december = Date.new(2024,12,01)
+
+      # crée une date premier jour du mois en cours
+      first_day_of_the_month = Date.new(Date.today.year,Date.today.month,01)
       for day in 0..(Date.today.day - 1) do
 
           list_of_tasks = []
@@ -434,7 +436,7 @@ first_december = Date.new(2024,12,01)
           ta = TASK_LIST[:easy][:task][task_type.to_sym].sample
           if !list_of_tasks.include?(ta)
             task = Task.create!(child_id: child.id, task_type_id: TaskType.find_by(name: task_type).id, name: ta, description: TASK_DESCRIPTIONS[ta], value: TASK_LIST[:easy][:value])
-            task.update(created_at: first_december.next_day(day.to_i))
+            task.update(created_at: first_day_of_the_month.next_day(day.to_i))
             list_of_tasks << task
           end
         end
@@ -444,7 +446,7 @@ first_december = Date.new(2024,12,01)
           ta = TASK_LIST[:medium][:task][task_type.to_sym].sample
           if !list_of_tasks.include?(ta)
             task = Task.create!(child_id: child.id, task_type_id: TaskType.find_by(name: task_type).id, name: ta, description: TASK_DESCRIPTIONS[ta], value: TASK_LIST[:medium][:value])
-            task.update(created_at: first_december.next_day(day.to_i))
+            task.update(created_at: first_day_of_the_month.next_day(day.to_i))
             list_of_tasks << task
           end
         end
@@ -454,42 +456,13 @@ first_december = Date.new(2024,12,01)
           ta = TASK_LIST[:hard][:task][task_type.to_sym].sample
           if !list_of_tasks.include?(ta)
             task = Task.create!(child_id: child.id, task_type_id: TaskType.find_by(name: task_type).id, name: ta, description: TASK_DESCRIPTIONS[ta], value: TASK_LIST[:hard][:value])
-            task.update(created_at: first_december.next_day(day.to_i))
+            task.update(created_at: first_day_of_the_month.next_day(day.to_i))
             list_of_tasks << task
           end
         end
-        ### création de tâches validées (3/4)
-        list_of_tasks.each do |task|
-          child.update(week_points: 0) if first_december.next_day(day).strftime('%a') == "Mon"# reset des points de la semaine chaque lundi
-          if day!= Date.today.day - 1
-            if rand(4) != 0
-              task.update(validated: true)
-              child.week_points += (task.value/3.0).ceil
+        ### création de tâches validées (3/4 sont validées aléatoirement) pour un child en mettant à jour les points awards
+        valide_3_tasks_sur_4(list_of_tasks, child, day, first_day_of_the_month)
 
-              child.month_points += (task.value/3.0).ceil
-              child.update(week_points: child.week_points)
-
-
-              child.update(month_points: child.month_points)
-              TASK_RECORD << {"id" => child.id, "tasks" => ["done_date" => first_december.next_day(day.to_i), "task_type" => task.task_type_id, task_name: task.name]}
-            end
-
-          #else
-           # if rand(4) != 0
-            #  task.update(validated: true)
-             # child.day_points += (task.value/3.0).ceil
-              #child.week_points += (task.value/3.0).ceil
-#
- #             child.month_points += (task.value/3.0).ceil
-  #            child.update(day_points: child.day_points)
-   #           child.update(week_points: child.week_points)
-#
- #             child.update(month_points: child.month_points)
-  #            TASK_RECORD << {"id" => child.id, "tasks" => ["done_date" => first_december.next_day(day.to_i), "task_type" => task.task_type_id, task_name: task.name]}
-   #         end
-
-          end
-        end
       end
     end
   end
@@ -499,25 +472,34 @@ first_december = Date.new(2024,12,01)
 puts "---Creating base users"
 BASE_USERS.each do |base_user|
   family = Family.create!(name: base_user[0][:last_name])
+  # crée le développeur
   User.create!(family_id: family.id, first_name: base_user[0][:first_name], last_name: base_user[0][:last_name], email: base_user[0][:email], child: base_user[0][:child], password: base_user[0][:password])
+  # crée son/sa conjoint(e)
   User.create!(family_id: family.id, first_name: base_user[1][:first_name], last_name: base_user[1][:last_name], email: base_user[1][:email], child: base_user[1][:child], password: base_user[1][:password])
+  # crée le reste de la famille (3 enfants par famille)
   create_the_rest(family)
 end
 puts "---Base users CREATED"
 
 
+# On pourrait faire beaucoup plus simple et juste incrémenter des variables
+# correspondant à chaque type de tâche, ou autre, mais pendant le développement,
+# il était aussi intéressant de récupérer les intitulés de toutes les tâches
+puts "---création d'un graphique avec le premier Child de la base"
+puts "---  oooo <=> 1 tâche  ---"
+
+# stocke les tâches
 array_of_tasks = []
 
+# récupère toutes les tâches enregistrées dans TASK_RECORD pour le premier Child
+first_child_tasks = TASK_RECORD.select {|task| task.values_at("id")[0] == Child.all.first.id}
 
-first_child = TASK_RECORD.select {|child| child.values_at("id")[0] == Child.all.first.id}
-
-
-
-first_child.each do |task|
+# et donc on aurait pu directement remplir chaque array ménage[], ... ici
+first_child_tasks.each do |task|
   array_of_tasks << task.values_at("tasks")[0][0]
-
   end
-ménage = []
+
+  ménage = []
 linge = []
 apprentissage = []
 cuisine = []
@@ -525,8 +507,7 @@ hygiène = []
 chambre = []
 animaux = []
 
-
-
+# au lieu d'itérer autant de fois
 array_of_tasks.each do |task|
   case TaskType.all.find(task.values_at("task_type"))[0].name
   when "Ménage"
@@ -546,22 +527,48 @@ array_of_tasks.each do |task|
   end
 end
 
+# rappel : oooo <=> 1 tâche
 print "\n\n-------------rapport d'activité du premier child-------------------\n\n"
 print "mén : "
-print "ooooo"*ménage.length
+print "oooo"*ménage.length
 print "\nlin : "
-print "ooooo"*linge.length
+print "oooo"*linge.length
 print "\napp : "
-print "ooooo"*apprentissage.length
+print "oooo"*apprentissage.length
 print "\ncui : "
-print "ooooo"*cuisine.length
+print "oooo"*cuisine.length
 print "\nhyg : "
-print "ooooo"*hygiène.length
+print "oooo"*hygiène.length
 print "\ncha : "
-print "ooooo"*chambre.length
+print "oooo"*chambre.length
 print "\nani : "
-print "ooooo"*animaux.length
+print "oooo"*animaux.length
 print "\n\n------------ fin rapport d'activité du premier child-------------------\n\n"
 print "------------- ses points en cagnotte------------------ \n"
 print " Points de semaine : #{Child.all.first.week_points}\n"
 print " Points du mois : #{Child.all.first.month_points}\n"
+
+private
+
+# return an array of tasks for the child
+def create_different_tasks(child, nb_easy, nb_medium, nb_hard)
+
+
+
+def valide_3_tasks_sur_4(list_of_tasks, child, day, first_day_of_the_month)
+list_of_tasks.each do |task|
+  child.update(week_points: 0) if first_day_of_the_month.next_day(day).strftime('%a') == "Mon"# reset des points de la semaine chaque lundi
+  if day!= Date.today.day - 1
+    if rand(4) != 0
+      task.update(validated: true)
+      child.week_points += (task.value/3.0).ceil
+
+      child.month_points += (task.value/3.0).ceil
+      child.update(week_points: child.week_points)
+
+
+      child.update(month_points: child.month_points)
+      TASK_RECORD << {"id" => child.id, "tasks" => ["done_date" => first_day_of_the_month.next_day(day.to_i), "task_type" => task.task_type_id, task_name: task.name]}
+    end
+  end
+end
