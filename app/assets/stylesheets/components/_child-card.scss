@@ -52,17 +52,12 @@
     &__points-container {
       @include flex-start;
       gap: spacing("2xs");
+      margin-left: auto;
     }
 
     &__points-group {
       @include flex-start;
       gap: spacing("2xs");
-    }
-
-    &__separator {
-      width: 1px;
-      min-height: 2.5rem;
-      background-color: color("light", "base");
     }
 
     &__menu-container {
@@ -73,11 +68,12 @@
       @include flex-center;
       background-color: color("light");
       border: 1px solid color("light", "dark");
-      padding: spacing("2xs") spacing("2xs");
+      padding: spacing("xs") spacing("xs");
       border-radius: radius("base");
       box-shadow: shadow("sm");
       transition: all 0.2s ease;
       min-height: 2.5rem;
+      margin-left: spacing("lg");
 
       &:hover {
         background-color: color("light", "lighter");
@@ -204,4 +200,100 @@
 
   // Par défaut, tourné vers la droite
   transform: rotate(-90deg);
+}
+
+// Adaptations pour IPad
+@media (min-width: 768px) {
+  // bouton burger
+  .child-card__header__menu-button {
+    padding: spacing("sm") spacing("lg");
+    min-width: spacing("4xl");
+    min-height: spacing("4xl");
+    font-size: font-size("2xl");
+    margin-right: 10px;
+    margin-left: spacing("4xl");
+  }
+
+  // points
+  .child-card__header__points {
+    min-width: spacing("4xl");
+    min-height: spacing("4xl");
+    padding: spacing("sm") spacing("lg");
+    font-size: font-size("lg");
+  }
+
+  .child-card__header__points-group {
+    gap: spacing("base");
+  }
+
+  // nom et avatar
+  .child-card__header__identity {
+    gap: spacing("base");
+  }
+
+  .child-card__header__avatar {
+    width: spacing("4xl");
+    height: spacing("4xl");
+  }
+
+  .child-card__header__name {
+    font-size: font-size("xl");
+  }
+
+  .child-card__header__chevron-icon {
+    padding: 10px;
+    font-size: font-size("xl");
+  }
+
+  .child-card__body__award__title {
+    margin-left: 12px;
+  }
+}
+
+// Adaptations pour PC
+@media (min-width: 1024px) {
+  // bouton burger encore plus large
+  .child-card__header__menu-button {
+    padding: spacing("base") spacing("xl");
+    min-width: spacing("4xl");
+    min-height: spacing("4xl");
+    font-size: font-size("2xl");
+    margin-right: 15px;
+    margin-left: spacing("4xl");
+  }
+
+  // Points
+  .child-card__header__points {
+    min-width: spacing("4xl");
+    min-height: spacing("4xl");
+    padding: spacing("base") spacing("xl");
+    font-size: font-size("xl");
+  }
+
+  .child-card__header__points-group {
+    gap: spacing("lg");
+  }
+
+  // Nom et avatar p
+  .child-card__header__identity {
+    gap: spacing("lg");
+  }
+
+  .child-card__header__avatar {
+    width: spacing("4xl");
+    height: spacing("4xl");
+  }
+
+  .child-card__header__name {
+    font-size: font-size("2xl");
+  }
+
+  .child-card__header__chevron-icon {
+    padding: 12px;
+    font-size: font-size("2xl");
+  }
+
+  .child-card__body__award__title {
+    margin-left: 12px;
+  }
 }
